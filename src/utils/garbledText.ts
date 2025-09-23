@@ -90,18 +90,25 @@ export function deepGarble(text: string, seed: number = 42): string {
 }
 
 // Time-based dynamic garbling (for animations)
-export function timeGarble(text: string, timestamp: number = Date.now()): string {
-  const cycle = Math.floor(timestamp / 1200) // Change every 1.2 seconds (even slower)
+export function timeGarble(text: string, timestamp: number = Date.now(), seed: number = 42): string {
+  // Create a unique random interval for each piece of text based on its content and seed
+  const textHash = text.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+  const uniqueSeed = seed + textHash
+
+  // Random interval between 1.5-3.5 seconds for each piece of text
+  const baseInterval = 1500 + (uniqueSeed % 2000) // 1500-3500ms
+  const cycle = Math.floor(timestamp / baseInterval)
+
   const styles: GarbledStyle[] = ['corrupted', 'glitched', 'static', 'fragmented']
-  const style = styles[cycle % styles.length]
+  const style = styles[(cycle + uniqueSeed) % styles.length]
 
   // Higher intensity (less revelation) and vary it slightly
-  const intensity = 0.92 + (cycle % 3) * 0.02 // Between 0.92-0.96
-  return garbleText(text, style, intensity, cycle)
+  const intensity = 0.92 + ((cycle + uniqueSeed) % 3) * 0.02 // Between 0.92-0.96
+  return garbleText(text, style, intensity, cycle + uniqueSeed)
 }
 
 // Tech-themed garbling for different tech categories
-export function techGarble(text: string, category: string): string {
+export function techGarble(text: string, category: string, animated: boolean = false, timestamp?: number): string {
   const categorySeeds: Record<string, number> = {
     'A': 123, // AI Models - corrupted/glitched
     'B': 234, // Editor - fragmented
@@ -125,6 +132,12 @@ export function techGarble(text: string, category: string): string {
   }
 
   const seed = categorySeeds[category] || 42
+
+  // If animated, use time-based garbling with category-specific seed
+  if (animated && timestamp !== undefined) {
+    return timeGarble(text, timestamp, seed)
+  }
+
   const style = categoryStyles[category] || 'corrupted'
 
   // Increase intensity to 95% for more mystery
