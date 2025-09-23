@@ -177,6 +177,12 @@ a { color: var(--accent); }
 .node .cost { color: var(--muted); font-size: 12px; }
 .node .req { color: var(--muted); font-size: 11px; }
 .node .purchased { color: var(--accent); font-size: 12px; }
+.node .effects { margin-top: 6px; }
+.node .effect { font-size: 12px; color: var(--muted); }
+.node .effect.loc { color: #9ed0ff; }
+.node .effect.ship { color: #ffd48a; }
+.node .effect.revenue { color: #9df1c7; }
+.node .effect.global { color: #d0b3ff; }
 
 .ribbon { display: flex; gap: 8px; overflow: auto; padding: 4px 0; }
 .badge { background: #0e1520; border: 1px solid #1e2a3d; border-radius: 999px; padding: 6px 10px; font-size: 12px; white-space: nowrap; }
