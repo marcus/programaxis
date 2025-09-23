@@ -1,6 +1,7 @@
 import React from 'react'
 import { useStore } from '../state/store'
 import { Milestones } from './Milestones'
+import { MilestoneProgress } from './MilestoneProgress'
 
 function fmt(n: number, digits = 2) {
   if (!isFinite(n)) return '0'
@@ -25,6 +26,8 @@ export const HUD: React.FC = () => {
 
   return (
     <div>
+      <MilestoneProgress />
+
       <div className="hud-grid">
         <div className="stat">
           <div className="label">LoC</div>

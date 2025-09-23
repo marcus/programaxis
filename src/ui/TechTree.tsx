@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import { useStore } from '../state/store'
 import techTree from '../../context/tech-tree.json'
 import { NodeIcon } from './Icons'
+import { GarbledText } from './GarbledText'
 
 function costFor(nodeId: string) {
   const s = useStore.getState()
@@ -177,15 +178,38 @@ export const TechTree: React.FC = () => {
                       <NodeIcon id={n.id} size={56} />
                     </div>
                     <div className="node-head">
-                      <div className="node-id">{n.id}</div>
-                      <div className="node-name">{n.name}</div>
+                      <div className="node-id">
+                        <GarbledText isLocked={!isUnlocked} category={br.key}>
+                          {n.id}
+                        </GarbledText>
+                      </div>
+                      <div className="node-name">
+                        <GarbledText
+                          isLocked={!isUnlocked}
+                          category={br.key}
+                          revealOnHover={true}
+                        >
+                          {n.name}
+                        </GarbledText>
+                      </div>
                     </div>
                   </div>
-                  <div className="cost pill">Cost: ${c.toLocaleString()}</div>
+                  {!(isUnlocked && !afford) && (
+                    <div className="cost pill">Cost: ${c.toLocaleString()}</div>
+                  )}
                   {lines.length > 0 && (
                     <div className="effects">
                       {lines.map((l, i) => (
-                        <div key={i} className={`effect ${l.kind}`}>• {l.text}</div>
+                        <div key={i} className={`effect ${l.kind}`}>
+                          • <GarbledText
+                              isLocked={!isUnlocked}
+                              category={br.key}
+                              animated={false}
+                              style="fragmented"
+                            >
+                              {l.text}
+                            </GarbledText>
+                        </div>
                       ))}
                     </div>
                   )}
@@ -196,9 +220,13 @@ export const TechTree: React.FC = () => {
                     <div className="purchased-indicator">
                       <span style={{ color: 'var(--accent)', fontWeight: 600 }}>✓ Purchased</span>
                     </div>
+                  ) : isUnlocked && !afford ? (
+                    <div className="unaffordable-price">
+                      ${c.toLocaleString()}
+                    </div>
                   ) : (
                     <button className="tron-button" disabled={!isUnlocked || !afford} onClick={() => buy(n.id)}>
-                      {isUnlocked ? (afford ? 'Buy' : 'Need $') : 'Locked'}
+                      {isUnlocked ? 'Buy' : 'Locked'}
                     </button>
                   )}
                 </div>

@@ -32,7 +32,9 @@
           "name": "Cut & Paste",
           "baseCost": 0,
           "costCurve": "soft_expo_112",
-          "effects": []
+          "effects": [
+            { "stat": "loc_per_click", "type": "add", "value": 0.1 }
+          ]
         },
         {
           "id": "A1",
@@ -88,7 +90,9 @@
       "key": "B",
       "name": "Editor & Software Tools",
       "nodes": [
-        { "id": "B0", "tier": 0, "name": "Plain Editor", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "B0", "tier": 0, "name": "Plain Editor", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [
+          { "stat": "loc_per_click", "type": "add", "value": 0.05 }
+        ] },
         {
           "id": "B1",
           "tier": 1,
@@ -139,7 +143,9 @@
       "key": "C",
       "name": "Hardware / Compute",
       "nodes": [
-        { "id": "C0", "tier": 0, "name": "Office Laptop", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "C0", "tier": 0, "name": "Office Laptop", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [
+          { "stat": "idle_loc_per_sec", "type": "add", "value": 0.02 }
+        ] },
         {
           "id": "C1",
           "tier": 1,
@@ -187,7 +193,9 @@
       "key": "D",
       "name": "Ergonomics & Workspace",
       "nodes": [
-        { "id": "D0", "tier": 0, "name": "Basic Desk/Chair", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "D0", "tier": 0, "name": "Basic Desk/Chair", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [
+          { "stat": "focus_multiplier", "type": "add", "value": 0.02 }
+        ] },
         { "id": "D1", "tier": 1, "name": "Ergo Chair + Dual Monitors", "baseCost": 150, "costCurve": "soft_expo_112",
           "effects": [{ "stat": "focus_multiplier", "type": "mul", "value": 1.1 }] },
         { "id": "D2", "tier": 2, "name": "Standing Desk + Input Upgrades", "baseCost": 1200, "costCurve": "soft_expo_115",
@@ -202,7 +210,9 @@
       "key": "E",
       "name": "AI Agents (Team Size)",
       "nodes": [
-        { "id": "E0", "tier": 0, "name": "Solo Dev", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "E0", "tier": 0, "name": "Solo Dev", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [
+          { "stat": "loc_per_click", "type": "add", "value": 0.03 }
+        ] },
         { "id": "E1", "tier": 1, "name": "Helper Agent", "baseCost": 500, "costCurve": "soft_expo_112",
           "effects": [{ "stat": "agent_concurrency_cap", "type": "cap", "value": 1 }] },
         { "id": "E2", "tier": 2, "name": "Specialist Squad", "baseCost": 5000, "costCurve": "soft_expo_115",
@@ -217,7 +227,9 @@
       "key": "F",
       "name": "Marketing & Distribution",
       "nodes": [
-        { "id": "F0", "tier": 0, "name": "Word of Mouth", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "F0", "tier": 0, "name": "Word of Mouth", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [
+          { "stat": "revenue_per_loc", "type": "add", "value": 0.005 }
+        ] },
         { "id": "F1", "tier": 1, "name": "Targeted Ads + Influencers", "baseCost": 400, "costCurve": "soft_expo_112",
           "effects": [{ "stat": "revenue_multiplier", "type": "mul", "value": 1.1 }] },
         { "id": "F2", "tier": 2, "name": "Automated A/B + CRM", "baseCost": 4000, "costCurve": "soft_expo_115",
@@ -232,7 +244,9 @@
       "key": "G",
       "name": "Platforms & Game Features",
       "nodes": [
-        { "id": "G0", "tier": 0, "name": "PC Only • 2D Side-Scroller", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "G0", "tier": 0, "name": "PC Only • 2D Side-Scroller", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [
+          { "stat": "ship_fraction", "type": "add", "value": 0.02 }
+        ] },
         { "id": "G1", "tier": 1, "name": "Mobile Port • DLC", "baseCost": 600, "costCurve": "soft_expo_112",
           "effects": [{ "stat": "feature_streams", "type": "add", "value": 1 }] },
         { "id": "G2", "tier": 2, "name": "Online Multiplayer • IAP", "baseCost": 6000, "costCurve": "soft_expo_115",
@@ -247,7 +261,9 @@
       "key": "H",
       "name": "Graphics & Content Gen",
       "nodes": [
-        { "id": "H0", "tier": 0, "name": "Hand-Drawn / Stock SFX", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "H0", "tier": 0, "name": "Hand-Drawn / Stock SFX", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [
+          { "stat": "idle_loc_per_sec", "type": "add", "value": 0.01 }
+        ] },
         { "id": "H1", "tier": 1, "name": "Contract Artists / Procedural", "baseCost": 300, "costCurve": "soft_expo_112",
           "effects": [{ "stat": "asset_cost", "type": "mul", "value": 0.95 }] },
         { "id": "H2", "tier": 2, "name": "Early AI Art & Audio", "baseCost": 3000, "costCurve": "soft_expo_115",

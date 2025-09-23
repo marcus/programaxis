@@ -1,0 +1,14 @@
+[
+  { "id": "M_0", "name": "Starving Artist", "threshold": 0 },
+  { "id": "M_1K", "name": "First Sale", "threshold": 1000 },
+  { "id": "M_10K", "name": "Micro-Studio", "threshold": 10000 },
+  { "id": "M_100K", "name": "Tooling Pays Off", "threshold": 100000 },
+  { "id": "M_1M", "name": "Indie Darling", "threshold": 1000000 },
+  { "id": "M_10M", "name": "Live-Ops On", "threshold": 10000000 },
+  { "id": "M_100M", "name": "Brand Found", "threshold": 100000000 },
+  { "id": "M_1B", "name": "Global Hit", "threshold": 1000000000 },
+  { "id": "M_10B", "name": "Studio Group", "threshold": 10000000000 },
+  { "id": "M_100B", "name": "Platform Owner", "threshold": 100000000000 },
+  { "id": "M_1T", "name": "Cultural Monopoly", "threshold": 1000000000000 },
+  { "id": "M_10T", "name": "Reality Architect", "threshold": 10000000000000 }
+]
