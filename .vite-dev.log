@@ -40,3 +40,17 @@ Re-optimizing dependencies because lockfile has changed
 10:18:52 PM [vite] hmr update /src/ui/TechTree.tsx
 10:18:52 PM [vite] page reload src/state/store.ts
 10:18:52 PM [vite] hmr update /src/index.css
+10:19:46 PM [vite] hmr update /src/ui/TechTree.tsx
+10:19:53 PM [vite] hmr update /src/index.css
+10:22:41 PM [vite] hmr update /src/ui/TechTree.tsx
+10:22:47 PM [vite] page reload src/state/techSlice.ts
+10:24:43 PM [vite] page reload index.html
+10:24:43 PM [vite] hmr update /src/ui/App.tsx
+10:24:43 PM [vite] hmr update /src/index.css
+10:24:52 PM [vite] page reload src/state/store.ts
+10:24:52 PM [vite] ✨ new dependencies optimized: immer
+10:24:52 PM [vite] ✨ optimized dependencies changed. reloading
+10:24:59 PM [vite] hmr update /src/ui/TechTree.tsx
+10:25:04 PM [vite] page reload src/state/techSlice.ts
+10:26:28 PM [vite] hmr update /src/ui/App.tsx
+10:26:28 PM [vite] hmr update /src/index.css

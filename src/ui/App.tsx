@@ -7,7 +7,10 @@ export const App: React.FC = () => {
   return (
     <div className="app">
       <header className="header">
-        <h1>Programaxis</h1>
+        <div className="brand">
+          <img className="logo" src="/logo.png" alt="Programaxis logo" />
+          <h1 className="sr-only">Programaxis</h1>
+        </div>
         <span style={{ color: '#9bb1c9' }}>Build features, ship, grow revenue.</span>
       </header>
       <main className="main">

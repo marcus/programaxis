@@ -193,7 +193,9 @@ export const TechTree: React.FC = () => {
                     <div className="req">Requires: {requires.map(r=>r.node).join(', ')}</div>
                   )}
                   {isPurchased ? (
-                    <div className="purchased">Purchased</div>
+                    <div className="purchased-indicator">
+                      <span style={{ color: 'var(--accent)', fontWeight: 600 }}>✓ Purchased</span>
+                    </div>
                   ) : (
                     <button className="tron-button" disabled={!isUnlocked || !afford} onClick={() => buy(n.id)}>
                       {isUnlocked ? (afford ? 'Buy' : 'Need $') : 'Locked'}
