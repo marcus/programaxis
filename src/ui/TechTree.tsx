@@ -194,7 +194,7 @@ export const TechTree: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  {!(isUnlocked && !afford) && (
+                  {isUnlocked && (
                     <div className="cost pill">Cost: ${c.toLocaleString()}</div>
                   )}
                   {lines.length > 0 && (
