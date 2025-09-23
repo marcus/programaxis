@@ -187,3 +187,27 @@ a { color: var(--accent); }
 .ribbon { display: flex; gap: 8px; overflow: auto; padding: 4px 0; }
 .badge { background: #0e1520; border: 1px solid #1e2a3d; border-radius: 999px; padding: 6px 10px; font-size: 12px; white-space: nowrap; }
 .badge.hit { background: #13301f; border-color: #224c30; color: #b6ffd2; }
+
+/* Dependency graph styles */
+.dependency-line {
+  transition: stroke-opacity 0.3s ease, stroke-width 0.3s ease;
+  filter: drop-shadow(0 0 2px rgba(90, 214, 160, 0.3));
+}
+
+.dependency-line:hover {
+  stroke-opacity: 0.8 !important;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 4px rgba(90, 214, 160, 0.6));
+}
+
+/* Enhanced node highlighting when dependencies are shown */
+.techtree .node[data-node-id] {
+  transition: all 0.3s ease;
+}
+
+.techtree .node[data-node-id]:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 20px rgba(90, 214, 160, 0.2),
+    0 0 0 2px rgba(90, 214, 160, 0.1);
+}

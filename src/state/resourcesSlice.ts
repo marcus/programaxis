@@ -38,17 +38,23 @@ export interface MilestonesState {
   reached: { id: string; time: number }[]
 }
 
+export interface UIState {
+  showDependencyGraph: boolean
+}
+
 export interface ResourcesSlice {
   resources: ResourcesState
   systems: { shipping: ShippingSystem }
   caps: CapsState
   stats: StatsState
   milestones: MilestonesState
+  ui: UIState
   click: () => void
   shipNow: () => number
   addLoc: (amount: number) => void
   addRevenue: (amount: number) => void
   recomputeUiRates: (tickSec: number, lastLocDelta: number, lastRevDelta: number) => void
+  toggleDependencyGraph: () => void
 }
 
 export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], ResourcesSlice> = (set, get) => ({
@@ -87,6 +93,9 @@ export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], Resource
   milestones: {
     reached: [],
   },
+  ui: {
+    showDependencyGraph: false,
+  },
   click: () => {
     const s = get()
     const mult = (s.stats.focus_multiplier || 1) * (s.stats.global_multiplier || 1)
@@ -120,5 +129,8 @@ export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], Resource
     const a = 0.2 // EMA smoothing
     state.resources.uiLocPerSec = state.resources.uiLocPerSec * (1 - a) + (lastLocDelta / tickSec) * a
     state.resources.uiRevPerSec = state.resources.uiRevPerSec * (1 - a) + (lastRevDelta / tickSec) * a
+  }),
+  toggleDependencyGraph: () => set(state => {
+    state.ui.showDependencyGraph = !state.ui.showDependencyGraph
   }),
 })
