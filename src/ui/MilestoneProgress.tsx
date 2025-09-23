@@ -1,6 +1,6 @@
 import React from 'react'
 import { useStore } from '../state/store'
-import milestonesData from '../../context/milestones.json'
+import milestonesData from '../data/milestones.json'
 
 interface Milestone {
   id: string

@@ -221,11 +221,61 @@ a { color: var(--accent); }
 }
 
 /* Futuristic branch accents and node styling */
-/* Status badge styling */
-.status-badge { position: absolute; top: 8px; right: 8px; z-index: 3; font-family: "Orbitron", ui-sans-serif; font-size: 10px; letter-spacing: 0.08em; padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.35); backdrop-filter: blur(2px); text-transform: uppercase; }
-.status-badge.is-unlocked { color: #00eaff; border-color: rgba(0, 234, 255, 0.5); box-shadow: 0 0 12px rgba(0,234,255,0.25); }
-.status-badge.is-locked { color: #9bb1c9; opacity: 0.7; }
-.status-badge.is-purchased { color: #5ad6a0; border-color: rgba(90,214,160,0.6); box-shadow: 0 0 12px rgba(90,214,160,0.3); }
+/* Status icon container styling */
+.status-icon-container {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Individual status icon styling */
+.status-icon {
+  transition: all 0.3s ease;
+}
+
+.purchased-icon {
+  color: #5ad6a0;
+  filter: drop-shadow(0 0 6px rgba(90, 214, 160, 0.4));
+}
+
+.unlocked-icon {
+  color: #00eaff;
+  filter: drop-shadow(0 0 6px rgba(0, 234, 255, 0.4));
+}
+
+.locked-icon {
+  color: #9bb1c9;
+  opacity: 0.7;
+  filter: drop-shadow(0 0 4px rgba(155, 177, 201, 0.2));
+}
+
+/* Enhanced glow effects for different states */
+.node.is-purchased .status-icon-container {
+  background: rgba(90, 214, 160, 0.15);
+  border-color: rgba(90, 214, 160, 0.4);
+  box-shadow: 0 0 12px rgba(90, 214, 160, 0.3);
+}
+
+.node.is-unlocked .status-icon-container {
+  background: rgba(0, 234, 255, 0.15);
+  border-color: rgba(0, 234, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 234, 255, 0.3);
+}
+
+.node.is-locked .status-icon-container {
+  background: rgba(155, 177, 201, 0.1);
+  border-color: rgba(155, 177, 201, 0.2);
+}
 
 /* Node state treatments */
 .branch .node.is-unlocked { box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 0 16px var(--branch-glow), 0 0 28px color-mix(in srgb, var(--branch-accent) 25%, transparent); }

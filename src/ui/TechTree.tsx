@@ -3,6 +3,7 @@ import { useStore } from '../state/store'
 import techTree from '../../context/tech-tree.json'
 import { NodeIcon } from './Icons'
 import { GarbledText } from './GarbledText'
+import { PurchasedIcon, UnlockedIcon, LockedIcon } from './StatusIcons'
 
 function costFor(nodeId: string) {
   const s = useStore.getState()
@@ -172,7 +173,15 @@ export const TechTree: React.FC = () => {
               const statusText = isPurchased ? 'Purchased' : isUnlocked ? 'Unlocked' : 'Locked'
               return (
                 <div key={n.id} className={`node ${stateClass}`} data-node-id={n.id} style={{ position: 'relative', zIndex: 2 }}>
-                  <div className={`status-badge ${stateClass}`}>{statusText}</div>
+                  <div className="status-icon-container">
+                    {isPurchased ? (
+                      <PurchasedIcon size={18} />
+                    ) : isUnlocked ? (
+                      <UnlockedIcon size={18} />
+                    ) : (
+                      <LockedIcon size={18} />
+                    )}
+                  </div>
                   <div className="node-hero">
                     <div className="icon-wrap">
                       <NodeIcon id={n.id} size={56} />
@@ -194,9 +203,6 @@ export const TechTree: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  {isUnlocked && (
-                    <div className="cost pill">Cost: ${c.toLocaleString()}</div>
-                  )}
                   {lines.length > 0 && (
                     <div className="effects">
                       {lines.map((l, i) => (
