@@ -1,5 +1,5 @@
 ```mermaid
-flowchart LR
+flowchart TB
   %% Tech Tree for AI Coding Game
   %% Revenue is the global KPI influenced by many branches
 
@@ -88,12 +88,6 @@ flowchart LR
   end
 
   %% =======================
-  %% KPI / GOAL
-  %% =======================
-  R["Revenue (KPI)"]
-  style R fill:#fff,stroke:#333,stroke-width:2px
-
-  %% =======================
   %% CROSS-BRANCH DEPENDENCIES
   %% =======================
 
@@ -143,31 +137,48 @@ flowchart LR
   E2 -.->|campaign ops| F2
   E3 -.->|continuous growth loops| F3
 
-  %% KPI inflows: each branch contributes to revenue when sufficiently advanced
+  %% =======================
+  %% KPI / GOAL (CENTERED AT BOTTOM)
+  %% =======================
+  R["💰 Revenue (KPI) 💰"]
+  style R fill:#ffd700,stroke:#333,stroke-width:3px,color:#000
+
+  %% =======================
+  %% KPI INFLOWS (ALL POINTING DOWN)
+  %% =======================
+
+  %% AI Models contributions
   A2 -->|better features/fewer bugs| R
   A3 -->|faster shipping & quality| R
   A4 -->|category-defining hits| R
 
+  %% Editor contributions
   B2 -->|dev velocity| R
   B4 -->|fully automated shipping| R
 
+  %% Hardware contributions
   C2 -->|performance unlocks| R
   C3 -->|scale events + live-ops| R
 
+  %% Ergonomics contributions
   D2 -->|sustained throughput| R
 
+  %% Agents contributions
   E2 -->|parallel delivery| R
   E3 -->|massive scope| R
   E4 -->|world domination tier| R
 
+  %% Marketing contributions
   F2 -->|"lower CAC/LTV↑"| R
   F3 -->|viral growth| R
   F4 -->|monopoly profits| R
 
+  %% Platforms contributions
   G2 -->|"monetization (IAP/DLC)"| R
   G3 -->|market expansion| R
   G4 -->|new realities to monetize| R
 
+  %% Graphics contributions
   H2 -->|"asset cost↓ quality↑"| R
   H3 -->|premium visuals/audio| R
   H4 -->|limitless content| R

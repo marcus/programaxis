@@ -1,0 +1,268 @@
+{
+  "game": "Programaxis",
+  "version": 1,
+  "currency": "Revenue",
+  "secondaryCurrency": "LoC",
+  "costCurves": {
+    "soft_expo_112": { "kind": "exponential", "k": 1.12 },
+    "soft_expo_115": { "kind": "exponential", "k": 1.15 },
+    "expo_118":      { "kind": "exponential", "k": 1.18 }
+  },
+  "effectTypes": [
+    "add", "mul", "cap", "unlock", "toggle"
+  ],
+  "stats": {
+    "base": {
+      "loc_per_click": 1.0,
+      "idle_loc_per_sec": 0.1,
+      "ship_fraction": 0.20,
+      "revenue_per_loc": 0.05,
+      "ship_automation": 0,
+      "agent_concurrency_cap": 0
+    }
+  },
+  "branches": [
+    {
+      "key": "A",
+      "name": "AI Models",
+      "nodes": [
+        {
+          "id": "A0",
+          "tier": 0,
+          "name": "Cut & Paste",
+          "baseCost": 0,
+          "costCurve": "soft_expo_112",
+          "effects": []
+        },
+        {
+          "id": "A1",
+          "tier": 1,
+          "name": "Autocomplete",
+          "baseCost": 250,
+          "costCurve": "soft_expo_112",
+          "effects": [
+            { "stat": "loc_per_click", "type": "mul", "value": 1.5 },
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.25 }
+          ]
+        },
+        {
+          "id": "A2",
+          "tier": 2,
+          "name": "Copilot Agents",
+          "baseCost": 2500,
+          "costCurve": "soft_expo_115",
+          "requires": [{ "node": "C2" }],
+          "effects": [
+            { "stat": "ship_fraction", "type": "add", "value": 0.05 },
+            { "stat": "bug_rate", "type": "mul", "value": 0.9, "display": "Bug rate ↓10%" },
+            { "stat": "features_multiplier", "type": "mul", "value": 1.1 }
+          ]
+        },
+        {
+          "id": "A3",
+          "tier": 3,
+          "name": "Self-Improving Models",
+          "baseCost": 25000,
+          "costCurve": "expo_118",
+          "requires": [{ "node": "C3" }, { "node": "B2" }],
+          "effects": [
+            { "stat": "revenue_per_loc", "type": "mul", "value": 1.3 },
+            { "stat": "ship_automation", "type": "add", "value": 1 }
+          ]
+        },
+        {
+          "id": "A4",
+          "tier": 4,
+          "name": "Superintelligence",
+          "baseCost": 500000,
+          "costCurve": "expo_118",
+          "requires": [{ "node": "C4" }],
+          "effects": [
+            { "stat": "features_multiplier", "type": "mul", "value": 2.0 },
+            { "stat": "global_multiplier", "type": "mul", "value": 1.5 }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "B",
+      "name": "Editor & Software Tools",
+      "nodes": [
+        { "id": "B0", "tier": 0, "name": "Plain Editor", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        {
+          "id": "B1",
+          "tier": 1,
+          "name": "Full IDE + Debugger",
+          "baseCost": 300,
+          "costCurve": "soft_expo_112",
+          "effects": [
+            { "stat": "loc_per_click", "type": "mul", "value": 1.2 },
+            { "stat": "qa_multiplier", "type": "mul", "value": 1.05, "display": "Fewer regressions" }
+          ]
+        },
+        {
+          "id": "B2",
+          "tier": 2,
+          "name": "AI-Native Editor (tests/docs)",
+          "baseCost": 3000,
+          "costCurve": "soft_expo_115",
+          "effects": [
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.4 },
+            { "stat": "release_automation", "type": "add", "value": 1 }
+          ]
+        },
+        {
+          "id": "B3",
+          "tier": 3,
+          "name": "Immersive IDE (VR/AR)",
+          "baseCost": 30000,
+          "costCurve": "expo_118",
+          "effects": [
+            { "stat": "parallelism_cap", "type": "add", "value": 1, "display": "One extra concurrent job" },
+            { "stat": "features_multiplier", "type": "mul", "value": 1.15 }
+          ]
+        },
+        {
+          "id": "B4",
+          "tier": 4,
+          "name": "Autonomous IDE (auto-ship)",
+          "baseCost": 600000,
+          "costCurve": "expo_118",
+            "effects": [
+            { "stat": "ship_automation", "type": "add", "value": 1 },
+            { "stat": "global_multiplier", "type": "mul", "value": 1.25 }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "C",
+      "name": "Hardware / Compute",
+      "nodes": [
+        { "id": "C0", "tier": 0, "name": "Office Laptop", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        {
+          "id": "C1",
+          "tier": 1,
+          "name": "Multi-Core CPU",
+          "baseCost": 200,
+          "costCurve": "soft_expo_112",
+          "effects": [{ "stat": "idle_loc_per_sec", "type": "mul", "value": 1.15 }]
+        },
+        {
+          "id": "C2",
+          "tier": 2,
+          "name": "Single GPU",
+          "baseCost": 2000,
+          "costCurve": "soft_expo_115",
+          "effects": [
+            { "stat": "model_speed", "type": "mul", "value": 1.25, "display": "AI train/infer faster" },
+            { "stat": "agent_concurrency_cap", "type": "cap", "value": 2 }
+          ]
+        },
+        {
+          "id": "C3",
+          "tier": 3,
+          "name": "Multi-GPU / Cloud",
+          "baseCost": 20000,
+          "costCurve": "expo_118",
+          "effects": [
+            { "stat": "agent_concurrency_cap", "type": "cap", "value": 5 },
+            { "stat": "global_multiplier", "type": "mul", "value": 1.15 }
+          ]
+        },
+        {
+          "id": "C4",
+          "tier": 4,
+          "name": "Quantum / Exotic Compute",
+          "baseCost": 400000,
+          "costCurve": "expo_118",
+          "effects": [
+            { "stat": "agent_concurrency_cap", "type": "cap", "value": 10 },
+            { "stat": "model_class_unlock", "type": "unlock", "value": "superintelligence" }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "D",
+      "name": "Ergonomics & Workspace",
+      "nodes": [
+        { "id": "D0", "tier": 0, "name": "Basic Desk/Chair", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "D1", "tier": 1, "name": "Ergo Chair + Dual Monitors", "baseCost": 150, "costCurve": "soft_expo_112",
+          "effects": [{ "stat": "focus_multiplier", "type": "mul", "value": 1.1 }] },
+        { "id": "D2", "tier": 2, "name": "Standing Desk + Input Upgrades", "baseCost": 1200, "costCurve": "soft_expo_115",
+          "effects": [{ "stat": "idle_loc_per_sec", "type": "mul", "value": 1.2 }] },
+        { "id": "D3", "tier": 3, "name": "AI Posture/Break Coach", "baseCost": 8000, "costCurve": "soft_expo_115",
+          "effects": [{ "stat": "error_rate", "type": "mul", "value": 0.9 }] },
+        { "id": "D4", "tier": 4, "name": "Neural I/O Pod", "baseCost": 160000, "costCurve": "expo_118",
+          "effects": [{ "stat": "loc_per_click", "type": "mul", "value": 2.0 }] }
+      ]
+    },
+    {
+      "key": "E",
+      "name": "AI Agents (Team Size)",
+      "nodes": [
+        { "id": "E0", "tier": 0, "name": "Solo Dev", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "E1", "tier": 1, "name": "Helper Agent", "baseCost": 500, "costCurve": "soft_expo_112",
+          "effects": [{ "stat": "agent_concurrency_cap", "type": "cap", "value": 1 }] },
+        { "id": "E2", "tier": 2, "name": "Specialist Squad", "baseCost": 5000, "costCurve": "soft_expo_115",
+          "requires": [{ "node": "C2" }], "effects": [{ "stat": "agent_concurrency_cap", "type": "cap", "value": 3 }] },
+        { "id": "E3", "tier": 3, "name": "Swarm / Auto-Delegation", "baseCost": 50000, "costCurve": "expo_118",
+          "requires": [{ "node": "B4" }, { "node": "C3" }], "effects": [{ "stat": "agent_concurrency_cap", "type": "cap", "value": 6 }] },
+        { "id": "E4", "tier": 4, "name": "Virtual Company at Scale", "baseCost": 800000, "costCurve": "expo_118",
+          "requires": [{ "node": "C4" }], "effects": [{ "stat": "agent_concurrency_cap", "type": "cap", "value": 12 }] }
+      ]
+    },
+    {
+      "key": "F",
+      "name": "Marketing & Distribution",
+      "nodes": [
+        { "id": "F0", "tier": 0, "name": "Word of Mouth", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "F1", "tier": 1, "name": "Targeted Ads + Influencers", "baseCost": 400, "costCurve": "soft_expo_112",
+          "effects": [{ "stat": "revenue_multiplier", "type": "mul", "value": 1.1 }] },
+        { "id": "F2", "tier": 2, "name": "Automated A/B + CRM", "baseCost": 4000, "costCurve": "soft_expo_115",
+          "effects": [{ "stat": "revenue_multiplier", "type": "mul", "value": 1.2 }] },
+        { "id": "F3", "tier": 3, "name": "Memetic Marketing Engine", "baseCost": 40000, "costCurve": "expo_118",
+          "effects": [{ "stat": "viral_growth", "type": "toggle", "value": true }, { "stat": "revenue_multiplier", "type": "mul", "value": 1.25 }] },
+        { "id": "F4", "tier": 4, "name": "Cultural Monopoly", "baseCost": 900000, "costCurve": "expo_118",
+          "effects": [{ "stat": "global_multiplier", "type": "mul", "value": 1.3 }] }
+      ]
+    },
+    {
+      "key": "G",
+      "name": "Platforms & Game Features",
+      "nodes": [
+        { "id": "G0", "tier": 0, "name": "PC Only • 2D Side-Scroller", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "G1", "tier": 1, "name": "Mobile Port • DLC", "baseCost": 600, "costCurve": "soft_expo_112",
+          "effects": [{ "stat": "feature_streams", "type": "add", "value": 1 }] },
+        { "id": "G2", "tier": 2, "name": "Online Multiplayer • IAP", "baseCost": 6000, "costCurve": "soft_expo_115",
+          "requires": [{ "node": "A2" }], "effects": [{ "stat": "monetization_streams", "type": "add", "value": 1 }] },
+        { "id": "G3", "tier": 3, "name": "Cross-Platform • VR/AR • i18n", "baseCost": 60000, "costCurve": "expo_118",
+          "requires": [{ "node": "B2" }, { "node": "E2" }], "effects": [{ "stat": "market_expansion", "type": "mul", "value": 1.3 }] },
+        { "id": "G4", "tier": 4, "name": "Reality-Scale Generated Worlds", "baseCost": 1200000, "costCurve": "expo_118",
+          "requires": [{ "node": "A3" }], "effects": [{ "stat": "revenue_multiplier", "type": "mul", "value": 1.4 }] }
+      ]
+    },
+    {
+      "key": "H",
+      "name": "Graphics & Content Gen",
+      "nodes": [
+        { "id": "H0", "tier": 0, "name": "Hand-Drawn / Stock SFX", "baseCost": 0, "costCurve": "soft_expo_112", "effects": [] },
+        { "id": "H1", "tier": 1, "name": "Contract Artists / Procedural", "baseCost": 300, "costCurve": "soft_expo_112",
+          "effects": [{ "stat": "asset_cost", "type": "mul", "value": 0.95 }] },
+        { "id": "H2", "tier": 2, "name": "Early AI Art & Audio", "baseCost": 3000, "costCurve": "soft_expo_115",
+          "requires": [{ "node": "C2" }], "effects": [{ "stat": "asset_cost", "type": "mul", "value": 0.9 }, { "stat": "price_premium", "type": "mul", "value": 1.05 }] },
+        { "id": "H3", "tier": 3, "name": "Hi-Fi 3D Gen + OST", "baseCost": 30000, "costCurve": "expo_118",
+          "requires": [{ "node": "B2" }, { "node": "C3" }], "effects": [{ "stat": "price_premium", "type": "mul", "value": 1.15 }] },
+        { "id": "H4", "tier": 4, "name": "Infinite Photoreal Simulation", "baseCost": 700000, "costCurve": "expo_118",
+          "requires": [{ "node": "A4" }], "effects": [{ "stat": "price_premium", "type": "mul", "value": 1.3 }, { "stat": "content_limit", "type": "cap", "value": 999999 }] }
+      ]
+    }
+  ],
+  "crossBranchNotes": [
+    "A2 requires C2 (GPU) for networking scaffolds",
+    "A3 requires C3 and B2",
+    "G3 requires B2 and E2",
+    "H2 requires C2; H3 requires B2 and C3; H4 requires A4"
+  ]
+}

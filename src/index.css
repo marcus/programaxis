@@ -1,0 +1,48 @@
+/* Minimal styling for Programaxis */
+:root {
+  --bg: #0b0f14;
+  --panel: #121821;
+  --text: #e5eef5;
+  --muted: #9bb1c9;
+  --accent: #5ad6a0;
+  --warn: #ffca5f;
+  --danger: #f45b69;
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--text); }
+button { background: var(--panel); color: var(--text); border: 1px solid #243044; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+a { color: var(--accent); }
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
+  height: 100%;
+}
+.header { padding: 12px 16px; background: var(--panel); border-bottom: 1px solid #213148; display: flex; gap: 12px; align-items: center; }
+.header h1 { font-size: 18px; margin: 0; }
+.main { display: grid; grid-template-columns: 320px 1fr; gap: 12px; padding: 12px; }
+.sidebar { background: var(--panel); border: 1px solid #213148; border-radius: 12px; padding: 12px; }
+.content { background: var(--panel); border: 1px solid #213148; border-radius: 12px; padding: 12px; overflow: hidden; }
+.footer { padding: 8px 12px; font-size: 12px; color: var(--muted); border-top: 1px solid #213148; }
+
+.hud-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.stat { background: #0e1520; border: 1px solid #1e2a3d; border-radius: 10px; padding: 10px; }
+.stat .label { color: var(--muted); font-size: 12px; }
+.stat .value { font-size: 20px; font-weight: 600; }
+.actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+
+.techtree { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(220px, 1fr); gap: 12px; overflow: auto; }
+.branch { min-width: 220px; }
+.branch h3 { margin: 0 0 8px; font-size: 14px; color: var(--muted); }
+.node { background: #0e1520; border: 1px solid #1e2a3d; border-radius: 10px; padding: 10px; margin-bottom: 8px; }
+.node .title { font-weight: 600; }
+.node .cost { color: var(--muted); font-size: 12px; }
+.node .req { color: var(--muted); font-size: 11px; }
+.node .purchased { color: var(--accent); font-size: 12px; }
+
+.ribbon { display: flex; gap: 8px; overflow: auto; padding: 4px 0; }
+.badge { background: #0e1520; border: 1px solid #1e2a3d; border-radius: 999px; padding: 6px 10px; font-size: 12px; white-space: nowrap; }
+.badge.hit { background: #13301f; border-color: #224c30; color: #b6ffd2; }

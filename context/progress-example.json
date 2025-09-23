@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "schemaVersion": 1,
+    "gameVersion": 1,
+    "createdAt": "2025-09-22T20:45:00.000Z",
+    "lastSavedAt": "2025-09-22T21:05:00.000Z",
+    "rngSeed": 281474976710655
+  },
+  "resources": {
+    "loc": 12345.5,
+    "revenue": 87500.0
+  },
+  "unlocks": {
+    "nodes": ["A0","B0","C0","D0","E0","F0","G0","H0","A1","B1","C1"],
+    "purchased": {
+      "A1": 1,
+      "B1": 1,
+      "C1": 1
+    }
+  },
+  "rates": {
+    "tickMs": 250,
+    "offlineCapHours": 8,
+    "derived": null
+  },
+  "caps": {
+    "agent_concurrency_cap": 1,
+    "parallelism_cap": 1
+  },
+  "systems": {
+    "shipping": {
+      "auto": false,
+      "lastShipAt": "2025-09-22T21:04:45.000Z",
+      "bufferedLoc": 2200.0
+    },
+    "agents": {
+      "active": 0,
+      "queue": []
+    },
+    "jobs": {
+      "buildQueue": [],
+      "concurrent": []
+    }
+  },
+  "milestones": {
+    "reached": [
+      { "id": "M_1K", "time": "2025-09-22T20:55:00.000Z" },
+      { "id": "M_10K", "time": "2025-09-22T20:58:00.000Z" }
+    ]
+  },
+  "prestige": {
+    "insight": 0,
+    "lifetimeRevenue": 87500.0,
+    "runs": 0
+  },
+  "telemetry": {
+    "playTimeMs": 1200000,
+    "sessionStart": "2025-09-22T20:45:00.000Z"
+  }
+}
