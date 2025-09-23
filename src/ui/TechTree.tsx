@@ -1,6 +1,7 @@
 import React from 'react'
 import { useStore } from '../state/store'
 import techTree from '../../context/tech-tree.json'
+import { NodeIcon } from './Icons'
 
 function costFor(nodeId: string) {
   const s = useStore.getState()
@@ -31,7 +32,10 @@ export const TechTree: React.FC = () => {
             const requires = (n.requires || []) as { node: string }[]
             return (
               <div key={n.id} className="node">
-                <div className="title">{n.id} · {n.name}</div>
+                <div className="title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <NodeIcon id={n.id} />
+                  <span>{n.id} · {n.name}</span>
+                </div>
                 <div className="cost">Cost: ${c.toLocaleString()}</div>
                 {requires.length>0 && (
                   <div className="req">Requires: {requires.map(r=>r.node).join(', ')}</div>
