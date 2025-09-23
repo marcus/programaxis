@@ -1,5 +1,5 @@
 import type { StateCreator } from 'zustand'
-import techTree from '../../context/tech-tree.json'
+import techTree from '../data/tech-tree.json'
 import type { ResourcesSlice, StatsState } from './resourcesSlice'
 import { saveNow } from '../game/persistence'
 

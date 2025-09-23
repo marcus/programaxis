@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { useStore } from '../state/store'
-import techTree from '../../context/tech-tree.json'
+import techTree from '../data/tech-tree.json'
 import { NodeIcon } from './Icons'
 import { GarbledText } from './GarbledText'
 import { PurchasedIcon, UnlockedIcon, LockedIcon } from './StatusIcons'
