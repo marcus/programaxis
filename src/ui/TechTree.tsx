@@ -234,7 +234,7 @@ export const TechTree: React.FC = () => {
                     </div>
                   ) : (
                     <button className="tron-button" disabled={!isUnlocked || !afford} onClick={() => buy(n.id)}>
-                      {isUnlocked ? 'Buy' : 'Locked'}
+                      {isUnlocked ? `Buy $${c.toLocaleString()}` : 'Locked'}
                     </button>
                   )}
                 </div>
