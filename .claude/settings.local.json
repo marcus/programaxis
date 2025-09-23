@@ -3,7 +3,11 @@
     "allow": [
       "Bash(cat:*)",
       "Bash(mmdc:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(chmod:*)",
+      "Bash(npm run analyze:save:*)",
+      "Bash(npm run build:*)",
+      "mcp__ide__getDiagnostics"
     ],
     "deny": [],
     "ask": []

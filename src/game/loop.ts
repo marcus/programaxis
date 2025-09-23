@@ -13,21 +13,69 @@ export function startGameLoop() {
     const s = get()
     const dt = s.timers.tickMs / 1000
 
-    // Idle LoC generation
-    const locDelta = (s.stats.idle_loc_per_sec || 0) * (s.stats.focus_multiplier || 1) * (s.stats.global_multiplier || 1) * dt
-    s.addLoc(locDelta)
+    // Update agent system (if method exists)
+    if (s.updateAgents) {
+      s.updateAgents()
+    }
+
+    // Idle LoC generation (base + agents)
+    const baseIdleLoc = (s.stats.idle_loc_per_sec || 0) * (s.stats.focus_multiplier || 1) * (s.stats.global_multiplier || 1)
+    const agentLoc = s.getAgentLocPerSec ? s.getAgentLocPerSec() : 0
+    const totalLocDelta = (baseIdleLoc + agentLoc) * dt
+    s.addLoc(totalLocDelta)
+
+    // Tech debt accumulation (if techDebt exists)
+    const debtGrowth = (s.stats.tech_debt_growth || 1) * dt * 0.1
+    if (s.resources.techDebt !== undefined) {
+      set(state => {
+        if (state.resources.techDebt !== undefined) {
+          state.resources.techDebt += debtGrowth
+        }
+      })
+    }
+
+    // Refactor bonus (convert some tech debt to LoC)
+    const refactorBonus = (s.stats.refactor_bonus || 0) * dt
+    if (refactorBonus > 0 && (s.resources.techDebt || 0) > 0) {
+      const debtToConvert = Math.min(s.resources.techDebt || 0, refactorBonus)
+      set(state => {
+        if (state.resources.techDebt !== undefined) {
+          state.resources.techDebt -= debtToConvert
+          state.resources.loc += debtToConvert * 0.5 // Convert debt to LoC at reduced rate
+        }
+      })
+    }
 
     // Passive revenue if any
     const passiveRev = (s.stats.passive_rev_per_sec || 0) * dt
     if (passiveRev > 0) s.addRevenue(passiveRev)
 
-    // Auto-ship if enabled
+    // Automated shipping based on automation level
     let shipRev = 0
-    const autoShip = s.systems.shipping.auto || (s.stats.ship_automation || 0) > 0
-    if (autoShip) shipRev = s.shipNow()
+    const autoLevel = s.systems?.shipping?.automationLevel || 0
+    const manualAuto = s.systems?.shipping?.auto || (s.stats.ship_automation || 0) > 0
+    const now = Date.now()
+    const lastAutoShip = s.systems?.shipping?.lastAutoShipAt || 0
+
+    let shouldAutoShip = manualAuto
+    if (autoLevel > 0) {
+      const interval = Math.max(1000, 10000 / (1 + autoLevel)) // 10s, 5s, 3.3s, 2.5s...
+      shouldAutoShip = shouldAutoShip || (now - lastAutoShip) >= interval
+    }
+
+    if (shouldAutoShip) {
+      shipRev = s.shipNow()
+      if (s.systems?.shipping) {
+        set(state => {
+          if (state.systems?.shipping) {
+            state.systems.shipping.lastAutoShipAt = now
+          }
+        })
+      }
+    }
 
     // Update UI rates
-    s.recomputeUiRates(dt, locDelta, passiveRev + shipRev)
+    s.recomputeUiRates(dt, totalLocDelta, passiveRev + shipRev)
 
     // Milestones
     checkMilestones()

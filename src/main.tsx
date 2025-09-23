@@ -14,6 +14,9 @@ async function boot() {
 
   await loadAndHydrate()
 
+  // Ensure state is properly initialized (handles both new games and migrated saves)
+  useStore.getState().ensureProperState()
+
   // Start main loop and autosave
   startGameLoop()
   scheduleAutosave()

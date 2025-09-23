@@ -25,6 +25,13 @@ export const MilestoneProgress: React.FC = () => {
 
   // Find current milestone (highest reached) and next milestone
   const reachedIds = new Set(reachedMilestones.map(m => m.id))
+
+  // Auto-award the $0 milestone if player meets it but doesn't have it
+  const zeroMilestone = milestones.find(m => m.threshold === 0)
+  if (zeroMilestone && !reachedIds.has(zeroMilestone.id) && lifetimeRevenue >= 0) {
+    reachedIds.add(zeroMilestone.id)
+  }
+
   const currentMilestone = milestones
     .filter(m => reachedIds.has(m.id))
     .sort((a, b) => b.threshold - a.threshold)[0]
@@ -47,7 +54,9 @@ export const MilestoneProgress: React.FC = () => {
     )
   }
 
-  const progress = nextMilestone ? Math.min(100, (lifetimeRevenue / nextMilestone.threshold) * 100) : 100
+  const progress = nextMilestone && nextMilestone.threshold > 0
+    ? Math.min(100, (lifetimeRevenue / nextMilestone.threshold) * 100)
+    : 100
   const remaining = Math.max(0, nextMilestone.threshold - lifetimeRevenue)
 
   return (

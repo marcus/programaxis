@@ -25,16 +25,56 @@ export async function loadAndHydrate() {
   const saved: any = await get(SAVE_KEY)
   if (saved) {
     useStore.setState(state => {
-      state.resources = saved.resources || state.resources
-      state.systems = saved.systems || state.systems
+      // Migrate resources - add new fields if missing
+      state.resources = {
+        ...state.resources,
+        ...(saved.resources || {}),
+        techDebt: saved.resources?.techDebt ?? 0
+      }
+
+      // Migrate systems - ensure agents system exists
+      const savedSystems = saved.systems || {}
+      state.systems = {
+        ...state.systems,
+        shipping: {
+          ...state.systems.shipping,
+          ...(savedSystems.shipping || {}),
+          automationLevel: savedSystems.shipping?.automationLevel ?? 0,
+          lastAutoShipAt: savedSystems.shipping?.lastAutoShipAt ?? null
+        },
+        agents: {
+          ...state.systems.agents,
+          ...(savedSystems.agents || {}),
+          activeAgents: savedSystems.agents?.activeAgents ?? 0,
+          agentProductivity: savedSystems.agents?.agentProductivity ?? 1.0,
+          lastAgentUpdate: savedSystems.agents?.lastAgentUpdate ?? null
+        }
+      }
+
       state.caps = saved.caps || state.caps
-      state.stats = { ...state.stats, ...(saved.stats || {}) }
+
+      // Migrate stats - add new quality/process stats
+      state.stats = {
+        ...state.stats,
+        ...(saved.stats || {}),
+        // Ensure new stats exist with defaults
+        bug_rate: saved.stats?.bug_rate ?? 1.0,
+        code_quality: saved.stats?.code_quality ?? 1.0,
+        test_coverage: saved.stats?.test_coverage ?? 1.0,
+        compile_speed: saved.stats?.compile_speed ?? 1.0,
+        refactor_bonus: saved.stats?.refactor_bonus ?? 0.0,
+        tech_debt_growth: saved.stats?.tech_debt_growth ?? 1.0
+      }
+
       state.purchased = saved.purchased || {}
       state.unlocked = new Set<string>(saved.unlocked || Array.from(state.unlocked))
       state.discounts = saved.discounts || {}
       state.timers = saved.timers || state.timers
       state.milestones = saved.milestones || state.milestones
     })
+
+    // Ensure all required properties exist after load
+    useStore.getState().ensureProperState()
 
     // Offline credit
     const s = useStore.getState()
@@ -45,17 +85,27 @@ export async function loadAndHydrate() {
     const ms = Math.min(elapsedMs, capMs)
     const dt = ms / 1000
     if (dt > 0) {
-      const locRate = (s.stats.idle_loc_per_sec || 0) * (s.stats.focus_multiplier || 1) * (s.stats.global_multiplier || 1)
-      const offlineLoc = locRate * dt
+      // Calculate offline LoC generation (base + agents)
+      const baseLocRate = (s.stats.idle_loc_per_sec || 0) * (s.stats.focus_multiplier || 1) * (s.stats.global_multiplier || 1)
+      const agentLocRate = (s.systems?.agents?.activeAgents || 0) * 0.5 * (s.systems?.agents?.agentProductivity || 1) * (s.stats.global_multiplier || 1)
+      const totalLocRate = baseLocRate + agentLocRate
+      const offlineLoc = totalLocRate * dt
       useStore.getState().addLoc(offlineLoc)
 
       // Approximate auto-shipping offline
-      const frac = (s.stats.ship_fraction || 0)
-      const revPerLoc = (s.stats.revenue_per_loc || 0.05) * (s.stats.revenue_multiplier || 1) * (s.stats.features_multiplier || 1) * (s.stats.price_premium || 1) * (s.stats.market_expansion || 1) * (s.stats.global_multiplier || 1)
-      const auto = s.systems.shipping.auto || (s.stats.ship_automation || 0) > 0
+      const techDebtPenalty = Math.max(0, 1 - ((s.resources?.techDebt || 0) / 1000))
+      const frac = (s.stats.ship_fraction || 0) * techDebtPenalty * (s.stats.test_coverage || 1)
+      const qualityMultiplier = s.stats.code_quality || 1
+      const bugPenalty = 2 - (s.stats.bug_rate || 1)
+      const revPerLoc = (s.stats.revenue_per_loc || 0.05) * qualityMultiplier * bugPenalty *
+                       (s.stats.revenue_multiplier || 1) * (s.stats.features_multiplier || 1) *
+                       (s.stats.price_premium || 1) * (s.stats.market_expansion || 1) * (s.stats.global_multiplier || 1)
+
+      const auto = s.systems?.shipping?.auto || (s.stats.ship_automation || 0) > 0 || (s.systems?.shipping?.automationLevel || 0) > 0
       if (auto) {
         const shipped = offlineLoc * frac
-        useStore.getState().addRevenue(shipped * revPerLoc)
+        const offlineRevenue = shipped * revPerLoc + (s.stats.passive_rev_per_sec || 0) * dt
+        useStore.getState().addRevenue(offlineRevenue)
         useStore.setState(state => { state.systems.shipping.bufferedLoc += (offlineLoc - shipped) })
       }
     }

@@ -83,23 +83,33 @@ export const createTechSlice: StateCreator<ResourcesSlice & TechSlice, [], [], T
 
       // Apply effects
       for (const ef of node.effects || []) {
-        const key = ef.stat as keyof StatsState
+        const stat = ef.stat
         switch (ef.type) {
           case 'add': {
-            ensureStat(state.stats, key, 0)
-            ;(state.stats as any)[key] += ef.value
+            if (stat === 'automationLevel') {
+              state.systems.shipping.automationLevel += ef.value
+            } else if (stat in state.stats) {
+              const key = stat as keyof StatsState
+              ensureStat(state.stats, key, 0)
+              ;(state.stats as any)[key] += ef.value
+            }
             break
           }
           case 'mul': {
-            ensureStat(state.stats, key, 1)
-            ;(state.stats as any)[key] *= ef.value
+            if (stat === 'agentProductivity') {
+              state.systems.agents.agentProductivity *= ef.value
+            } else if (stat in state.stats) {
+              const key = stat as keyof StatsState
+              ensureStat(state.stats, key, 1)
+              ;(state.stats as any)[key] *= ef.value
+            }
             break
           }
           case 'cap': {
-            // caps live in caps, some caps also stored in stats for reference
-            if (key in state.caps) {
-              ;(state.caps as any)[key] = Math.max((state.caps as any)[key] || 0, ef.value)
-            } else {
+            if (stat in state.caps) {
+              ;(state.caps as any)[stat] = Math.max((state.caps as any)[stat] || 0, ef.value)
+            } else if (stat in state.stats) {
+              const key = stat as keyof StatsState
               ensureStat(state.stats, key, 0)
               ;(state.stats as any)[key] = Math.max((state.stats as any)[key] || 0, ef.value)
             }
@@ -107,11 +117,17 @@ export const createTechSlice: StateCreator<ResourcesSlice & TechSlice, [], [], T
           }
           case 'unlock': {
             // Could toggle features; mark as stat flag
-            ;(state.stats as any)[key] = ef.value
+            if (stat in state.stats) {
+              const key = stat as keyof StatsState
+              ;(state.stats as any)[key] = ef.value
+            }
             break
           }
           case 'toggle': {
-            ;(state.stats as any)[key] = !!ef.value
+            if (stat in state.stats) {
+              const key = stat as keyof StatsState
+              ;(state.stats as any)[key] = !!ef.value
+            }
             break
           }
         }

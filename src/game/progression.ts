@@ -10,6 +10,9 @@ export interface MilestoneDef {
 }
 
 export const milestones: MilestoneDef[] = [
+  { id: 'M_0', threshold: 0, title: 'Starving Artist', short: 'Start', apply: () => {
+    // No bonus for starting milestone, just recognition
+  }},
   { id: 'M_1K', threshold: 1_000, title: 'First Sale', short: '$1K', apply: () => {
     useStore.setState(state => { state.stats.ship_automation = (state.stats.ship_automation || 0) + 1 })
   }},

@@ -2,6 +2,9 @@ import React from 'react'
 import { useStore } from '../state/store'
 import { Milestones } from './Milestones'
 import { MilestoneProgress } from './MilestoneProgress'
+import { AgentDashboard } from './AgentDashboard'
+import { QualityIndicator } from './QualityIndicator'
+import { AutomationIndicator } from './AutomationIndicator'
 
 function fmt(n: number, digits = 2) {
   if (!isFinite(n)) return '0'
@@ -17,12 +20,45 @@ export const HUD: React.FC = () => {
   const revenue = useStore(s => s.resources.revenue)
   const uiLocPerSec = useStore(s => s.resources.uiLocPerSec)
   const uiRevPerSec = useStore(s => s.resources.uiRevPerSec)
-  const bufferedLoc = useStore(s => s.systems.shipping.bufferedLoc)
-  const autoShip = useStore(s => s.systems.shipping.auto)
+  const bufferedLoc = useStore(s => s.systems?.shipping?.bufferedLoc ?? 0)
+  const autoShip = useStore(s => s.systems?.shipping?.auto ?? false)
   const shipAutomation = useStore(s => s.stats.ship_automation)
   const onClick = useStore(s => s.click)
   const onShip = useStore(s => s.shipNow)
+
+  const handleClickDebug = () => {
+    console.log('Write Code button clicked!')
+    console.log('Current state:', {
+      loc: useStore.getState().resources.loc,
+      bufferedLoc: useStore.getState().systems?.shipping?.bufferedLoc,
+      locPerClick: useStore.getState().stats?.loc_per_click,
+      globalMult: useStore.getState().stats?.global_multiplier
+    })
+    onClick()
+    console.log('After click:', {
+      loc: useStore.getState().resources.loc,
+      bufferedLoc: useStore.getState().systems?.shipping?.bufferedLoc
+    })
+  }
+
+  const handleShipDebug = () => {
+    console.log('Ship Build button clicked!')
+    console.log('Current state:', {
+      bufferedLoc: useStore.getState().systems?.shipping?.bufferedLoc,
+      shipFraction: useStore.getState().stats?.ship_fraction,
+      revenue: useStore.getState().resources.revenue
+    })
+    const gained = onShip()
+    console.log('Revenue gained:', gained)
+    console.log('After ship:', {
+      bufferedLoc: useStore.getState().systems?.shipping?.bufferedLoc,
+      revenue: useStore.getState().resources.revenue
+    })
+  }
   const caps = useStore(s => s.caps)
+
+  const techDebt = useStore(s => s.resources?.techDebt ?? 0)
+  const effectiveShipFraction = useStore(s => s.getEffectiveShipFraction?.() ?? (s.stats?.ship_fraction ?? 0.2))
 
   return (
     <div>
@@ -42,18 +78,23 @@ export const HUD: React.FC = () => {
         <div className="stat">
           <div className="label">Buffered LoC</div>
           <div className="value">{fmt(bufferedLoc)}</div>
-          <div className="label">Ship {((useStore.getState().stats.ship_fraction||0)*100).toFixed(0)}% per action</div>
+          <div className="label">Ship {(effectiveShipFraction*100).toFixed(0)}% per action</div>
         </div>
         <div className="stat">
-          <div className="label">Caps</div>
-          <div className="value">Agents: {caps.agentConcurrencyCap} • Jobs: {caps.parallelismCap}</div>
+          <div className="label">{techDebt > 0 ? 'Tech Debt' : 'Agents'}</div>
+          <div className="value">{techDebt > 0 ? fmt(techDebt) : `${caps.agentConcurrencyCap} cap`}</div>
+          <div className="label">{techDebt > 0 ? `${((techDebt/1000)*100).toFixed(0)}% ship penalty` : `${caps.parallelismCap} jobs`}</div>
         </div>
       </div>
 
       <div className="actions">
-        <button className="tron-button write-code" onClick={onClick}>Write Code (+LoC)</button>
-        <button className="tron-button ship-build" onClick={onShip} disabled={autoShip || shipAutomation > 0}>{autoShip || shipAutomation>0 ? 'Ship (Auto)' : 'Ship Build'}</button>
+        <button className="tron-button write-code" onClick={handleClickDebug}>Write Code (+LoC)</button>
+        <button className="tron-button ship-build" onClick={handleShipDebug} disabled={autoShip || shipAutomation > 0}>{autoShip || shipAutomation>0 ? 'Ship (Auto)' : 'Ship Build'}</button>
       </div>
+
+      <AgentDashboard />
+      <QualityIndicator />
+      <AutomationIndicator />
 
       <Milestones compact />
     </div>
