@@ -23,6 +23,20 @@ export async function saveNow() {
 
 export async function loadAndHydrate() {
   const saved: any = await get(SAVE_KEY)
+
+  // Validate save data - if tier 0 nodes are purchased but revenue is very low, consider it corrupt
+  if (saved && saved.purchased) {
+    const tier0Purchased = Object.keys(saved.purchased).filter(id => id.endsWith('0')).length
+    const revenue = saved.resources?.revenue || 0
+
+    // If all 8 tier 0 nodes are purchased but revenue is less than $10, the save is likely corrupt
+    if (tier0Purchased >= 8 && revenue < 10) {
+      console.warn('Detected corrupt save data - tier 0 nodes purchased with insufficient revenue. Starting fresh.')
+      await del(SAVE_KEY)
+      return
+    }
+  }
+
   if (saved) {
     useStore.setState(state => {
       // Migrate resources - add new fields if missing

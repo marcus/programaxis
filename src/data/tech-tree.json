@@ -36,7 +36,7 @@
           "id": "A0",
           "tier": 0,
           "name": "Cut & Paste",
-          "baseCost": 0,
+          "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
             { "stat": "loc_per_click", "type": "add", "value": 0.1 }
@@ -99,7 +99,7 @@
           "id": "B0",
           "tier": 0,
           "name": "Plain Editor",
-          "baseCost": 0,
+          "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
             { "stat": "loc_per_click", "type": "add", "value": 0.05 }
@@ -159,7 +159,7 @@
           "id": "C0",
           "tier": 0,
           "name": "Office Laptop",
-          "baseCost": 0,
+          "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
             { "stat": "idle_loc_per_sec", "type": "add", "value": 0.05 }
@@ -219,7 +219,7 @@
           "id": "D0",
           "tier": 0,
           "name": "Basic Workflow",
-          "baseCost": 0,
+          "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
             { "stat": "ship_fraction", "type": "add", "value": 0.05 }
@@ -279,7 +279,7 @@
           "id": "E0",
           "tier": 0,
           "name": "Solo Dev",
-          "baseCost": 0,
+          "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "cap", "value": 1 }
@@ -342,7 +342,7 @@
           "id": "F0",
           "tier": 0,
           "name": "Word of Mouth",
-          "baseCost": 0,
+          "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
             { "stat": "revenue_per_loc", "type": "add", "value": 0.01 }
@@ -401,7 +401,7 @@
           "id": "G0",
           "tier": 0,
           "name": "Basic Game",
-          "baseCost": 0,
+          "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
             { "stat": "features_multiplier", "type": "add", "value": 0.1 }
@@ -464,7 +464,7 @@
           "id": "H0",
           "tier": 0,
           "name": "Placeholder Art",
-          "baseCost": 0,
+          "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
             { "stat": "code_quality", "type": "add", "value": 0.05 }

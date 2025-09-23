@@ -61,6 +61,7 @@ export const TechTree: React.FC = () => {
   const unlocked = useStore(s => s.unlocked)
   const canBuy = useStore(s => s.canBuy)
   const buy = useStore(s => s.buyNode)
+
   const revenue = useStore(s => s.resources.revenue)
   const showDependencyGraph = useStore(s => s.ui.showDependencyGraph)
   const toggleDependencyGraph = useStore(s => s.toggleDependencyGraph)
@@ -165,6 +166,7 @@ export const TechTree: React.FC = () => {
             {br.nodes.map(n => {
               const isPurchased = !!purchased[n.id]
               const isUnlocked = unlocked.has(n.id)
+
               const c = costFor(n.id)
               const afford = revenue >= c
               const requires = (n.requires || []) as { node: string }[]

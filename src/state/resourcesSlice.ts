@@ -190,6 +190,7 @@ export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], Resource
     if (isNaN(state.resources.lifetimeRevenue) || state.resources.lifetimeRevenue === undefined) {
       state.resources.lifetimeRevenue = 0
     }
+
     state.resources.revenue += amount
     state.resources.lifetimeRevenue += amount
   }),

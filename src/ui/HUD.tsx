@@ -26,35 +26,6 @@ export const HUD: React.FC = () => {
   const onClick = useStore(s => s.click)
   const onShip = useStore(s => s.shipNow)
 
-  const handleClickDebug = () => {
-    console.log('Write Code button clicked!')
-    console.log('Current state:', {
-      loc: useStore.getState().resources.loc,
-      bufferedLoc: useStore.getState().systems?.shipping?.bufferedLoc,
-      locPerClick: useStore.getState().stats?.loc_per_click,
-      globalMult: useStore.getState().stats?.global_multiplier
-    })
-    onClick()
-    console.log('After click:', {
-      loc: useStore.getState().resources.loc,
-      bufferedLoc: useStore.getState().systems?.shipping?.bufferedLoc
-    })
-  }
-
-  const handleShipDebug = () => {
-    console.log('Ship Build button clicked!')
-    console.log('Current state:', {
-      bufferedLoc: useStore.getState().systems?.shipping?.bufferedLoc,
-      shipFraction: useStore.getState().stats?.ship_fraction,
-      revenue: useStore.getState().resources.revenue
-    })
-    const gained = onShip()
-    console.log('Revenue gained:', gained)
-    console.log('After ship:', {
-      bufferedLoc: useStore.getState().systems?.shipping?.bufferedLoc,
-      revenue: useStore.getState().resources.revenue
-    })
-  }
   const caps = useStore(s => s.caps)
 
   const techDebt = useStore(s => s.resources?.techDebt ?? 0)
@@ -88,8 +59,8 @@ export const HUD: React.FC = () => {
       </div>
 
       <div className="actions">
-        <button className="tron-button write-code" onClick={handleClickDebug}>Write Code (+LoC)</button>
-        <button className="tron-button ship-build" onClick={handleShipDebug} disabled={autoShip || shipAutomation > 0}>{autoShip || shipAutomation>0 ? 'Ship (Auto)' : 'Ship Build'}</button>
+        <button className="tron-button write-code" onClick={onClick}>Write Code (+LoC)</button>
+        <button className="tron-button ship-build" onClick={onShip} disabled={autoShip || shipAutomation > 0}>{autoShip || shipAutomation>0 ? 'Ship (Auto)' : 'Ship Build'}</button>
       </div>
 
       <AgentDashboard />

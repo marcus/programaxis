@@ -2,7 +2,7 @@ import React from 'react'
 import { HUD } from './HUD'
 import { TechTree } from './TechTree'
 import { Milestones } from './Milestones'
-import { clear } from 'idb-keyval'
+import { clear, del, get } from 'idb-keyval'
 
 export const App: React.FC = () => {
   const handleClearData = async () => {
@@ -14,14 +14,59 @@ export const App: React.FC = () => {
 
     if (confirmed) {
       try {
-        // Clear IndexedDB
+        // Stop auto-save to prevent re-saving during clearing
+        for (let i = 1; i < 10000; i++) {
+          clearInterval(i)
+        }
+
+        // Clear specific save key first
+        await del('programaxis_save_v1')
+
+        // Clear all idb-keyval data
         await clear()
 
-        // Clear localStorage as well (just in case)
+        // Clear localStorage
         localStorage.clear()
 
-        // Reload the page to start fresh
-        window.location.reload()
+        // Clear sessionStorage
+        sessionStorage.clear()
+
+        // Clear all IndexedDB databases more aggressively
+        if ('indexedDB' in window) {
+          try {
+            // Delete common database names
+            const dbNames = ['keyval-store', 'programaxis', 'programaxis_save_v1']
+            for (const dbName of dbNames) {
+              try {
+                const deleteReq = indexedDB.deleteDatabase(dbName)
+                await new Promise((resolve, reject) => {
+                  deleteReq.onsuccess = () => resolve(undefined)
+                  deleteReq.onerror = () => reject(deleteReq.error)
+                  deleteReq.onblocked = () => reject(new Error('Database deletion blocked'))
+                })
+              } catch (e) {
+                // Ignore errors for databases that don't exist
+              }
+            }
+          } catch (e) {
+            console.warn('Could not clear some IndexedDB databases:', e)
+          }
+        }
+
+        // Clear all cookies for this domain
+        if (document.cookie) {
+          document.cookie.split(";").forEach(cookie => {
+            const eqPos = cookie.indexOf("=")
+            const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim()
+            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`
+          })
+        }
+
+        // Wait longer to ensure all clearing completes
+        await new Promise(resolve => setTimeout(resolve, 500))
+
+        // Force reload without cache
+        window.location.href = window.location.href
       } catch (error) {
         console.error('Failed to clear data:', error)
         alert('Failed to clear data. Please try again or manually clear your browser data.')
