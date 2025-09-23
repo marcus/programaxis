@@ -9,3 +9,5 @@ Re-optimizing dependencies because lockfile has changed
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
 10:03:03 PM [vite] hmr update /src/ui/TechTree.tsx
+10:07:31 PM [vite] hmr update /src/index.css
+10:07:43 PM [vite] hmr update /src/ui/HUD.tsx

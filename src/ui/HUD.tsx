@@ -48,8 +48,8 @@ export const HUD: React.FC = () => {
       </div>
 
       <div className="actions">
-        <button onClick={onClick}>Write Code (+LoC)</button>
-        <button onClick={onShip} disabled={autoShip || shipAutomation > 0}>{autoShip || shipAutomation>0 ? 'Ship (Auto)' : 'Ship Build'}</button>
+        <button className="tron-button write-code" onClick={onClick}>Write Code (+LoC)</button>
+        <button className="tron-button ship-build" onClick={onShip} disabled={autoShip || shipAutomation > 0}>{autoShip || shipAutomation>0 ? 'Ship (Auto)' : 'Ship Build'}</button>
       </div>
 
       <Milestones compact />
