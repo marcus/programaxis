@@ -167,8 +167,11 @@ export const TechTree: React.FC = () => {
               const afford = revenue >= c
               const requires = (n.requires || []) as { node: string }[]
               const lines = effectLines(n)
+              const stateClass = isPurchased ? 'is-purchased' : isUnlocked ? 'is-unlocked' : 'is-locked'
+              const statusText = isPurchased ? 'Purchased' : isUnlocked ? 'Unlocked' : 'Locked'
               return (
-                <div key={n.id} className="node" data-node-id={n.id} style={{ position: 'relative', zIndex: 2 }}>
+                <div key={n.id} className={`node ${stateClass}`} data-node-id={n.id} style={{ position: 'relative', zIndex: 2 }}>
+                  <div className={`status-badge ${stateClass}`}>{statusText}</div>
                   <div className="node-hero">
                     <div className="icon-wrap">
                       <NodeIcon id={n.id} size={56} />
@@ -192,7 +195,7 @@ export const TechTree: React.FC = () => {
                   {isPurchased ? (
                     <div className="purchased">Purchased</div>
                   ) : (
-                    <button disabled={!isUnlocked || !afford} onClick={() => buy(n.id)}>
+                    <button className="tron-button" disabled={!isUnlocked || !afford} onClick={() => buy(n.id)}>
                       {isUnlocked ? (afford ? 'Buy' : 'Need $') : 'Locked'}
                     </button>
                   )}

@@ -213,6 +213,18 @@ a { color: var(--accent); }
 }
 
 /* Futuristic branch accents and node styling */
+/* Status badge styling */
+.status-badge { position: absolute; top: 8px; right: 8px; z-index: 3; font-family: "Orbitron", ui-sans-serif; font-size: 10px; letter-spacing: 0.08em; padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.35); backdrop-filter: blur(2px); text-transform: uppercase; }
+.status-badge.is-unlocked { color: #00eaff; border-color: rgba(0, 234, 255, 0.5); box-shadow: 0 0 12px rgba(0,234,255,0.25); }
+.status-badge.is-locked { color: #9bb1c9; opacity: 0.7; }
+.status-badge.is-purchased { color: #5ad6a0; border-color: rgba(90,214,160,0.6); box-shadow: 0 0 12px rgba(90,214,160,0.3); }
+
+/* Node state treatments */
+.branch .node.is-unlocked { box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 0 16px var(--branch-glow), 0 0 28px color-mix(in srgb, var(--branch-accent) 25%, transparent); }
+.branch .node.is-unlocked .icon-wrap { transform: scale(1.02); box-shadow: 0 0 0 1px var(--branch-accent), 0 0 28px var(--branch-glow) inset, 0 0 24px color-mix(in srgb, var(--branch-accent) 25%, transparent); }
+.branch .node.is-locked { opacity: 0.6; filter: grayscale(0.2) saturate(0.8); }
+.branch .node.is-locked .icon-wrap { opacity: 0.6; filter: grayscale(0.5); }
+.branch .node.is-purchased { border-color: rgba(90,214,160,0.6); box-shadow: 0 0 0 1px rgba(90,214,160,0.3), 0 0 20px rgba(90,214,160,0.25) inset; }
 .branch { --branch-accent: #5ad6a0; --branch-glow: rgba(90, 214, 160, 0.22); --branch-bg1: #0d1420; --branch-bg2: #0b121a; }
 .branch-A { --branch-accent: #46e6ff; --branch-glow: rgba(70, 230, 255, 0.25); --branch-bg1: #061622; --branch-bg2: #0b2433; }
 .branch-B { --branch-accent: #5aa6ff; --branch-glow: rgba(90, 166, 255, 0.22); --branch-bg1: #0a1424; --branch-bg2: #0b1b34; }

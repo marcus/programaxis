@@ -37,3 +37,6 @@ Re-optimizing dependencies because lockfile has changed
 10:15:41 PM [vite] page reload src/state/resourcesSlice.ts
 10:15:48 PM [vite] page reload src/game/progression.ts
 10:15:54 PM [vite] page reload src/game/progression.ts
+10:18:52 PM [vite] hmr update /src/ui/TechTree.tsx
+10:18:52 PM [vite] page reload src/state/store.ts
+10:18:52 PM [vite] hmr update /src/index.css
