@@ -27,3 +27,13 @@ Re-optimizing dependencies because lockfile has changed
 10:13:46 PM [vite] hmr update /src/ui/TechTree.tsx
 10:13:59 PM [vite] hmr update /src/ui/TechTree.tsx
 10:14:08 PM [vite] hmr update /src/ui/TechTree.tsx
+10:15:02 PM [vite] hmr update /src/ui/TechTree.tsx
+10:15:02 PM [vite] hmr update /src/index.css
+10:15:02 PM [vite] page reload index.html
+10:15:06 PM [vite] page reload src/game/persistence.ts
+10:15:23 PM [vite] page reload src/state/techSlice.ts
+10:15:29 PM [vite] page reload src/state/techSlice.ts
+10:15:33 PM [vite] page reload src/state/resourcesSlice.ts
+10:15:41 PM [vite] page reload src/state/resourcesSlice.ts
+10:15:48 PM [vite] page reload src/game/progression.ts
+10:15:54 PM [vite] page reload src/game/progression.ts

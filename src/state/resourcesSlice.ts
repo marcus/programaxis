@@ -1,4 +1,5 @@
 import type { StateCreator } from 'zustand'
+import { saveNow } from '../game/persistence'
 
 export interface ResourcesState {
   loc: number
@@ -115,6 +116,12 @@ export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], Resource
       state.systems.shipping.lastShipAt = Date.now()
     })
     s.addRevenue(gain)
+
+    // Save after significant revenue gain (shipping)
+    if (gain > 0) {
+      saveNow().catch(console.error)
+    }
+
     return gain
   },
   addLoc: (amount: number) => set(state => {

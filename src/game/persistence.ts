@@ -63,8 +63,21 @@ export async function loadAndHydrate() {
 }
 
 export function scheduleAutosave() {
-  setInterval(() => { saveNow() }, 10_000)
+  // Save every 3 seconds instead of 10
+  setInterval(() => { saveNow() }, 3_000)
+
+  // Save when tab becomes hidden (user switches tab/closes browser)
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') saveNow()
+  })
+
+  // Save before page unload
+  window.addEventListener('beforeunload', () => {
+    saveNow()
+  })
+
+  // Save when page regains focus (in case user comes back)
+  window.addEventListener('focus', () => {
+    saveNow()
   })
 }

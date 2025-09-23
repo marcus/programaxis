@@ -1,6 +1,7 @@
 import type { StateCreator } from 'zustand'
 import techTree from '../../context/tech-tree.json'
 import type { ResourcesSlice, StatsState } from './resourcesSlice'
+import { saveNow } from '../game/persistence'
 
 export type EffectType = 'add' | 'mul' | 'cap' | 'unlock' | 'toggle'
 export interface Effect { stat: string; type: EffectType; value: any; display?: string }
@@ -126,6 +127,9 @@ export const createTechSlice: StateCreator<ResourcesSlice & TechSlice, [], [], T
           if (prevOk && reqOk) state.unlocked.add(n.id)
         }
       }
+
+      // Save immediately after purchasing a node
+      saveNow().catch(console.error)
     }),
   }
 }

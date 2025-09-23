@@ -158,7 +158,7 @@ export const TechTree: React.FC = () => {
 
       <div ref={containerRef} className="techtree" style={{ position: 'relative' }}>
         {branches.map(br => (
-          <div key={br.key} className="branch">
+          <div key={br.key} className={`branch branch-${br.key}`}>
             <h3>{br.name}</h3>
             {br.nodes.map(n => {
               const isPurchased = !!purchased[n.id]
@@ -169,11 +169,16 @@ export const TechTree: React.FC = () => {
               const lines = effectLines(n)
               return (
                 <div key={n.id} className="node" data-node-id={n.id} style={{ position: 'relative', zIndex: 2 }}>
-                  <div className="title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <NodeIcon id={n.id} />
-                    <span>{n.id} · {n.name}</span>
+                  <div className="node-hero">
+                    <div className="icon-wrap">
+                      <NodeIcon id={n.id} size={56} />
+                    </div>
+                    <div className="node-head">
+                      <div className="node-id">{n.id}</div>
+                      <div className="node-name">{n.name}</div>
+                    </div>
                   </div>
-                  <div className="cost">Cost: ${c.toLocaleString()}</div>
+                  <div className="cost pill">Cost: ${c.toLocaleString()}</div>
                   {lines.length > 0 && (
                     <div className="effects">
                       {lines.map((l, i) => (
