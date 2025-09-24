@@ -1,6 +1,7 @@
 import React from 'react'
 import { useStore } from '../state/store'
 import milestonesData from '../data/milestones.json'
+import { MilestoneBackground } from './MilestoneBackground'
 
 interface Milestone {
   id: string
@@ -20,6 +21,8 @@ function fmt(n: number, digits = 2) {
 export const MilestoneProgress: React.FC = () => {
   const lifetimeRevenue = useStore(s => s.resources.lifetimeRevenue)
   const reachedMilestones = useStore(s => s.milestones.reached)
+  const recentAchievement = useStore(s => s.ui.recentAchievement)
+  const clearRecentAchievement = useStore(s => s.clearRecentAchievement)
 
   const milestones = milestonesData as Milestone[]
 
@@ -43,14 +46,20 @@ export const MilestoneProgress: React.FC = () => {
   if (!nextMilestone) {
     // All milestones completed
     return (
-      <div className="milestone-progress completed">
-        <div className="milestone-crown">👑</div>
-        <div className="milestone-content">
-          <div className="milestone-title">ALL MILESTONES COMPLETE</div>
-          <div className="milestone-subtitle">Reality Architect Achieved</div>
-          <div className="milestone-revenue">${fmt(lifetimeRevenue)}</div>
+      <MilestoneBackground
+        currentMilestoneId="M_10T"
+        progress={100}
+        isAchieving={false}
+      >
+        <div className="milestone-progress completed">
+          <div className="milestone-crown">👑</div>
+          <div className="milestone-content">
+            <div className="milestone-title">ALL MILESTONES COMPLETE</div>
+            <div className="milestone-subtitle">Reality Architect Achieved</div>
+            <div className="milestone-revenue">${fmt(lifetimeRevenue)}</div>
+          </div>
         </div>
-      </div>
+      </MilestoneBackground>
     )
   }
 
@@ -59,42 +68,59 @@ export const MilestoneProgress: React.FC = () => {
     : 100
   const remaining = Math.max(0, nextMilestone.threshold - lifetimeRevenue)
 
+  // Check if we're celebrating an achievement
+  const isAchieving = recentAchievement &&
+    (recentAchievement.id === currentMilestone?.id) &&
+    (Date.now() - recentAchievement.timestamp < 3000) // Animation lasts 3 seconds
+
+  const handleAchievementComplete = () => {
+    clearRecentAchievement()
+  }
+
   return (
-    <div className="milestone-progress">
-      <div className="milestone-header">
-        <div className="milestone-status">
-          {currentMilestone ? (
-            <>
-              <span className="current-milestone">✓ {currentMilestone.name}</span>
-              <span className="next-arrow">→</span>
-            </>
-          ) : (
-            <span className="starting">Starting Journey</span>
-          )}
-          <span className="next-milestone">{nextMilestone.name}</span>
+    <MilestoneBackground
+      currentMilestoneId={currentMilestone?.id || 'M_0'}
+      nextMilestoneId={nextMilestone.id}
+      progress={progress}
+      isAchieving={isAchieving}
+      onAchievementAnimationComplete={handleAchievementComplete}
+    >
+      <div className="milestone-progress">
+        <div className="milestone-header">
+          <div className="milestone-status">
+            {currentMilestone ? (
+              <>
+                <span className="current-milestone">✓ {currentMilestone.name}</span>
+                <span className="next-arrow">→</span>
+              </>
+            ) : (
+              <span className="starting">Starting Journey</span>
+            )}
+            <span className="next-milestone">{nextMilestone.name}</span>
+          </div>
         </div>
-      </div>
 
-      <div className="milestone-progress-bar">
-        <div className="progress-track">
-          <div
-            className="progress-fill"
-            style={{ width: `${progress}%` }}
-          />
-          <div className="progress-glow" style={{ left: `${progress}%` }} />
+        <div className="milestone-progress-bar">
+          <div className="progress-track">
+            <div
+              className="progress-fill"
+              style={{ width: `${progress}%` }}
+            />
+            <div className="progress-glow" style={{ left: `${progress}%` }} />
+          </div>
+          <div className="progress-labels">
+            <span className="current-amount">${fmt(lifetimeRevenue)}</span>
+            <span className="target-amount">${fmt(nextMilestone.threshold)}</span>
+          </div>
         </div>
-        <div className="progress-labels">
-          <span className="current-amount">${fmt(lifetimeRevenue)}</span>
-          <span className="target-amount">${fmt(nextMilestone.threshold)}</span>
-        </div>
-      </div>
 
-      <div className="milestone-details">
-        <div className="progress-percent">{progress.toFixed(1)}%</div>
-        <div className="remaining-amount">
-          ${fmt(remaining)} to go
+        <div className="milestone-details">
+          <div className="progress-percent">{progress.toFixed(1)}%</div>
+          <div className="remaining-amount">
+            ${fmt(remaining)} to go
+          </div>
         </div>
       </div>
-    </div>
+    </MilestoneBackground>
   )
 }

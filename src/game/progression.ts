@@ -53,13 +53,21 @@ export function checkMilestones() {
   const s = useStore.getState()
   const reached = new Set(s.milestones.reached.map(r => r.id))
   let anyNewMilestones = false
+  let newAchievementId: string | null = null
 
   for (const m of milestones) {
     if (!reached.has(m.id) && s.resources.lifetimeRevenue >= m.threshold) {
       m.apply()
       useStore.setState(state => { state.milestones.reached.push({ id: m.id, time: Date.now() }) })
       anyNewMilestones = true
+      newAchievementId = m.id // Track the most recent achievement
     }
+  }
+
+  // Trigger achievement animation for the newest milestone
+  if (newAchievementId) {
+    const { setRecentAchievement } = useStore.getState()
+    setRecentAchievement(newAchievementId)
   }
 
   // Save immediately when milestones are reached

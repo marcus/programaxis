@@ -15,6 +15,9 @@
 /* Progress bars and milestone components */
 @import './styles/progress.css';
 
+/* Milestone background animations and effects */
+@import './styles/milestone-backgrounds.css';
+
 /* Tech tree, nodes, and branches */
 @import './styles/tech-tree.css';
 
