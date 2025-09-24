@@ -94,6 +94,9 @@ export const createTechSlice: StateCreator<ResourcesSlice & TechSlice, [], [], T
               if (previousLevel === 0 && state.systems.shipping.automationLevel > 0) {
                 state.systems.shipping.lastAutoShipAt = Date.now()
               }
+            } else if (stat in state.caps) {
+              ;(state.caps as any)[stat] = (state.caps as any)[stat] || 0
+              ;(state.caps as any)[stat] += ef.value
             } else if (stat in state.stats) {
               const key = stat as keyof StatsState
               ensureStat(state.stats, key, 0)

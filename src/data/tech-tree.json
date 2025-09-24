@@ -61,7 +61,7 @@
           "costCurve": "soft_expo_115",
           "requires": [{ "node": "C1" }],
           "effects": [
-            { "stat": "agentConcurrencyCap", "type": "cap", "value": 2 },
+            { "stat": "agentConcurrencyCap", "type": "add", "value": 2 },
             { "stat": "bug_rate", "type": "mul", "value": 0.9 }
           ]
         },
@@ -184,7 +184,7 @@
           "baseCost": 2500,
           "costCurve": "soft_expo_115",
           "effects": [
-            { "stat": "agentConcurrencyCap", "type": "cap", "value": 3 },
+            { "stat": "agentConcurrencyCap", "type": "add", "value": 2 },
             { "stat": "agentProductivity", "type": "mul", "value": 1.25 }
           ]
         },
@@ -195,7 +195,7 @@
           "baseCost": 25000,
           "costCurve": "expo_118",
           "effects": [
-            { "stat": "agentConcurrencyCap", "type": "cap", "value": 5 },
+            { "stat": "agentConcurrencyCap", "type": "add", "value": 3 },
             { "stat": "global_multiplier", "type": "mul", "value": 1.2 }
           ]
         },
@@ -206,7 +206,7 @@
           "baseCost": 250000,
           "costCurve": "expo_118",
           "effects": [
-            { "stat": "agentConcurrencyCap", "type": "cap", "value": 10 },
+            { "stat": "agentConcurrencyCap", "type": "add", "value": 5 },
             { "stat": "idle_loc_per_sec", "type": "mul", "value": 2.0 }
           ]
         }
@@ -295,7 +295,7 @@
           "baseCost": 400,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "agentConcurrencyCap", "type": "cap", "value": 2 },
+            { "stat": "agentConcurrencyCap", "type": "add", "value": 1 },
             { "stat": "agentProductivity", "type": "mul", "value": 1.1 }
           ]
         },
@@ -307,7 +307,7 @@
           "costCurve": "soft_expo_115",
           "requires": [{ "node": "C2" }],
           "effects": [
-            { "stat": "agentConcurrencyCap", "type": "cap", "value": 3 },
+            { "stat": "agentConcurrencyCap", "type": "add", "value": 2 },
             { "stat": "passive_rev_per_sec", "type": "add", "value": 0.1 }
           ]
         },
@@ -319,7 +319,7 @@
           "costCurve": "expo_118",
           "requires": [{ "node": "C3" }],
           "effects": [
-            { "stat": "agentConcurrencyCap", "type": "cap", "value": 6 },
+            { "stat": "agentConcurrencyCap", "type": "add", "value": 4 },
             { "stat": "agentProductivity", "type": "mul", "value": 1.5 }
           ]
         },
@@ -331,7 +331,7 @@
           "costCurve": "expo_118",
           "requires": [{ "node": "C4" }],
           "effects": [
-            { "stat": "agentConcurrencyCap", "type": "cap", "value": 12 },
+            { "stat": "agentConcurrencyCap", "type": "add", "value": 6 },
             { "stat": "agentProductivity", "type": "mul", "value": 2.0 }
           ]
         }
