@@ -4,7 +4,7 @@ import { useStore } from '../state/store'
 export const CICDPipelineIndicator: React.FC = () => {
   const automationLevel = useStore(s => s.systems?.shipping?.automationLevel ?? 0)
   const manualShipAuto = useStore(s => s.systems?.shipping?.auto ?? false)
-  const lastAutoShipAt = useStore(s => s.systems?.shipping?.lastAutoShipAt ?? 0)
+  const lastAutoShipAt = useStore(s => s.systems?.shipping?.lastAutoShipAt)
   const [timeUntilNext, setTimeUntilNext] = useState(0)
   const [pipelineState, setPipelineState] = useState<'idle' | 'building' | 'deploying' | 'success'>('idle')
   const [isFlashing, setIsFlashing] = useState(false)
@@ -46,28 +46,33 @@ export const CICDPipelineIndicator: React.FC = () => {
         return
       }
 
-      const timeSinceLastDeploy = now - lastAutoShipAt
-      const timeUntilNextDeploy = Math.max(0, deployInterval - timeSinceLastDeploy)
+      if (lastAutoShipAt) {
+        const timeSinceLastDeploy = now - lastAutoShipAt
+        const timeUntilNextDeploy = Math.max(0, deployInterval - timeSinceLastDeploy)
 
-      setTimeUntilNext(timeUntilNextDeploy)
+        setTimeUntilNext(timeUntilNextDeploy)
 
-      // Detect new automated deploy and trigger flash
-      if (lastAutoShipAt > lastKnownDeployTime && lastAutoShipAt > 0) {
-        setLastKnownDeployTime(lastAutoShipAt)
+        // Detect new automated deploy and trigger flash
+        if (lastAutoShipAt > lastKnownDeployTime) {
+          setLastKnownDeployTime(lastAutoShipAt)
 
-        // Only flash if deploys are slower than 1/second (1000ms interval)
-        if (deployInterval >= 1000) {
-          setIsFlashing(true)
-          setTimeout(() => setIsFlashing(false), 500) // Flash for 500ms
+          // Only flash if deploys are slower than 1/second (1000ms interval)
+          if (deployInterval >= 1000) {
+            setIsFlashing(true)
+            setTimeout(() => setIsFlashing(false), 500) // Flash for 500ms
+          }
         }
+      } else {
+        // No deploys yet, show full countdown
+        setTimeUntilNext(deployInterval)
       }
 
       // Simulate pipeline states
-      if (timeUntilNextDeploy === 0) {
+      if (timeUntilNext === 0) {
         setPipelineState('success')
-      } else if (timeUntilNextDeploy < deployInterval * 0.3) {
+      } else if (timeUntilNext < deployInterval * 0.3) {
         setPipelineState('deploying')
-      } else if (timeUntilNextDeploy < deployInterval * 0.7) {
+      } else if (timeUntilNext < deployInterval * 0.7) {
         setPipelineState('building')
       } else {
         setPipelineState('idle')

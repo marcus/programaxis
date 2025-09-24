@@ -125,7 +125,7 @@ export async function loadAndHydrate() {
                        (s.stats.revenue_multiplier || 1) * (s.stats.features_multiplier || 1) *
                        (s.stats.price_premium || 1) * (s.stats.market_expansion || 1) * (s.stats.global_multiplier || 1)
 
-      const auto = s.systems?.shipping?.auto || (s.stats.ship_automation || 0) > 0 || (s.systems?.shipping?.automationLevel || 0) > 0
+      const auto = (s.systems?.shipping?.auto === true) || ((s.systems?.shipping?.automationLevel || 0) > 0)
       if (auto) {
         const shipped = offlineLoc * frac
         const offlineRevenue = shipped * revPerLoc + (s.stats.passive_rev_per_sec || 0) * dt

@@ -53,27 +53,26 @@ export function startGameLoop() {
     // Automated shipping based on automation level
     let shipRev = 0
     const autoLevel = s.systems?.shipping?.automationLevel || 0
-    const manualAuto = s.systems?.shipping?.auto || (s.stats.ship_automation || 0) > 0
+    const manualAuto = !!(s.systems?.shipping?.auto)
     const now = Date.now()
-    const lastAutoShip = s.systems?.shipping?.lastAutoShipAt || 0
+    const lastAutoShip = s.systems?.shipping?.lastAutoShipAt
 
     let shouldAutoShip = false
     if (manualAuto) {
+      // Manual auto-ship (explicit debug/override) ships at tick frequency
       shouldAutoShip = true
-    } else if (autoLevel > 0) {
+    } else if (autoLevel > 0 && lastAutoShip !== null && lastAutoShip !== undefined) {
       const interval = Math.max(1000, 20000 / Math.pow(2, autoLevel - 1)) // 20s, 10s, 5s, 2.5s, 1.25s...
       shouldAutoShip = (now - lastAutoShip) >= interval
     }
 
     if (shouldAutoShip) {
       shipRev = s.shipNow()
-      if (s.systems?.shipping) {
-        set(state => {
-          if (state.systems?.shipping) {
-            state.systems.shipping.lastAutoShipAt = now
-          }
-        })
-      }
+      set(state => {
+        if (state.systems?.shipping) {
+          state.systems.shipping.lastAutoShipAt = now
+        }
+      })
     }
 
     // Update UI rates

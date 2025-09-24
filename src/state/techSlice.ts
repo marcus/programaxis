@@ -87,7 +87,13 @@ export const createTechSlice: StateCreator<ResourcesSlice & TechSlice, [], [], T
         switch (ef.type) {
           case 'add': {
             if (stat === 'automationLevel') {
+              const previousLevel = state.systems.shipping.automationLevel
               state.systems.shipping.automationLevel += ef.value
+
+              // Initialize shipping timing when automation is first activated
+              if (previousLevel === 0 && state.systems.shipping.automationLevel > 0) {
+                state.systems.shipping.lastAutoShipAt = Date.now()
+              }
             } else if (stat in state.stats) {
               const key = stat as keyof StatsState
               ensureStat(state.stats, key, 0)

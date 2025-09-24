@@ -26,7 +26,7 @@ export const HUD: React.FC = () => {
   const autoShip = useStore(s => s.systems?.shipping?.auto ?? false)
   const shipAutomation = useStore(s => s.stats.ship_automation)
   const automationLevel = useStore(s => s.systems?.shipping?.automationLevel ?? 0)
-  const lastAutoShipAt = useStore(s => s.systems?.shipping?.lastAutoShipAt ?? 0)
+  const lastAutoShipAt = useStore(s => s.systems?.shipping?.lastAutoShipAt)
   const onClick = useStore(s => s.click)
   const onShip = useStore(s => s.shipNow)
 
@@ -40,7 +40,7 @@ export const HUD: React.FC = () => {
 
   // Track automated deploys and trigger light flash
   React.useEffect(() => {
-    if (lastAutoShipAt > lastKnownDeploy && lastAutoShipAt > 0) {
+    if (lastAutoShipAt && lastAutoShipAt > lastKnownDeploy) {
       setLastKnownDeploy(lastAutoShipAt)
 
       // Only flash if deploys are slower than 1/second
