@@ -30,6 +30,9 @@ function effectLines(n: any): { text: string; kind: 'loc' | 'ship' | 'revenue' |
     } else if (s === 'idle_loc_per_sec') {
       if (ef.type === 'mul') lines.push({ text: `Idle LoC/s ${formatPct(ef.value)}`, kind: 'loc' })
       else if (ef.type === 'add') lines.push({ text: `Idle LoC/s +${ef.value}`, kind: 'loc' })
+    } else if (s === 'compile_speed') {
+      if (ef.type === 'mul') lines.push({ text: `Coding speed ${formatPct(ef.value)}`, kind: 'loc' })
+      else if (ef.type === 'add') lines.push({ text: `Coding speed +${ef.value}x`, kind: 'loc' })
     } else if (s === 'ship_fraction') {
       if (ef.type === 'mul') lines.push({ text: `Ship fraction ${formatPct(ef.value)}`, kind: 'ship' })
       else if (ef.type === 'add') lines.push({ text: `Ship fraction +${Math.round(ef.value * 100)}%`, kind: 'ship' })
@@ -37,6 +40,9 @@ function effectLines(n: any): { text: string; kind: 'loc' | 'ship' | 'revenue' |
       if ((ef.type === 'add' && ef.value > 0) || (ef.type === 'toggle' && !!ef.value)) {
         lines.push({ text: 'Auto-ship enabled', kind: 'ship' })
       }
+    } else if (s === 'test_coverage') {
+      if (ef.type === 'mul') lines.push({ text: `Test coverage ${formatPct(ef.value)}`, kind: 'ship' })
+      else if (ef.type === 'add') lines.push({ text: `Test coverage +${Math.round(ef.value * 100)}%`, kind: 'ship' })
     } else if (s === 'revenue_per_loc') {
       if (ef.type === 'mul') lines.push({ text: `Revenue/LoC ${formatPct(ef.value)}`, kind: 'ship' })
       else if (ef.type === 'add') lines.push({ text: `Revenue/LoC +$${ef.value}`, kind: 'ship' })

@@ -15,11 +15,11 @@ function getQualityColor(quality: number): string {
   return '#ef4444'
 }
 
-function getBugRateColor(bugRate: number): string {
-  if (bugRate <= 0.3) return 'var(--accent)'
-  if (bugRate <= 0.5) return '#4ade80'
-  if (bugRate <= 0.7) return '#facc15'
-  if (bugRate <= 0.9) return '#f97316'
+function getBugFreeColor(bugFreeRate: number): string {
+  if (bugFreeRate >= 0.7) return 'var(--accent)'
+  if (bugFreeRate >= 0.5) return '#4ade80'
+  if (bugFreeRate >= 0.3) return '#facc15'
+  if (bugFreeRate >= 0.1) return '#f97316'
   return '#ef4444'
 }
 
@@ -34,6 +34,7 @@ function getTechDebtColor(debt: number): string {
 export const QualityIndicator: React.FC = () => {
   const codeQuality = useStore(s => s.stats?.code_quality ?? 1.0)
   const bugRate = useStore(s => s.stats?.bug_rate ?? 1.0)
+  const bugFreeRate = 1 - bugRate // Convert to bug-free percentage
   const testCoverage = useStore(s => s.stats?.test_coverage ?? 1.0)
   const techDebt = useStore(s => s.resources?.techDebt ?? 0)
   const payDownTechDebt = useStore(s => s.payDownTechDebt)
@@ -72,20 +73,20 @@ export const QualityIndicator: React.FC = () => {
 
         <div className="quality-metric">
           <div className="metric-row">
-            <span className="metric-label">Bug Rate:</span>
+            <span className="metric-label">Bug-Free:</span>
             <span
               className="metric-value"
-              style={{ color: getBugRateColor(bugRate) }}
+              style={{ color: getBugFreeColor(bugFreeRate) }}
             >
-              {(bugRate * 100).toFixed(0)}%
+              {(bugFreeRate * 100).toFixed(0)}%
             </span>
           </div>
           <div className="metric-bar">
             <div
               className="metric-fill"
               style={{
-                width: `${bugRate * 100}%`,
-                backgroundColor: getBugRateColor(bugRate)
+                width: `${bugFreeRate * 100}%`,
+                backgroundColor: getBugFreeColor(bugFreeRate)
               }}
             />
           </div>

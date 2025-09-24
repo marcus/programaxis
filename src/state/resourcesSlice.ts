@@ -135,7 +135,7 @@ export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], Resource
   },
   click: () => {
     const s = get()
-    const mult = (s.stats.focus_multiplier || 1) * (s.stats.global_multiplier || 1)
+    const mult = (s.stats.focus_multiplier || 1) * (s.stats.global_multiplier || 1) * (s.stats.compile_speed || 1)
     const d = (s.stats.loc_per_click || 1) * mult
     s.addLoc(d)
   },

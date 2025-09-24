@@ -1,5 +1,5 @@
 [
-  { "id": "M_0", "name": "Starving Artist", "threshold": 0 },
+  { "id": "M_0", "name": "Garage Hacker", "threshold": 0 },
   { "id": "M_1K", "name": "First Sale", "threshold": 1000 },
   { "id": "M_10K", "name": "Micro-Studio", "threshold": 10000 },
   { "id": "M_100K", "name": "Tooling Pays Off", "threshold": 100000 },
