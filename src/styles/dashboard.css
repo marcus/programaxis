@@ -317,3 +317,170 @@
   font-size: 12px;
   color: var(--warn);
 }
+
+/* CI/CD Pipeline Indicator */
+.cicd-pipeline-indicator {
+  background: linear-gradient(135deg, #0a1118 0%, #1a2332 50%, #0f1419 100%);
+  border: 1px solid #213148;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.pipeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.pipeline-header h3 {
+  margin: 0;
+  color: #00ced1;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.pipeline-level {
+  background: rgba(0, 206, 209, 0.1);
+  color: #00ced1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #00ced1;
+}
+
+.pipeline-description {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.pipeline-status {
+  margin-bottom: 16px;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border: 1px solid #2a3441;
+  margin-bottom: 8px;
+}
+
+.status-icon {
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.status-text {
+  flex: 1;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.countdown {
+  color: #00ced1;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 6px;
+  background: rgba(0, 206, 209, 0.1);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 206, 209, 0.3);
+}
+
+.pipeline-progress {
+  position: relative;
+}
+
+.pipeline-progress .progress-bar {
+  background: rgba(0, 0, 0, 0.4);
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  border: 1px solid #2a3441;
+}
+
+.pipeline-progress-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.pipeline-progress-fill.idle {
+  background: linear-gradient(90deg, #374151, #4b5563);
+  box-shadow: 0 0 4px rgba(75, 85, 99, 0.4);
+}
+
+.pipeline-progress-fill.building {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+}
+
+.pipeline-progress-fill.deploying {
+  background: linear-gradient(90deg, #00ced1, #48d1cc);
+  box-shadow: 0 0 8px rgba(0, 206, 209, 0.4);
+}
+
+.pipeline-progress-fill.success {
+  background: linear-gradient(90deg, #10b981, #34d399);
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2px;
+}
+
+.step-marker {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(155, 177, 201, 0.3);
+  border: 1px solid #2a3441;
+  transition: all 0.3s ease;
+}
+
+.step-marker.active {
+  background: #00ced1;
+  border-color: #00ced1;
+  box-shadow: 0 0 6px rgba(0, 206, 209, 0.6);
+}
+
+/* Enhanced Ship Build Button for CI/CD */
+.tron-button.ship-build.automated {
+  background: linear-gradient(135deg, rgba(0, 206, 209, 0.2), rgba(0, 206, 209, 0.1));
+  border-color: #00ced1;
+  color: #00ced1;
+  cursor: default;
+}
+
+.tron-button.ship-build.automated:hover {
+  background: linear-gradient(135deg, rgba(0, 206, 209, 0.3), rgba(0, 206, 209, 0.15));
+  box-shadow: 0 0 16px rgba(0, 206, 209, 0.3);
+}
+
+.cicd-indicator {
+  margin-right: 8px;
+  animation: pulse-cicd 2s infinite;
+}
+
+@keyframes pulse-cicd {
+  0%, 50%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  25%, 75% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}

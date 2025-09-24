@@ -4,7 +4,7 @@ import { Milestones } from './Milestones'
 import { MilestoneProgress } from './MilestoneProgress'
 import { AgentDashboard } from './AgentDashboard'
 import { QualityIndicator } from './QualityIndicator'
-import { AutomationIndicator } from './AutomationIndicator'
+import { CICDPipelineIndicator } from './CICDPipelineIndicator'
 import { actionAnimationSystem } from '../game/actionAnimationSystem'
 
 function fmt(n: number, digits = 2) {
@@ -24,6 +24,7 @@ export const HUD: React.FC = () => {
   const bufferedLoc = useStore(s => s.systems?.shipping?.bufferedLoc ?? 0)
   const autoShip = useStore(s => s.systems?.shipping?.auto ?? false)
   const shipAutomation = useStore(s => s.stats.ship_automation)
+  const automationLevel = useStore(s => s.systems?.shipping?.automationLevel ?? 0)
   const onClick = useStore(s => s.click)
   const onShip = useStore(s => s.shipNow)
 
@@ -78,9 +79,9 @@ export const HUD: React.FC = () => {
           Write Code (+LoC)
         </button>
         <button
-          className="tron-button ship-build"
+          className={`tron-button ship-build ${automationLevel > 0 || autoShip || shipAutomation > 0 ? 'automated' : ''}`}
           onClick={(e) => {
-            if (autoShip || shipAutomation > 0) return
+            if (autoShip || shipAutomation > 0 || automationLevel > 0) return
 
             const rect = e.currentTarget.getBoundingClientRect()
             const centerX = rect.left + rect.width / 2
@@ -93,15 +94,24 @@ export const HUD: React.FC = () => {
 
             onShip()
           }}
-          disabled={autoShip || shipAutomation > 0}
+          disabled={autoShip || shipAutomation > 0 || automationLevel > 0}
         >
-          {autoShip || shipAutomation>0 ? 'Ship (Auto)' : 'Ship Build'}
+          {automationLevel > 0 ? (
+            <>
+              <span className="cicd-indicator">🚀</span>
+              CI/CD Active
+            </>
+          ) : autoShip || shipAutomation > 0 ? (
+            'Ship (Auto)'
+          ) : (
+            'Manual Deploy'
+          )}
         </button>
       </div>
 
       <AgentDashboard />
       <QualityIndicator />
-      <AutomationIndicator />
+      <CICDPipelineIndicator />
 
       <Milestones compact />
     </div>

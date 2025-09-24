@@ -210,11 +210,18 @@
   --branch-bg2: #2a1d10; 
 }
 
-.branch-H { 
-  --branch-accent: #ff6e9a; 
-  --branch-glow: rgba(255, 110, 154, 0.28); 
-  --branch-bg1: #1a0e14; 
-  --branch-bg2: #2a1620; 
+.branch-H {
+  --branch-accent: #ff6e9a;
+  --branch-glow: rgba(255, 110, 154, 0.28);
+  --branch-bg1: #1a0e14;
+  --branch-bg2: #2a1620;
+}
+
+.branch-I {
+  --branch-accent: #00ced1;
+  --branch-glow: rgba(0, 206, 209, 0.30);
+  --branch-bg1: #0b1a1a;
+  --branch-bg2: #112a2a;
 }
 
 /* Enhanced branch node styling */

@@ -62,7 +62,16 @@ function effectLines(n: any): { text: string; kind: 'loc' | 'ship' | 'revenue' |
     } else if (s === 'agentConcurrencyCap') {
       if (ef.type === 'cap') lines.push({ text: `Agent slots: ${ef.value}`, kind: 'global' })
     } else if (s === 'automationLevel') {
-      if (ef.type === 'add') lines.push({ text: `Automation +${ef.value}`, kind: 'ship' })
+      if (ef.type === 'add') {
+        const levelTexts = {
+          1: 'Enable auto-ship (20s)',
+          2: 'Faster auto-ship (10s)',
+          4: 'Rapid auto-ship (5s)',
+          8: 'Instant auto-ship (1s)'
+        }
+        const description = levelTexts[ef.value as keyof typeof levelTexts] || `Automation +${ef.value} level`
+        lines.push({ text: description, kind: 'ship' })
+      }
     } else if (s === 'tech_debt_growth') {
       if (ef.type === 'mul') {
         if (ef.value === 0) lines.push({ text: `No tech debt growth`, kind: 'global' })

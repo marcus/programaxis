@@ -13,10 +13,10 @@
   ],
   "stats": {
     "base": {
-      "loc_per_click": 1.0,
-      "idle_loc_per_sec": 0.1,
-      "ship_fraction": 0.20,
-      "revenue_per_loc": 0.05,
+      "loc_per_click": 2.0,
+      "idle_loc_per_sec": 0.5,
+      "ship_fraction": 0.30,
+      "revenue_per_loc": 0.12,
       "ship_automation": 0,
       "agent_concurrency_cap": 0,
       "bug_rate": 1.0,
@@ -39,18 +39,18 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "loc_per_click", "type": "add", "value": 0.1 }
+            { "stat": "loc_per_click", "type": "add", "value": 1.0 }
           ]
         },
         {
           "id": "A1",
           "tier": 1,
           "name": "Autocomplete",
-          "baseCost": 300,
+          "baseCost": 150,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "loc_per_click", "type": "mul", "value": 1.3 },
-            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.2 }
+            { "stat": "loc_per_click", "type": "mul", "value": 1.5 },
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.5 }
           ]
         },
         {
@@ -102,18 +102,18 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "loc_per_click", "type": "add", "value": 0.05 }
+            { "stat": "loc_per_click", "type": "add", "value": 0.5 }
           ]
         },
         {
           "id": "B1",
           "tier": 1,
           "name": "Full IDE + Debugger",
-          "baseCost": 400,
+          "baseCost": 180,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "compile_speed", "type": "mul", "value": 1.25 },
-            { "stat": "test_coverage", "type": "mul", "value": 1.1 }
+            { "stat": "compile_speed", "type": "mul", "value": 1.4 },
+            { "stat": "test_coverage", "type": "mul", "value": 1.2 }
           ]
         },
         {
@@ -163,18 +163,18 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "idle_loc_per_sec", "type": "add", "value": 0.05 }
+            { "stat": "idle_loc_per_sec", "type": "add", "value": 0.3 }
           ]
         },
         {
           "id": "C1",
           "tier": 1,
           "name": "Multi-Core CPU",
-          "baseCost": 250,
+          "baseCost": 120,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.2 },
-            { "stat": "compile_speed", "type": "mul", "value": 1.1 }
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.6 },
+            { "stat": "compile_speed", "type": "mul", "value": 1.3 }
           ]
         },
         {
@@ -223,18 +223,18 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "ship_fraction", "type": "add", "value": 0.05 }
+            { "stat": "ship_fraction", "type": "add", "value": 0.15 }
           ]
         },
         {
           "id": "D1",
           "tier": 1,
           "name": "Testing Framework",
-          "baseCost": 280,
+          "baseCost": 140,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "test_coverage", "type": "mul", "value": 1.15 },
-            { "stat": "bug_rate", "type": "mul", "value": 0.95 }
+            { "stat": "test_coverage", "type": "mul", "value": 1.3 },
+            { "stat": "bug_rate", "type": "mul", "value": 0.85 }
           ]
         },
         {
@@ -347,17 +347,17 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "revenue_per_loc", "type": "add", "value": 0.01 }
+            { "stat": "revenue_per_loc", "type": "add", "value": 0.08 }
           ]
         },
         {
           "id": "F1",
           "tier": 1,
           "name": "Targeted Marketing",
-          "baseCost": 315,
+          "baseCost": 160,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "revenue_multiplier", "type": "mul", "value": 1.2 }
+            { "stat": "revenue_multiplier", "type": "mul", "value": 1.4 }
           ]
         },
         {
@@ -517,6 +517,69 @@
           "effects": [
             { "stat": "bug_rate", "type": "mul", "value": 0.1 },
             { "stat": "revenue_per_loc", "type": "mul", "value": 2.0 }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "I",
+      "name": "Shipping & CI/CD",
+      "nodes": [
+        {
+          "id": "I0",
+          "tier": 0,
+          "name": "Manual Deploy",
+          "baseCost": 1,
+          "costCurve": "soft_expo_112",
+          "effects": [
+            { "stat": "ship_fraction", "type": "add", "value": 0.10 }
+          ]
+        },
+        {
+          "id": "I1",
+          "tier": 1,
+          "name": "Basic CI Pipeline",
+          "baseCost": 200,
+          "costCurve": "soft_expo_112",
+          "effects": [
+            { "stat": "automationLevel", "type": "add", "value": 1 }
+          ]
+        },
+        {
+          "id": "I2",
+          "tier": 2,
+          "name": "Continuous Integration",
+          "baseCost": 3500,
+          "costCurve": "soft_expo_115",
+          "requires": [{ "node": "D1" }],
+          "effects": [
+            { "stat": "automationLevel", "type": "add", "value": 1 },
+            { "stat": "ship_fraction", "type": "add", "value": 0.1 }
+          ]
+        },
+        {
+          "id": "I3",
+          "tier": 3,
+          "name": "Continuous Deployment",
+          "baseCost": 35000,
+          "costCurve": "expo_118",
+          "requires": [{ "node": "D2" }],
+          "effects": [
+            { "stat": "automationLevel", "type": "add", "value": 2 },
+            { "stat": "revenue_multiplier", "type": "mul", "value": 1.3 }
+          ]
+        },
+        {
+          "id": "I4",
+          "tier": 4,
+          "name": "Zero-Downtime Deploy",
+          "baseCost": 350000,
+          "costCurve": "expo_118",
+          "requires": [{ "node": "D3" }],
+          "effects": [
+            { "stat": "automationLevel", "type": "add", "value": 4 },
+            { "stat": "ship_fraction", "type": "mul", "value": 2.0 },
+            { "stat": "revenue_multiplier", "type": "mul", "value": 1.5 }
           ]
         }
       ]

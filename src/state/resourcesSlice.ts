@@ -210,13 +210,24 @@ export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], Resource
     state.systems.agents.lastAgentUpdate = Date.now()
   }),
 
-  payDownTechDebt: (amount: number) => set(state => {
+  payDownTechDebt: (amount: number) => {
+    const s = get()
     const cost = amount * 2 // Each LoC pays down 0.5 debt
-    if (state.resources.loc >= cost) {
-      state.resources.loc -= cost
-      state.resources.techDebt = Math.max(0, state.resources.techDebt - amount)
+    console.log(`PayDownTechDebt: amount=${amount}, cost=${cost}, currentLoc=${s.resources.loc}, currentDebt=${s.resources.techDebt}`)
+
+    if (s.resources.loc >= cost) {
+      set(state => {
+        state.resources.loc -= cost
+        state.resources.techDebt = Math.max(0, state.resources.techDebt - amount)
+      })
+      console.log(`After payment: newLoc=${get().resources.loc}, newDebt=${get().resources.techDebt}`)
+
+      // Save immediately after debt payment to persist the change
+      saveNow().catch(console.error)
+    } else {
+      console.log(`Insufficient LoC: need ${cost}, have ${s.resources.loc}`)
     }
-  }),
+  },
 
   getEffectiveShipFraction: () => {
     const s = get()

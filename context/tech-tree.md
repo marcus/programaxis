@@ -37,54 +37,64 @@ flowchart TB
     C0 --> C1 --> C2 --> C3 --> C4
   end
 
-  subgraph D[Ergonomics & Workspace]
+  subgraph D[Workflow & Process]
     direction LR
-    D0["Basic Desk/Chair"]
-    D1["Ergo Chair + Dual Monitors"]
-    D2["Standing Desk + Input Upgrades"]
-    D3["AI Posture/Break Coach"]
-    D4["Neural I/O Pod"]
+    D0["Basic Workflow"]
+    D1["Testing Framework"]
+    D2["Quality Assurance"]
+    D3["Auto-Refactoring"]
+    D4["Perfect Process"]
     D0 --> D1 --> D2 --> D3 --> D4
   end
 
-  subgraph E["AI Agents (Team Size)"]
+  subgraph E["Team Scaling"]
     direction LR
     E0["Solo Dev"]
     E1["Helper Agent"]
-    E2["Specialist Agent Squad"]
-    E3["Swarm / Auto-Delegation"]
-    E4["Virtual Company at Scale"]
+    E2["Specialist Squad"]
+    E3["Agent Swarm"]
+    E4["Virtual Company"]
     E0 --> E1 --> E2 --> E3 --> E4
   end
 
-  subgraph F[Marketing & Distribution]
+  subgraph F[Marketing & Revenue]
     direction LR
     F0["Word of Mouth"]
-    F1["Targeted Ads + Influencers"]
-    F2["Automated A/B + CRM"]
-    F3["Memetic Marketing Engine"]
-    F4["Cultural Monopoly"]
+    F1["Targeted Marketing"]
+    F2["Growth Hacking"]
+    F3["Viral Marketing"]
+    F4["Market Domination"]
     F0 --> F1 --> F2 --> F3 --> F4
   end
 
-  subgraph G[Platforms & Game Features]
+  subgraph G[Product Features]
     direction LR
-    G0["PC Only • 2D Side-Scroller"]
-    G1["Mobile Port • DLC"]
-    G2["Online Multiplayer • IAP"]
-    G3["Cross-Platform • VR/AR • i18n"]
-    G4["Reality-Scale Gen Worlds"]
+    G0["Basic Game"]
+    G1["DLC & Updates"]
+    G2["Multiplayer & IAP"]
+    G3["Cross-Platform"]
+    G4["Metaverse Integration"]
     G0 --> G1 --> G2 --> G3 --> G4
   end
 
-  subgraph H[Graphics & Content Gen]
+  subgraph H[Quality & Polish]
     direction LR
-    H0["Hand-Drawn / Stock SFX"]
-    H1["Contract Artists / Procedural"]
-    H2["Early AI Art & Audio"]
-    H3["Hi-Fi 3D Gen + OST"]
-    H4["Infinite Photoreal Simulation"]
+    H0["Placeholder Art"]
+    H1["Professional Assets"]
+    H2["AI-Generated Content"]
+    H3["Premium Quality"]
+    H4["Perfect Code"]
     H0 --> H1 --> H2 --> H3 --> H4
+  end
+
+  subgraph I[Shipping & CI/CD]
+    direction LR
+    I0["Manual Deploy"]
+    I1["Basic CI Pipeline"]
+    I2["Continuous Integration"]
+    I3["Continuous Deployment"]
+    I4["Zero-Downtime Deploy"]
+    I0 --> I1 --> I2 --> I3 --> I4
   end
 
   %% =======================
@@ -107,11 +117,12 @@ flowchart TB
   B3 -.->|spatial workflows| A3
   B4 -.->|hands-off pipelines| E3
 
-  %% Ergonomics boosts sustained output & error rate
-  D1 -.->|focus + comfort| B1
-  D2 -.->|longer sessions| B2
-  D3 -.->|reduced fatigue| E2
-  D4 -.->|direct thought I/O| B4
+  %% Process quality gates shipping automation & quality
+  D1 -.->|testing foundation| I2
+  D2 -.->|quality gates| I3
+  D3 -.->|auto-refactoring| I4
+  D1 -.->|testing enables| B1
+  D2 -.->|quality processes| B2
 
   %% Platforms & Features depend on Models, Tools, Agents
   A2 -.->|networking scaffolds| G2
@@ -137,6 +148,12 @@ flowchart TB
   E2 -.->|campaign ops| F2
   E3 -.->|continuous growth loops| F3
 
+  %% CI/CD enables rapid iteration & deployment
+  I1 -.->|automated shipping| B2
+  I2 -.->|continuous integration| B3
+  I3 -.->|deployment automation| E3
+  I4 -.->|zero-downtime scaling| G3
+
   %% =======================
   %% KPI / GOAL (CENTERED AT BOTTOM)
   %% =======================
@@ -160,8 +177,10 @@ flowchart TB
   C2 -->|performance unlocks| R
   C3 -->|scale events + live-ops| R
 
-  %% Ergonomics contributions
-  D2 -->|sustained throughput| R
+  %% Process & Quality contributions
+  D2 -->|quality assurance| R
+  D3 -->|automated refactoring| R
+  D4 -->|perfect process| R
 
   %% Agents contributions
   E2 -->|parallel delivery| R
@@ -182,4 +201,10 @@ flowchart TB
   H2 -->|"asset cost↓ quality↑"| R
   H3 -->|premium visuals/audio| R
   H4 -->|limitless content| R
+
+  %% CI/CD & Shipping contributions
+  I1 -->|automated deployments| R
+  I2 -->|faster iteration cycles| R
+  I3 -->|continuous delivery| R
+  I4 -->|instant feature rollouts| R
   ```

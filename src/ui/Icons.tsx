@@ -283,6 +283,47 @@ export const NodeIcon: React.FC<{ id: string, size?: number }> = ({ id, size=20 
         <path d="M12 6v12M6 12h12M8.5 8.5l7 7M8.5 15.5l7-7" stroke={stroke} strokeWidth={sw} opacity="0.6"/>
       </svg>
     )
+
+    // I — Shipping & CI/CD
+    case 'I0': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="10" width="16" height="8" rx="2" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 14h8M10 16h4" stroke={stroke} strokeWidth={sw}/>
+        <path d="M12 10V8M12 8l-2 2M12 8l2 2" stroke={stroke} strokeWidth={sw}/>
+      </svg>
+    )
+    case 'I1': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="12" r="2" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="16" cy="12" r="2" stroke={stroke} strokeWidth={sw}/>
+        <path d="M10 12h4" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 10V8M8 8l-1 1M8 8l1 1" stroke={stroke} strokeWidth={sw}/>
+        <path d="M16 14v2M16 16l-1-1M16 16l1-1" stroke={stroke} strokeWidth={sw}/>
+      </svg>
+    )
+    case 'I2': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="8" width="6" height="8" rx="1" stroke={stroke} strokeWidth={sw}/>
+        <rect x="14" y="8" width="6" height="8" rx="1" stroke={stroke} strokeWidth={sw}/>
+        <path d="M10 12h4" stroke={stroke} strokeWidth={sw}/>
+        <path d="M11 12l1-2M13 12l-1 2" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="7" cy="12" r="1" fill={stroke}/>
+        <circle cx="17" cy="12" r="1" fill={stroke}/>
+      </svg>
+    )
+    case 'I3': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 12c0-4 4-8 8-8s8 4 8 8-4 8-8 8-8-4-8-8" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 12h8M12 8v8" stroke={stroke} strokeWidth={sw}/>
+        <path d="M12 8l-2 2M12 8l2 2M12 16l-2-2M12 16l2-2" stroke={stroke} strokeWidth={sw}/>
+      </svg>
+    )
+    case 'I4': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3l2 4 4 .6-3 3 .7 4.4-3.7-2-3.7 2 .7-4.4-3-3 4-.6 2-4z" stroke={stroke} strokeWidth={sw}/>
+        <path d="M12 12l4-4M12 12l-4 4M12 12l4 4M12 12l-4-4" stroke={stroke} strokeWidth={sw} opacity="0.4"/>
+      </svg>
+    )
   }
   // Default generic chip
   return (

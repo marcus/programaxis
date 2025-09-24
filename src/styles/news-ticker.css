@@ -121,12 +121,12 @@
 /* Mobile adjustments */
 @media (max-width: 767px) {
   .news-ticker {
-    bottom: 65px; /* Above mobile navigation by default */
+    bottom: calc(76px + max(8px, env(safe-area-inset-bottom))); /* Above mobile nav + safe area */
     height: 28px;
   }
 
   .news-ticker.at-bottom {
-    bottom: 105px; /* Above both footer and mobile nav when at bottom */
+    bottom: calc(76px + max(8px, env(safe-area-inset-bottom))); /* Stay above mobile nav on mobile */
   }
 
   .news-label {
