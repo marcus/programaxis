@@ -135,7 +135,8 @@ export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], Resource
   },
   click: () => {
     const s = get()
-    const mult = (s.stats.focus_multiplier || 1) * (s.stats.global_multiplier || 1) * (s.stats.compile_speed || 1)
+    const refactorBonus = 1 + ((s.stats.refactor_bonus || 0) * 0.1) // Each point = 10% bonus
+    const mult = (s.stats.global_multiplier || 1) * (s.stats.compile_speed || 1) * refactorBonus
     const d = (s.stats.loc_per_click || 1) * mult
     s.addLoc(d)
   },

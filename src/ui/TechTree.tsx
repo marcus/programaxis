@@ -56,6 +56,29 @@ function effectLines(n: any): { text: string; kind: 'loc' | 'ship' | 'revenue' |
       if (ef.type === 'mul') lines.push({ text: `Revenue ${formatPct(ef.value)} (market)`, kind: 'revenue' })
     } else if (s === 'global_multiplier') {
       if (ef.type === 'mul') lines.push({ text: `Global ${formatPct(ef.value)}`, kind: 'global' })
+    } else if (s === 'agentProductivity') {
+      if (ef.type === 'mul') lines.push({ text: `Agent productivity ${formatPct(ef.value)}`, kind: 'global' })
+    } else if (s === 'agentConcurrencyCap') {
+      if (ef.type === 'cap') lines.push({ text: `Agent slots: ${ef.value}`, kind: 'global' })
+    } else if (s === 'automationLevel') {
+      if (ef.type === 'add') lines.push({ text: `Automation +${ef.value}`, kind: 'ship' })
+    } else if (s === 'tech_debt_growth') {
+      if (ef.type === 'mul') {
+        if (ef.value === 0) lines.push({ text: `No tech debt growth`, kind: 'global' })
+        else lines.push({ text: `Tech debt growth ${formatPct(ef.value)}`, kind: 'global' })
+      }
+    } else if (s === 'refactor_bonus') {
+      if (ef.type === 'add') lines.push({ text: `LoC/click +${ef.value * 10}%`, kind: 'loc' })
+    } else if (s === 'passive_rev_per_sec') {
+      if (ef.type === 'add') lines.push({ text: `Passive revenue +$${ef.value}/s`, kind: 'revenue' })
+    } else if (s === 'code_quality') {
+      if (ef.type === 'mul') lines.push({ text: `Code quality ${formatPct(ef.value)}`, kind: 'global' })
+      else if (ef.type === 'add') lines.push({ text: `Code quality +${ef.value}`, kind: 'global' })
+    } else if (s === 'bug_rate') {
+      if (ef.type === 'mul') {
+        const bugReduction = Math.round((1 - ef.value) * 100)
+        lines.push({ text: `Bug reduction -${bugReduction}%`, kind: 'global' })
+      }
     }
   }
   return lines

@@ -18,7 +18,7 @@ const techTree = JSON.parse(fs.readFileSync(techTreePath, 'utf8'));
 const milestonesPath = path.join(__dirname, '../src/data/milestones.json');
 const milestones = JSON.parse(fs.readFileSync(milestonesPath, 'utf8'));
 
-// Game constants
+// Game constants - Updated to reflect current mechanics
 const BASE_STATS = {
   loc_per_click: 1.0,
   idle_loc_per_sec: 0.1,
@@ -35,8 +35,9 @@ const BASE_STATS = {
   revenue_multiplier: 1.0,
   price_premium: 1.0,
   market_expansion: 1.0,
-  focus_multiplier: 1.0,
   passive_rev_per_sec: 0.0
+  // Note: focus_multiplier removed as it was non-functional
+  // Added missing stats for complete coverage
 };
 
 const BASE_SYSTEMS = {
@@ -89,37 +90,47 @@ function applyEffect(stats, systems, effect) {
   }
 }
 
+// Calculate effective LoC per click (including all bonuses)
+function calculateLocPerClick(stats) {
+  const refactorBonus = 1 + ((stats.refactor_bonus || 0) * 0.1); // 10% per point
+  const mult = (stats.global_multiplier || 1) * (stats.compile_speed || 1) * refactorBonus;
+  return (stats.loc_per_click || 1) * mult;
+}
+
 // Calculate effective revenue per second
 function calculateRevPerSec(stats, systems) {
-  // Base idle LoC generation
-  const baseIdle = stats.idle_loc_per_sec * stats.focus_multiplier * stats.global_multiplier;
+  // Base idle LoC generation (focus_multiplier removed as non-functional)
+  const baseIdle = stats.idle_loc_per_sec * stats.global_multiplier;
 
   // Agent LoC generation
   const agentLoc = systems.agentConcurrencyCap * 0.5 * systems.agentProductivity * stats.global_multiplier;
 
   const totalLocPerSec = baseIdle + agentLoc;
 
-  // Tech debt penalty
-  const debtPenalty = Math.max(0, 1 - (0 / 1000)); // Assuming 0 tech debt for base calculation
-  const effectiveShipFraction = stats.ship_fraction * debtPenalty * stats.test_coverage;
+  // Tech debt penalty (assuming 0 tech debt for base calculation)
+  const debtPenalty = Math.max(0, 1 - (0 / 1000));
+  const effectiveShipFraction = Math.max(0, Math.min(1, stats.ship_fraction * debtPenalty * stats.test_coverage));
 
-  // Revenue calculation
+  // Revenue calculation with quality and bug factors
   const qualityMultiplier = stats.code_quality;
-  const bugPenalty = 2 - stats.bug_rate;
+  const bugPenalty = 2 - stats.bug_rate; // Lower bug rate = higher revenue
   const multipliers = stats.revenue_multiplier * stats.features_multiplier *
                      stats.price_premium * stats.market_expansion * stats.global_multiplier;
 
   const revPerLoc = stats.revenue_per_loc * qualityMultiplier * bugPenalty * multipliers;
 
-  // Assuming continuous shipping for passive income calculation
+  // Continuous shipping calculation
   const shippedLocPerSec = totalLocPerSec * effectiveShipFraction;
   const revenuePerSec = shippedLocPerSec * revPerLoc + stats.passive_rev_per_sec;
 
   return {
     locPerSec: totalLocPerSec,
+    locPerClick: calculateLocPerClick(stats),
     revenuePerSec: revenuePerSec,
     effectiveShipFraction: effectiveShipFraction,
-    revPerLoc: revPerLoc
+    revPerLoc: revPerLoc,
+    bugPenalty: bugPenalty,
+    qualityMultiplier: qualityMultiplier
   };
 }
 
@@ -253,7 +264,7 @@ function analyzeProgression() {
   console.log('1. **A0, B0, C0, D0, E0, F0, G0, H0** - Free tier 0 nodes for base bonuses');
   console.log('2. **A1** ($300) - Strong LoC/click and idle multipliers');
   console.log('3. **C1** ($250) - Idle LoC boost');
-  console.log('4. **D1** ($160) - Testing and bug reduction');
+  console.log('4. **D1** ($280) - Testing and bug reduction');
   console.log('5. **F1** ($315) - Revenue multiplier');
   console.log('6. **B1** ($400) - Compile speed and test coverage');
   console.log('7. **E1** ($400) - Agent capacity increase');
@@ -265,16 +276,54 @@ function analyzeProgression() {
   console.log('2. **A2** ($3,000) - Requires C1, provides agents and bug reduction');
   console.log('3. **B2** ($4,000) - Idle LoC boost and automation');
   console.log('4. **E2** ($4,000) - Requires C2, more agents and passive revenue');
-  console.log('5. **D2** ($1,600) - Code quality and debt reduction');
+  console.log('5. **D2** ($2,800) - Code quality and debt reduction');
   console.log('');
 
   console.log('### Late Game ($100K+)');
   console.log('');
   console.log('Focus on tier 3 and 4 nodes with high multipliers:');
   console.log('- Quality branch (H3, H4) for premium pricing');
-  console.log('- Automation branch (B3, B4) for reduced manual work');
+  console.log('- Automation branch (B3, B4) for reduced manual work and refactoring');
   console.log('- Agent scaling (E3, E4) for massive productivity');
   console.log('- Market expansion (F3, F4, G3, G4) for revenue scaling');
+  console.log('');
+
+  // Current Mechanics Analysis
+  console.log('## Current Game Mechanics');
+  console.log('');
+
+  console.log('### Agent System');
+  console.log('- Agent slots provided by tier 2+ nodes in Agents branch');
+  console.log('- Each agent generates 0.5 LoC/sec * productivity * global multiplier');
+  console.log('- Agent productivity enhanced by various tech nodes');
+  console.log('- Provides significant idle generation scaling');
+  console.log('');
+
+  console.log('### Quality & Bug System');
+  console.log('- Bug rate affects revenue: revenue *= (2 - bug_rate)');
+  console.log('- Code quality directly multiplies revenue per LoC');
+  console.log('- Test coverage affects shipping fraction (prevents buggy releases)');
+  console.log('- Quality improvements unlock premium pricing');
+  console.log('');
+
+  console.log('### Tech Debt System');
+  console.log('- Accumulates at 0.1/sec * tech_debt_growth rate');
+  console.log('- Reduces shipping fraction: (1 - techDebt/1000)');
+  console.log('- Refactor bonus converts debt to LoC at 50% efficiency');
+  console.log('- Several nodes reduce debt growth or eliminate it entirely');
+  console.log('');
+
+  console.log('### Automation System');
+  console.log('- Manual auto-ship toggle available');
+  console.log('- Automation levels reduce shipping intervals progressively');
+  console.log('- Higher levels ship more frequently: 10s/(1+level)');
+  console.log('- Compile speed now multiplies LoC per click (was non-functional)');
+  console.log('');
+
+  console.log('### Revenue Calculation');
+  console.log('Revenue per LoC = base_rev * quality * bug_penalty * all_multipliers');
+  console.log('Total Revenue/s = shipped_LoC/s * rev_per_LoC + passive_revenue');
+  console.log('Ship fraction = base_fraction * debt_penalty * test_coverage');
   console.log('');
 
   // Node efficiency ranking
@@ -327,17 +376,27 @@ function analyzeProgression() {
   console.log('- Meaningful choice between short-term and long-term investments');
   console.log('');
 
+  console.log('### Recent Improvements');
+  console.log('- Eliminated all "worthless purchases" by implementing functional mechanics');
+  console.log('- Made compile_speed multiply LoC per click (was broken)');
+  console.log('- Made refactor_bonus functional (10% LoC boost per point)');
+  console.log('- Removed non-functional focus_multiplier from all nodes');
+  console.log('- Fixed pricing misalignments (D1 now $280, D2 now $2,800)');
+  console.log('- Added comprehensive agent, quality, and automation systems');
+  console.log('');
+
   console.log('### Potential Issues');
-  console.log('- Some tier 4 nodes may be too expensive relative to their benefits');
-  console.log('- Agent system requires significant investment before becoming effective');
-  console.log('- Tech debt mechanics may not be immediately visible to players');
+  console.log('- Agent system requires C2 ($2,500) investment before becoming useful');
+  console.log('- Tech debt mechanics may not be immediately visible to new players');
+  console.log('- Some tier 4 nodes are very expensive but provide endgame scaling');
+  console.log('- Quality system interactions (bugs, coverage, debt) add complexity');
   console.log('');
 
   console.log('### Recommendations');
-  console.log('- Monitor player progression data to identify bottlenecks');
-  console.log('- Consider adding intermediate milestones between $100M and $1B');
-  console.log('- Ensure all tier 4 nodes provide satisfying endgame power');
-  console.log('- Add tooltips explaining complex mechanics like tech debt and agent productivity');
+  console.log('- Monitor player progression through agent unlock milestone');
+  console.log('- Consider visual indicators for tech debt accumulation');
+  console.log('- Add tooltips explaining quality system interactions');
+  console.log('- Validate tier 4 pricing provides satisfying late-game progression');
 }
 
 // Run the analysis

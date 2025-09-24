@@ -135,7 +135,8 @@
           "costCurve": "expo_118",
           "effects": [
             { "stat": "refactor_bonus", "type": "add", "value": 2.0 },
-            { "stat": "ship_fraction", "type": "mul", "value": 1.2 }
+            { "stat": "ship_fraction", "type": "mul", "value": 1.2 },
+            { "stat": "loc_per_click", "type": "mul", "value": 1.5 }
           ]
         },
         {
@@ -229,7 +230,7 @@
           "id": "D1",
           "tier": 1,
           "name": "Testing Framework",
-          "baseCost": 160,
+          "baseCost": 280,
           "costCurve": "soft_expo_112",
           "effects": [
             { "stat": "test_coverage", "type": "mul", "value": 1.15 },
@@ -255,7 +256,8 @@
           "costCurve": "soft_expo_115",
           "effects": [
             { "stat": "refactor_bonus", "type": "add", "value": 5.0 },
-            { "stat": "tech_debt_growth", "type": "mul", "value": 0.8 }
+            { "stat": "tech_debt_growth", "type": "mul", "value": 0.8 },
+            { "stat": "code_quality", "type": "mul", "value": 1.2 }
           ]
         },
         {

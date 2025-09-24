@@ -19,7 +19,7 @@ export function startGameLoop() {
     }
 
     // Idle LoC generation (base + agents)
-    const baseIdleLoc = (s.stats.idle_loc_per_sec || 0) * (s.stats.focus_multiplier || 1) * (s.stats.global_multiplier || 1)
+    const baseIdleLoc = (s.stats.idle_loc_per_sec || 0) * (s.stats.global_multiplier || 1)
     const agentLoc = s.getAgentLocPerSec ? s.getAgentLocPerSec() : 0
     const totalLocDelta = (baseIdleLoc + agentLoc) * dt
     s.addLoc(totalLocDelta)

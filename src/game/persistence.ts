@@ -100,7 +100,7 @@ export async function loadAndHydrate() {
     const dt = ms / 1000
     if (dt > 0) {
       // Calculate offline LoC generation (base + agents)
-      const baseLocRate = (s.stats.idle_loc_per_sec || 0) * (s.stats.focus_multiplier || 1) * (s.stats.global_multiplier || 1)
+      const baseLocRate = (s.stats.idle_loc_per_sec || 0) * (s.stats.global_multiplier || 1)
       const agentLocRate = (s.systems?.agents?.activeAgents || 0) * 0.5 * (s.systems?.agents?.agentProductivity || 1) * (s.stats.global_multiplier || 1)
       const totalLocRate = baseLocRate + agentLocRate
       const offlineLoc = totalLocRate * dt
