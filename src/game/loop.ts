@@ -57,10 +57,12 @@ export function startGameLoop() {
     const now = Date.now()
     const lastAutoShip = s.systems?.shipping?.lastAutoShipAt || 0
 
-    let shouldAutoShip = manualAuto
-    if (autoLevel > 0) {
+    let shouldAutoShip = false
+    if (manualAuto) {
+      shouldAutoShip = true
+    } else if (autoLevel > 0) {
       const interval = Math.max(1000, 20000 / Math.pow(2, autoLevel - 1)) // 20s, 10s, 5s, 2.5s, 1.25s...
-      shouldAutoShip = shouldAutoShip || (now - lastAutoShip) >= interval
+      shouldAutoShip = (now - lastAutoShip) >= interval
     }
 
     if (shouldAutoShip) {
