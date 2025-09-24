@@ -5,12 +5,17 @@ import { Milestones } from './Milestones'
 import { TechPurchaseAnimation } from './TechPurchaseAnimation'
 import { ActionButtonAnimation } from './ActionButtonAnimation'
 import { AnimationTestPanel } from './AnimationTestPanel'
+import { IntroModal } from './IntroModal'
+import { useStore } from '../state/store'
 import { clear, del, get } from 'idb-keyval'
 
 // Set to true to enable animation testing panel
 const ENABLE_ANIMATION_TESTING = false
 
 export const App: React.FC = () => {
+  // Subscribe to UI state for intro modal
+  const showIntroModal = useStore(state => state.ui.showIntroModal)
+  const markIntroAsSeen = useStore(state => state.markIntroAsSeen)
   const handleClearData = async () => {
     const confirmed = window.confirm(
       '⚠️ WARNING: This will permanently delete ALL your save data!\n\n' +
@@ -119,6 +124,10 @@ export const App: React.FC = () => {
       <TechPurchaseAnimation />
       <ActionButtonAnimation />
       {ENABLE_ANIMATION_TESTING && <AnimationTestPanel />}
+      <IntroModal
+        isOpen={showIntroModal}
+        onClose={markIntroAsSeen}
+      />
     </div>
   )
 }

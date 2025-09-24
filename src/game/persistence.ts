@@ -16,6 +16,7 @@ export async function saveNow() {
     discounts: s.discounts,
     timers: s.timers,
     milestones: s.milestones,
+    ui: s.ui,
   }
   await set(SAVE_KEY, snapshot)
   useStore.setState(state => { state.timers.lastSavedAt = Date.now() })
@@ -85,6 +86,15 @@ export async function loadAndHydrate() {
       state.discounts = saved.discounts || {}
       state.timers = saved.timers || state.timers
       state.milestones = saved.milestones || state.milestones
+
+      // Migrate UI state - preserve intro status if exists
+      state.ui = {
+        ...state.ui,
+        ...(saved.ui || {}),
+        // If no saved UI state, this is a new player - show intro
+        showIntroModal: !saved.ui,
+        hasSeenIntro: saved.ui?.hasSeenIntro ?? false
+      }
     })
 
     // Ensure all required properties exist after load
@@ -123,6 +133,12 @@ export async function loadAndHydrate() {
         useStore.setState(state => { state.systems.shipping.bufferedLoc += (offlineLoc - shipped) })
       }
     }
+  } else {
+    // No saved data - this is a completely new player
+    useStore.setState(state => {
+      state.ui.showIntroModal = true
+      state.ui.hasSeenIntro = false
+    })
   }
 }
 
