@@ -13,16 +13,50 @@ export class ActionAnimationSystem {
   private eventQueue: ActionAnimationEvent[] = []
   private isProcessing = false
   private lastAnimationTime = 0
-  private animationThrottle = 50 // Minimum ms between animations
-  private performanceMode = 'high' // 'high', 'medium', 'low'
+  private animationThrottle = 80 // More aggressive throttling
+  private performanceMode = 'medium' // Start at medium instead of high
   private frameCount = 0
   private fps = 60
+  private batteryAware = false
 
   static getInstance(): ActionAnimationSystem {
     if (!ActionAnimationSystem.instance) {
       ActionAnimationSystem.instance = new ActionAnimationSystem()
+      ActionAnimationSystem.instance.detectBatteryMode()
     }
     return ActionAnimationSystem.instance
+  }
+
+  // Detect battery saver mode or low battery
+  private async detectBatteryMode(): Promise<void> {
+    if ('getBattery' in navigator) {
+      try {
+        const battery = await (navigator as any).getBattery()
+        this.batteryAware = !battery.charging && battery.level < 0.3
+        if (this.batteryAware) {
+          this.performanceMode = 'low'
+          this.animationThrottle = 200
+        }
+
+        // Listen for battery changes
+        battery.addEventListener('levelchange', () => {
+          const wasAware = this.batteryAware
+          this.batteryAware = !battery.charging && battery.level < 0.3
+          if (this.batteryAware !== wasAware) {
+            this.performanceMode = this.batteryAware ? 'low' : 'medium'
+            this.animationThrottle = this.batteryAware ? 200 : 80
+          }
+        })
+      } catch (e) {
+        // Battery API not supported, continue normally
+      }
+    }
+
+    // Also check for reduced motion preference
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.performanceMode = 'low'
+      this.animationThrottle = 300
+    }
   }
 
   subscribe(listener: (event: ActionAnimationEvent) => void): () => void {
@@ -32,21 +66,28 @@ export class ActionAnimationSystem {
     }
   }
 
-  // Monitor performance and adjust quality
+  // Monitor performance and adjust quality aggressively
   updatePerformance(deltaTime: number): void {
     this.frameCount++
-    if (this.frameCount % 60 === 0) { // Check every 60 frames
-      this.fps = 1000 / deltaTime
+    if (this.frameCount % 30 === 0) { // Check more frequently (every 30 frames)
+      this.fps = Math.min(this.fps * 0.9 + (1000 / deltaTime) * 0.1, 1000 / deltaTime) // Smooth FPS calculation
 
-      if (this.fps < 30) {
+      // More aggressive performance degradation for battery saving
+      if (this.batteryAware || this.fps < 25) {
         this.performanceMode = 'low'
-        this.animationThrottle = 200
-      } else if (this.fps < 50) {
+        this.animationThrottle = 300
+      } else if (this.fps < 40) {
+        this.performanceMode = 'medium'
+        this.animationThrottle = 150
+      } else if (this.fps < 55) {
         this.performanceMode = 'medium'
         this.animationThrottle = 100
       } else {
-        this.performanceMode = 'high'
-        this.animationThrottle = 50
+        // Only allow high mode if battery is not a concern and FPS is good
+        if (!this.batteryAware) {
+          this.performanceMode = 'high'
+          this.animationThrottle = 80
+        }
       }
     }
   }
@@ -54,12 +95,12 @@ export class ActionAnimationSystem {
   getPerformanceSettings() {
     switch (this.performanceMode) {
       case 'low':
-        return { particleCount: 4, duration: 280, quality: 0.4 }
+        return { particleCount: 2, duration: 150, quality: 0.3 } // Reduced significantly
       case 'medium':
-        return { particleCount: 7, duration: 350, quality: 0.6 }
+        return { particleCount: 4, duration: 200, quality: 0.5 } // Reduced significantly
       case 'high':
       default:
-        return { particleCount: 12, duration: 420, quality: 0.8 } // Dialed back 30%
+        return { particleCount: 6, duration: 250, quality: 0.6 } // Reduced by 50%
     }
   }
 
@@ -141,34 +182,34 @@ export class ActionAnimationSystem {
 
     const baseConfigs = {
       'write-code': {
-        particleCount: Math.round(settings.particleCount * 0.5), // Reduced by ~30%
-        duration: settings.duration * 0.7, // Shorter
-        symbols: ['<', '>', '{', '}', ';', '=', '(', ')'],
+        particleCount: settings.particleCount, // Use the reduced settings directly
+        duration: settings.duration, // Use the reduced settings directly
+        symbols: ['<', '>', '{', '}'],
         color: '#5ad6a0',
         motion: 'float-up',
-        gravity: -30, // Less aggressive
-        spread: 25, // Tighter spread
-        size: [1.5, 3.5] // Smaller sparks
+        gravity: 20, // Gentler physics
+        spread: 15, // Much tighter spread
+        size: [1.5, 2.5] // Smaller sparks for efficiency
       },
       'ship-build': {
-        particleCount: Math.round(settings.particleCount * 0.6), // Reduced
-        duration: settings.duration * 0.8, // Shorter
-        symbols: ['📦', '🚀', '⚡', '✨'],
+        particleCount: settings.particleCount,
+        duration: settings.duration,
+        symbols: ['📦', '🚀'],
         color: '#ffca5f',
         motion: 'radial-burst',
-        gravity: 80, // Less dramatic fall
-        spread: 35, // Tighter spread
-        size: [2, 5] // Smaller particles
+        gravity: 40, // Much gentler fall
+        spread: 20, // Tighter spread
+        size: [2, 3] // Smaller particles
       },
       'pay-debt': {
-        particleCount: Math.round(settings.particleCount * 0.7), // Reduced
-        duration: settings.duration * 0.85, // Shorter
-        symbols: ['💸', '💰', '🔧', '✨'],
+        particleCount: settings.particleCount,
+        duration: settings.duration,
+        symbols: ['💸', '🔧'],
         color: '#f45b69',
         motion: 'spiral-dissolve',
-        gravity: 20, // Gentler
-        spread: 30, // Tighter spread
-        size: [1.5, 4] // Smaller
+        gravity: 15, // Very gentle
+        spread: 18, // Tight spread
+        size: [1.5, 2.5] // Small particles
       }
     }
 

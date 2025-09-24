@@ -116,7 +116,20 @@ export const HUD: React.FC = () => {
           >
             {automationLevel > 0 ? (
               <>
-                <span className="cicd-indicator">🚀</span>
+                <span className="cicd-indicator">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L4 7l8-5 8 5-8-5z" fill="currentColor" opacity="0.8"/>
+                    <path d="M12 2v20l-2-6h4l-2 6z" fill="currentColor"/>
+                    <path d="M10 16h4v2h-4z" fill="currentColor" opacity="0.6"/>
+                    <path d="M8 7l4-5 4 5-2 2h-4l-2-2z" fill="currentColor" opacity="0.9"/>
+                    <circle cx="7" cy="12" r="1.5" fill="#ff6b6b" opacity="0.8"/>
+                    <circle cx="17" cy="12" r="1.5" fill="#ff6b6b" opacity="0.8"/>
+                    <circle cx="6" cy="15" r="1" fill="#ffd93d" opacity="0.6"/>
+                    <circle cx="18" cy="15" r="1" fill="#ffd93d" opacity="0.6"/>
+                    <circle cx="5.5" cy="9" r="0.8" fill="#ff9ff3" opacity="0.5"/>
+                    <circle cx="18.5" cy="9" r="0.8" fill="#ff9ff3" opacity="0.5"/>
+                  </svg>
+                </span>
                 Manual Deploy
               </>
             ) : autoShip || shipAutomation > 0 ? (

@@ -8,7 +8,8 @@
       "Bash(npm run analyze:save:*)",
       "Bash(npm run build:*)",
       "mcp__ide__getDiagnostics",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npm run analyze:*)"
     ],
     "deny": [],
     "ask": []

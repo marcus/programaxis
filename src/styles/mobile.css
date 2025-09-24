@@ -117,6 +117,8 @@
   .actions {
     gap: 12px;
     margin-top: 12px;
+    justify-content: center;
+    align-items: center;
   }
 
   .actions .tron-button {

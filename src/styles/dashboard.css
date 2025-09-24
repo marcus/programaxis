@@ -472,6 +472,21 @@
 .cicd-indicator {
   margin-right: 8px;
   animation: pulse-cicd 2s infinite;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cicd-indicator svg {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+  animation: rocket-hover 3s ease-in-out infinite alternate;
+}
+
+@keyframes rocket-hover {
+  0% { transform: translateY(0px) rotate(-1deg); }
+  100% { transform: translateY(-1px) rotate(1deg); }
 }
 
 @keyframes pulse-cicd {
