@@ -7,6 +7,8 @@ export const CICDPipelineIndicator: React.FC = () => {
   const lastAutoShipAt = useStore(s => s.systems?.shipping?.lastAutoShipAt ?? 0)
   const [timeUntilNext, setTimeUntilNext] = useState(0)
   const [pipelineState, setPipelineState] = useState<'idle' | 'building' | 'deploying' | 'success'>('idle')
+  const [isFlashing, setIsFlashing] = useState(false)
+  const [lastKnownDeployTime, setLastKnownDeployTime] = useState(0)
 
   const getDeployFrequency = (level: number) => {
     if (level === 0) return { interval: 0, description: 'Manual Deploy Only' }
@@ -49,6 +51,17 @@ export const CICDPipelineIndicator: React.FC = () => {
 
       setTimeUntilNext(timeUntilNextDeploy)
 
+      // Detect new automated deploy and trigger flash
+      if (lastAutoShipAt > lastKnownDeployTime && lastAutoShipAt > 0) {
+        setLastKnownDeployTime(lastAutoShipAt)
+
+        // Only flash if deploys are slower than 1/second (1000ms interval)
+        if (deployInterval >= 1000) {
+          setIsFlashing(true)
+          setTimeout(() => setIsFlashing(false), 500) // Flash for 500ms
+        }
+      }
+
       // Simulate pipeline states
       if (timeUntilNextDeploy === 0) {
         setPipelineState('success')
@@ -62,7 +75,7 @@ export const CICDPipelineIndicator: React.FC = () => {
     }, 100)
 
     return () => clearInterval(interval)
-  }, [automationLevel, manualShipAuto, lastAutoShipAt])
+  }, [automationLevel, manualShipAuto, lastAutoShipAt, lastKnownDeployTime])
 
   if (automationLevel === 0 && !manualShipAuto) return null
 
@@ -88,8 +101,11 @@ export const CICDPipelineIndicator: React.FC = () => {
     }
   }
 
+  const { interval: deployInterval } = getDeployFrequency(automationLevel)
+  const isHighFrequency = deployInterval < 1000 && deployInterval > 0
+
   return (
-    <div className="cicd-pipeline-indicator">
+    <div className={`cicd-pipeline-indicator ${isFlashing ? 'flashing' : ''} ${isHighFrequency ? 'high-frequency' : ''}`}>
       <div className="pipeline-header">
         <h3>{statusIcon} {statusText} Pipeline</h3>
         <div className="pipeline-level">

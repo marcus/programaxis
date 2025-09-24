@@ -484,3 +484,43 @@
     opacity: 0.8;
   }
 }
+
+/* Flash animation for automated deploys */
+.cicd-pipeline-indicator.flashing {
+  animation: deploy-flash 0.5s ease-out;
+  border-color: #00ced1;
+  box-shadow: 0 0 16px rgba(0, 206, 209, 0.6);
+}
+
+@keyframes deploy-flash {
+  0% {
+    background: linear-gradient(135deg, #0a1118 0%, #1a2332 50%, #0f1419 100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    background: linear-gradient(135deg, rgba(0, 206, 209, 0.2) 0%, rgba(0, 206, 209, 0.1) 50%, rgba(0, 206, 209, 0.05) 100%);
+    box-shadow: 0 0 20px rgba(0, 206, 209, 0.8);
+    border-color: #48d1cc;
+  }
+  100% {
+    background: linear-gradient(135deg, #0a1118 0%, #1a2332 50%, #0f1419 100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* High frequency deploys - solid indicator */
+.cicd-pipeline-indicator.high-frequency {
+  background: linear-gradient(135deg, rgba(0, 206, 209, 0.15) 0%, rgba(0, 206, 209, 0.08) 50%, rgba(0, 206, 209, 0.03) 100%);
+  border-color: rgba(0, 206, 209, 0.6);
+  box-shadow: 0 0 12px rgba(0, 206, 209, 0.4);
+}
+
+.cicd-pipeline-indicator.high-frequency .pipeline-header h3 {
+  color: #48d1cc;
+}
+
+.cicd-pipeline-indicator.high-frequency .pipeline-level {
+  background: rgba(0, 206, 209, 0.2);
+  color: #48d1cc;
+  border-color: #48d1cc;
+}

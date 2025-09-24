@@ -26,13 +26,31 @@ export const HUD: React.FC = () => {
   const autoShip = useStore(s => s.systems?.shipping?.auto ?? false)
   const shipAutomation = useStore(s => s.stats.ship_automation)
   const automationLevel = useStore(s => s.systems?.shipping?.automationLevel ?? 0)
+  const lastAutoShipAt = useStore(s => s.systems?.shipping?.lastAutoShipAt ?? 0)
   const onClick = useStore(s => s.click)
   const onShip = useStore(s => s.shipNow)
+
+  const [isLightFlashing, setIsLightFlashing] = React.useState(false)
+  const [lastKnownDeploy, setLastKnownDeploy] = React.useState(0)
 
   const caps = useStore(s => s.caps)
 
   const techDebt = useStore(s => s.resources?.techDebt ?? 0)
   const effectiveShipFraction = useStore(s => s.getEffectiveShipFraction?.() ?? (s.stats?.ship_fraction ?? 0.2))
+
+  // Track automated deploys and trigger light flash
+  React.useEffect(() => {
+    if (lastAutoShipAt > lastKnownDeploy && lastAutoShipAt > 0) {
+      setLastKnownDeploy(lastAutoShipAt)
+
+      // Only flash if deploys are slower than 1/second
+      const interval = Math.max(1000, 20000 / Math.pow(2, automationLevel - 1))
+      if (interval >= 1000 && automationLevel > 0) {
+        setIsLightFlashing(true)
+        setTimeout(() => setIsLightFlashing(false), 400) // Flash for 400ms
+      }
+    }
+  }, [lastAutoShipAt, lastKnownDeploy, automationLevel])
 
   return (
     <div>
@@ -80,35 +98,37 @@ export const HUD: React.FC = () => {
         >
           Write Code (+LoC)
         </button>
-        <button
-          className={`tron-button ship-build ${automationLevel > 0 || autoShip || shipAutomation > 0 ? 'automated' : ''}`}
-          onClick={(e) => {
-            if (autoShip || shipAutomation > 0 || automationLevel > 0) return
+        <div className="deploy-button-container">
+          <button
+            className={`tron-button ship-build ${automationLevel > 0 || autoShip || shipAutomation > 0 ? 'automated' : ''}`}
+            onClick={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect()
+              const centerX = rect.left + rect.width / 2
+              const centerY = rect.top + rect.height / 2
 
-            const rect = e.currentTarget.getBoundingClientRect()
-            const centerX = rect.left + rect.width / 2
-            const centerY = rect.top + rect.height / 2
+              actionAnimationSystem.triggerShipBuildAnimation(
+                { x: centerX, y: centerY },
+                Math.min(1, (bufferedLoc / 1000) * 0.2 + 0.3) // Intensity based on buffered LoC
+              )
 
-            actionAnimationSystem.triggerShipBuildAnimation(
-              { x: centerX, y: centerY },
-              Math.min(1, (bufferedLoc / 1000) * 0.2 + 0.3) // Intensity based on buffered LoC
-            )
-
-            onShip()
-          }}
-          disabled={autoShip || shipAutomation > 0 || automationLevel > 0}
-        >
-          {automationLevel > 0 ? (
-            <>
-              <span className="cicd-indicator">🚀</span>
-              CI/CD Active
-            </>
-          ) : autoShip || shipAutomation > 0 ? (
-            'Ship (Auto)'
-          ) : (
-            'Manual Deploy'
+              onShip()
+            }}
+          >
+            {automationLevel > 0 ? (
+              <>
+                <span className="cicd-indicator">🚀</span>
+                Manual Deploy
+              </>
+            ) : autoShip || shipAutomation > 0 ? (
+              'Ship (Auto)'
+            ) : (
+              'Manual Deploy'
+            )}
+          </button>
+          {(automationLevel > 0 || autoShip || shipAutomation > 0) && (
+            <div className={`cicd-status-light ${automationLevel >= 5 ? 'high-frequency' : ''} ${isLightFlashing ? 'flashing' : ''}`}></div>
           )}
-        </button>
+        </div>
       </div>
 
       <AgentDashboard />

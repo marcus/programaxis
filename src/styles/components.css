@@ -151,3 +151,102 @@
   font-weight: 500;
   flex: 1;
 }
+
+/* Deploy button container with status light */
+.deploy-button-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.cicd-status-light {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00ced1;
+  box-shadow:
+    0 0 4px rgba(0, 206, 209, 0.8),
+    0 0 8px rgba(0, 206, 209, 0.4),
+    inset 0 0 2px rgba(255, 255, 255, 0.3);
+  animation: cicd-pulse 2s ease-in-out infinite;
+  position: relative;
+}
+
+.cicd-status-light::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 206, 209, 0.3) 0%, transparent 70%);
+  animation: cicd-glow 2s ease-in-out infinite;
+}
+
+.cicd-status-light.high-frequency {
+  background: #48d1cc;
+  box-shadow:
+    0 0 6px rgba(72, 209, 204, 0.9),
+    0 0 12px rgba(72, 209, 204, 0.6),
+    inset 0 0 3px rgba(255, 255, 255, 0.4);
+  animation: none; /* Solid glow for high frequency */
+}
+
+.cicd-status-light.high-frequency::before {
+  background: radial-gradient(circle, rgba(72, 209, 204, 0.5) 0%, transparent 70%);
+  animation: none;
+}
+
+.cicd-status-light.flashing {
+  animation: status-light-flash 0.4s ease-out;
+}
+
+@keyframes cicd-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes cicd-glow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes status-light-flash {
+  0% {
+    background: #00ced1;
+    box-shadow:
+      0 0 4px rgba(0, 206, 209, 0.8),
+      0 0 8px rgba(0, 206, 209, 0.4),
+      inset 0 0 2px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    background: #ffffff;
+    box-shadow:
+      0 0 12px rgba(255, 255, 255, 1),
+      0 0 20px rgba(0, 206, 209, 0.8),
+      inset 0 0 4px rgba(0, 206, 209, 0.6);
+    transform: scale(1.3);
+  }
+  100% {
+    background: #00ced1;
+    box-shadow:
+      0 0 4px rgba(0, 206, 209, 0.8),
+      0 0 8px rgba(0, 206, 209, 0.4),
+      inset 0 0 2px rgba(255, 255, 255, 0.3);
+  }
+}
