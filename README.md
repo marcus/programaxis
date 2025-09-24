@@ -71,17 +71,50 @@ npm run analyze:save    # Save analysis to docs/
 
 ## 🚀 Deployment
 
-The game includes production-ready deployment scripts:
+The game includes production-ready deployment scripts for Ubuntu/DigitalOcean servers:
 
-```bash
-# Make deployment script executable
-chmod +x deploy.sh
+### Quick Deploy to Your Server
 
-# Deploy to your server
-./deploy.sh
-```
+1. **Configure your server details** in `deploy.sh`:
+   ```bash
+   SERVER_USER="root"  # Your server username
+   SERVER_IP="your.server.ip"  # Your server IP
+   ```
 
-See the deployment files (`deploy.sh`, `nginx-programaxis.conf`, `setup-server.sh`) for complete server setup instructions.
+2. **One-time server setup**:
+   ```bash
+   # Copy setup files to your server
+   scp nginx-programaxis.conf setup-server.sh user@your-server:~/
+
+   # Run server setup (creates directories, installs certbot, configures nginx)
+   ssh user@your-server
+   sudo ./setup-server.sh
+
+   # Get SSL certificate
+   sudo certbot --nginx -d your-domain.com
+   ```
+
+3. **Deploy your game**:
+   ```bash
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+
+### What's Included
+
+- **`deploy.sh`** - Automated build and deployment via rsync
+- **`nginx-programaxis.conf`** - Production nginx configuration with SSL, gzip, security headers
+- **`setup-server.sh`** - One-time server setup script for Ubuntu/Debian
+
+### Features
+- HTTPS with Let's Encrypt
+- Gzip compression for fast loading
+- Security headers and CSP
+- SPA routing support
+- Static asset caching
+- Mobile-optimized delivery
+
+Perfect for DigitalOcean droplets, AWS EC2, or any Ubuntu VPS!
 
 ## 🎯 Game Features
 
