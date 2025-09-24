@@ -18,6 +18,9 @@
 /* Tech tree, nodes, and branches */
 @import './styles/tech-tree.css';
 
+/* New D3-based tech tree canvas */
+@import './styles/tech-tree-canvas.css';
+
 /* Dashboard components */
 @import './styles/dashboard.css';
 

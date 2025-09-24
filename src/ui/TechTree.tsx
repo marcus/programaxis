@@ -5,6 +5,7 @@ import { NodeIcon } from './Icons'
 import { GarbledText } from './GarbledText'
 import { PurchasedIcon, UnlockedIcon, LockedIcon } from './StatusIcons'
 import { animationSystem } from '../game/animationSystem'
+import { TechTreeCanvas } from './TechTreeCanvas'
 
 function costFor(nodeId: string) {
   const s = useStore.getState()
@@ -105,6 +106,9 @@ export const TechTree: React.FC = () => {
   const showDependencyGraph = useStore(s => s.ui.showDependencyGraph)
   const toggleDependencyGraph = useStore(s => s.toggleDependencyGraph)
 
+  // State for toggling between old and new layouts - default to classic view
+  const [useNewLayout, setUseNewLayout] = useState(false)
+
   const containerRef = useRef<HTMLDivElement>(null)
   const [nodePositions, setNodePositions] = useState<Record<string, { x: number; y: number; width: number; height: number }>>({})
 
@@ -183,9 +187,62 @@ export const TechTree: React.FC = () => {
     return lines
   }, [showDependencyGraph, nodePositions, branches])
 
+  // New layout - return the canvas directly
+  if (useNewLayout) {
+    return (
+      <div style={{ position: 'relative' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+          <button
+            className="tron-button"
+            onClick={() => setUseNewLayout(false)}
+            style={{ fontSize: '12px', padding: '6px 12px' }}
+          >
+            Classic View
+          </button>
+          <span style={{ color: 'var(--muted)', fontSize: '12px' }}>
+            Switch to the classic column layout
+          </span>
+        </div>
+
+        <div style={{ height: '70vh', minHeight: '500px' }}>
+          <TechTreeCanvas />
+        </div>
+      </div>
+    )
+  }
+
+  // Original layout - keep existing code
   return (
     <div style={{ position: 'relative' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+        <button
+          className="tron-button"
+          onClick={() => setUseNewLayout(true)}
+          style={{
+            fontSize: '12px',
+            padding: '6px 12px',
+            marginRight: 8,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4
+          }}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L1 21h22L12 2zm-1 8v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
+          </svg>
+          Network View
+          <span style={{
+            background: 'var(--warn)',
+            color: 'var(--bg)',
+            fontSize: '9px',
+            fontWeight: 600,
+            padding: '1px 4px',
+            borderRadius: '3px',
+            marginLeft: '4px'
+          }}>
+            BETA
+          </span>
+        </button>
         <button
           className="tron-button"
           onClick={toggleDependencyGraph}
