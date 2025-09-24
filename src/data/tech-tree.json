@@ -453,7 +453,7 @@
           "costCurve": "expo_118",
           "requires": [{ "node": "A3" }],
           "effects": [
-            { "stat": "revenue_multiplier", "type": "mul", "value": 3.0 },
+            { "stat": "revenue_multiplier", "type": "mul", "value": 1.5 },
             { "stat": "global_multiplier", "type": "mul", "value": 1.4 }
           ]
         }
