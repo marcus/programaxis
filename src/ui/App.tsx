@@ -7,6 +7,7 @@ import { ActionButtonAnimation } from './ActionButtonAnimation'
 import { AnimationTestPanel } from './AnimationTestPanel'
 import { IntroModal } from './IntroModal'
 import { MobileNav } from './MobileNav'
+import { NewsTicker } from './NewsTicker'
 import { useStore } from '../state/store'
 import { clear, del, get } from 'idb-keyval'
 
@@ -139,6 +140,7 @@ export const App: React.FC = () => {
           </>
         )}
       </main>
+      <NewsTicker key="news-ticker" />
       <footer className="footer">
         <span>v0.1 — Local save only • React + Vite • Zustand • IndexedDB</span>
         <button

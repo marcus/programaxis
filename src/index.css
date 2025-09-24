@@ -35,3 +35,6 @@
 
 /* Mobile-specific styles and navigation */
 @import './styles/mobile.css';
+
+/* News ticker for Hacker News integration */
+@import './styles/news-ticker.css';

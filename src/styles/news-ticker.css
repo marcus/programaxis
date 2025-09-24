@@ -1,0 +1,157 @@
+/* News ticker styles for Hacker News integration */
+
+.news-ticker {
+  position: fixed;
+  bottom: 0; /* Default at very bottom */
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: linear-gradient(90deg, var(--panel), rgba(18, 24, 33, 0.95));
+  border-top: 1px solid rgba(90, 214, 160, 0.3);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  transition: bottom 0.3s ease;
+}
+
+.news-ticker.at-bottom {
+  bottom: 40px; /* Above footer when at bottom */
+}
+
+.news-label {
+  flex-shrink: 0;
+  padding: 0 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(18, 24, 33, 0.95);
+  border-right: 1px solid rgba(90, 214, 160, 0.3);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
+}
+
+.news-content {
+  flex: 1;
+  white-space: nowrap;
+  animation: scroll-left 80s linear infinite;
+  font-size: 12px;
+  line-height: 32px;
+  padding-left: 20px;
+}
+
+.news-item {
+  color: var(--text);
+  margin-right: 40px;
+}
+
+.news-item strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.news-score {
+  color: var(--warn);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.news-separator {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.news-link {
+  color: var(--accent);
+  font-size: 10px;
+  text-decoration: none;
+  margin-left: 4px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.news-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* Scrolling animation - start immediately visible */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0); /* Start visible */
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Loading state */
+.news-ticker.loading .news-content {
+  animation: pulse 1.5s ease-in-out infinite;
+  transform: translateX(0); /* No scrolling during loading */
+}
+
+.news-ticker.loading .news-item {
+  color: var(--muted);
+}
+
+/* Error state */
+.news-ticker.error .news-content {
+  animation: scroll-left 30s linear infinite;
+}
+
+.news-ticker.error .news-item {
+  color: var(--danger);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .news-ticker {
+    bottom: 65px; /* Above mobile navigation by default */
+    height: 28px;
+  }
+
+  .news-ticker.at-bottom {
+    bottom: 105px; /* Above both footer and mobile nav when at bottom */
+  }
+
+  .news-label {
+    font-size: 10px;
+    padding: 0 8px;
+  }
+
+  .news-content {
+    font-size: 11px;
+    line-height: 28px;
+    animation: scroll-left 60s linear infinite;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .news-content {
+    animation: none;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-right: 20px;
+  }
+
+  .news-item {
+    display: inline-block;
+    margin-right: 20px;
+  }
+}
