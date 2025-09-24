@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useStore } from '../state/store'
+import { CodeHealthInfoModal } from './CodeHealthInfoModal'
 
 function formatNumber(num: number, precision = 1): string {
   if (num >= 1000000) return (num / 1000000).toFixed(precision) + 'M'
@@ -32,6 +33,8 @@ function getTechDebtColor(debt: number): string {
 }
 
 export const QualityIndicator: React.FC = () => {
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false)
+
   const codeQuality = useStore(s => s.stats?.code_quality ?? 1.0)
   const bugRate = useStore(s => s.stats?.bug_rate ?? 1.0)
   const bugFreeRate = 1 - bugRate // Convert to bug-free percentage
@@ -47,6 +50,17 @@ export const QualityIndicator: React.FC = () => {
     <div className="quality-indicator">
       <div className="quality-header">
         <h3>📊 Code Health</h3>
+        <button
+          className="info-button"
+          onClick={() => setIsInfoModalOpen(true)}
+          title="Learn about code health mechanics"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M8 12V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            <circle cx="8" cy="5" r="1" fill="currentColor"/>
+          </svg>
+        </button>
       </div>
 
       <div className="quality-metrics">
@@ -137,6 +151,11 @@ export const QualityIndicator: React.FC = () => {
           )}
         </div>
       )}
+
+      <CodeHealthInfoModal
+        isOpen={isInfoModalOpen}
+        onClose={() => setIsInfoModalOpen(false)}
+      />
     </div>
   )
 }
