@@ -47,8 +47,22 @@
 }
 
 .mobile-nav-icon {
-  font-size: 20px;
-  line-height: 1;
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.5;
+  transition: all 0.3s ease;
+}
+
+/* Enhanced glow effect for active state */
+.mobile-nav-tab.active .mobile-nav-icon {
+  filter: drop-shadow(0 0 4px currentColor);
+  stroke-width: 2;
+}
+
+/* Subtle animation on hover */
+.mobile-nav-tab:hover .mobile-nav-icon {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
 .mobile-nav-label {

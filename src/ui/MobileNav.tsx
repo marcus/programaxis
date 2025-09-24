@@ -1,4 +1,5 @@
 import React from 'react'
+import { StatsIcon, TechTreeIcon } from './MobileNavIcons'
 
 interface MobileNavProps {
   activeTab: 'hud' | 'tech-tree'
@@ -13,7 +14,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({ activeTab, onTabChange }) 
         onClick={() => onTabChange('hud')}
         aria-label="View game stats and actions"
       >
-        <span className="mobile-nav-icon">📊</span>
+        <StatsIcon className="mobile-nav-icon" />
         <span className="mobile-nav-label">Stats</span>
       </button>
       <button
@@ -21,7 +22,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({ activeTab, onTabChange }) 
         onClick={() => onTabChange('tech-tree')}
         aria-label="View and purchase tech nodes"
       >
-        <span className="mobile-nav-icon">🌳</span>
+        <TechTreeIcon className="mobile-nav-icon" />
         <span className="mobile-nav-label">Tech Tree</span>
       </button>
     </nav>
