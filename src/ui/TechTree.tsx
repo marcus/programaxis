@@ -4,6 +4,7 @@ import techTree from '../data/tech-tree.json'
 import { NodeIcon } from './Icons'
 import { GarbledText } from './GarbledText'
 import { PurchasedIcon, UnlockedIcon, LockedIcon } from './StatusIcons'
+import { animationSystem } from '../game/animationSystem'
 
 function costFor(nodeId: string) {
   const s = useStore.getState()
@@ -262,7 +263,27 @@ export const TechTree: React.FC = () => {
                       ${c.toLocaleString()}
                     </div>
                   ) : (
-                    <button className="tron-button" disabled={!isUnlocked || !afford} onClick={() => buy(n.id)}>
+                    <button
+                      className="tron-button"
+                      disabled={!isUnlocked || !afford}
+                      onClick={(e) => {
+                        const buttonRect = e.currentTarget.getBoundingClientRect()
+                        const centerX = buttonRect.left + buttonRect.width / 2
+                        const centerY = buttonRect.top + buttonRect.height / 2
+
+                        // Trigger animation before purchase
+                        animationSystem.triggerTechPurchaseAnimation(
+                          n.id,
+                          br.key,
+                          { x: centerX, y: centerY },
+                          n.tier,
+                          lines
+                        )
+
+                        // Execute purchase
+                        buy(n.id)
+                      }}
+                    >
                       {isUnlocked ? `Buy $${c.toLocaleString()}` : 'Locked'}
                     </button>
                   )}

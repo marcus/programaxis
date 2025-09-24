@@ -26,3 +26,6 @@
 
 /* Text animations and special effects */
 @import './styles/animations.css';
+
+/* Three.js tech purchase animations */
+@import './styles/tech-animation.css';

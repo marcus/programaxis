@@ -192,6 +192,61 @@ Tech tree branches use CSS variables for visual differentiation:
 4. **Group related styles** within logical sections in each module
 5. **Comment complex animations** and calculations for maintainability
 
+## Three.js Tech Purchase Animations
+
+### Animation System Overview
+
+The game features spectacular Three.js particle animations that trigger when purchasing tech nodes. The system consists of:
+
+- **Animation Manager** (`src/game/animationSystem.ts`): Event system for triggering animations
+- **Animation Component** (`src/ui/TechPurchaseAnimation.tsx`): Three.js rendering and particle physics
+- **CSS Integration** (`src/styles/tech-animation.css`): Visual blending and performance optimizations
+
+### Branch-Specific Animation Patterns
+
+Each tech branch has distinct visual characteristics:
+
+- **Programming (A)**: Matrix-style cascade effect with 200 particles flowing downward
+- **Automation (B)**: Mechanical spiral burst with 120 larger particles in rotational pattern
+- **Other Branches (C-H)**: Classic explosion pattern with branch-specific colors and timing
+
+### Adding New Animation Patterns
+
+1. **Add pattern configuration** in `createParticleSystem()` function:
+```typescript
+else if (branchKey === 'C') {
+  particleCount = 180
+  velocityPattern = 'your_pattern_name'
+  sizeRange = [4, 10]
+  speedMultiplier = 1.2
+  animationDuration = 2200
+}
+```
+
+2. **Implement particle behavior** in the animation loop:
+```typescript
+else if (system.velocityPattern === 'your_pattern_name') {
+  // Custom physics and visual effects
+  // Update positions, velocities, alphas, sizes based on pattern
+}
+```
+
+3. **Update branch theme** in `animationSystem.ts` if needed for custom colors/symbols
+
+### Animation Testing
+
+- **Test Panel**: Set `ENABLE_ANIMATION_TESTING = true` in `src/ui/App.tsx`
+- **Performance**: Animations auto-cleanup after completion, GPU-accelerated
+- **Accessibility**: Respects `prefers-reduced-motion` setting
+
+### Technical Details
+
+- **Particle Count**: 120-200 particles per animation depending on branch
+- **Duration**: 1.8-2.5 seconds based on branch theme
+- **Physics**: Custom velocity patterns, gravity, fade effects
+- **Shaders**: Custom vertex/fragment shaders for glowing particle effects
+- **Cleanup**: Automatic geometry/material disposal prevents memory leaks
+
 ## Save Data
 
 - **Storage**: IndexedDB key `programaxis_save_v1`
