@@ -11,6 +11,67 @@
   border: 1px solid #1e2a3d; 
   border-radius: 10px; 
   padding: 10px; 
+  transition: all 0.3s ease;
+}
+
+/* LoC stat - subtle cyan accent */
+.stat-loc {
+  background: linear-gradient(135deg, #0e1520 0%, #0f1722 100%);
+  border: 1px solid #1a3b4d;
+  box-shadow: inset 0 1px 0 rgba(70, 230, 255, 0.1);
+}
+
+.stat-loc:hover {
+  border-color: #2a4b5d;
+  box-shadow: inset 0 1px 0 rgba(70, 230, 255, 0.15), 0 0 8px rgba(70, 230, 255, 0.1);
+}
+
+/* Revenue stat - subtle green accent */
+.stat-revenue {
+  background: linear-gradient(135deg, #0e1520 0%, #0f1a15 100%);
+  border: 1px solid #1e3d2a;
+  box-shadow: inset 0 1px 0 rgba(90, 214, 160, 0.1);
+}
+
+.stat-revenue:hover {
+  border-color: #2e4d3a;
+  box-shadow: inset 0 1px 0 rgba(90, 214, 160, 0.15), 0 0 8px rgba(90, 214, 160, 0.1);
+}
+
+/* Buffered LoC stat - subtle yellow accent */
+.stat-buffered {
+  background: linear-gradient(135deg, #0e1520 0%, #1a1812 100%);
+  border: 1px solid #3d351e;
+  box-shadow: inset 0 1px 0 rgba(255, 202, 95, 0.1);
+}
+
+.stat-buffered:hover {
+  border-color: #4d452e;
+  box-shadow: inset 0 1px 0 rgba(255, 202, 95, 0.15), 0 0 8px rgba(255, 202, 95, 0.08);
+}
+
+/* Agents stat - subtle purple accent */
+.stat-agents {
+  background: linear-gradient(135deg, #0e1520 0%, #151220 100%);
+  border: 1px solid #2a1e3d;
+  box-shadow: inset 0 1px 0 rgba(138, 120, 255, 0.1);
+}
+
+.stat-agents:hover {
+  border-color: #3a2e4d;
+  box-shadow: inset 0 1px 0 rgba(138, 120, 255, 0.15), 0 0 8px rgba(138, 120, 255, 0.1);
+}
+
+/* Tech Debt stat - subtle red accent */
+.stat-debt {
+  background: linear-gradient(135deg, #0e1520 0%, #1a1215 100%);
+  border: 1px solid #3d1e2a;
+  box-shadow: inset 0 1px 0 rgba(244, 91, 105, 0.1);
+}
+
+.stat-debt:hover {
+  border-color: #4d2e3a;
+  box-shadow: inset 0 1px 0 rgba(244, 91, 105, 0.15), 0 0 8px rgba(244, 91, 105, 0.08);
 }
 
 .stat .label { 
@@ -52,10 +113,41 @@
   color: #b6ffd2; 
 }
 
-.pill { 
-  display: inline-block; 
-  padding: 2px 8px; 
-  border-radius: 999px; 
-  border: 1px solid rgba(255,255,255,0.06); 
-  background: rgba(255,255,255,0.03); 
+.pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+}
+
+/* Upgrade availability indicator */
+.upgrade-indicator {
+  background: linear-gradient(90deg, rgba(90, 214, 160, 0.15), rgba(90, 214, 160, 0.05));
+  border: 1px solid rgba(90, 214, 160, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+.upgrade-count {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.upgrade-label {
+  color: var(--accent);
+  font-weight: 500;
+  flex: 1;
 }

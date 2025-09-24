@@ -121,12 +121,12 @@
 /* Mobile adjustments */
 @media (max-width: 767px) {
   .news-ticker {
-    bottom: calc(76px + max(8px, env(safe-area-inset-bottom))); /* Above mobile nav + safe area */
+    bottom: calc(68px + max(8px, env(safe-area-inset-bottom))); /* Closer to mobile nav + safe area */
     height: 28px;
   }
 
   .news-ticker.at-bottom {
-    bottom: calc(76px + max(8px, env(safe-area-inset-bottom))); /* Stay above mobile nav on mobile */
+    bottom: calc(68px + max(8px, env(safe-area-inset-bottom))); /* Stay above mobile nav on mobile */
   }
 
   .news-label {

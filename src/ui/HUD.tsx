@@ -5,6 +5,7 @@ import { MilestoneProgress } from './MilestoneProgress'
 import { AgentDashboard } from './AgentDashboard'
 import { QualityIndicator } from './QualityIndicator'
 import { CICDPipelineIndicator } from './CICDPipelineIndicator'
+import { UpgradeIndicator } from './UpgradeIndicator'
 import { actionAnimationSystem } from '../game/actionAnimationSystem'
 
 function fmt(n: number, digits = 2) {
@@ -36,24 +37,25 @@ export const HUD: React.FC = () => {
   return (
     <div>
       <MilestoneProgress />
+      <UpgradeIndicator />
 
       <div className="hud-grid">
-        <div className="stat">
+        <div className="stat stat-loc">
           <div className="label">LoC</div>
           <div className="value">{fmt(loc)}</div>
           <div className="label">LoC/s {fmt(uiLocPerSec)}</div>
         </div>
-        <div className="stat">
+        <div className="stat stat-revenue">
           <div className="label">Revenue</div>
           <div className="value">${fmt(revenue)}</div>
           <div className="label">Rev/s ${fmt(uiRevPerSec)}</div>
         </div>
-        <div className="stat">
+        <div className="stat stat-buffered">
           <div className="label">Buffered LoC</div>
           <div className="value">{fmt(bufferedLoc)}</div>
           <div className="label">Ship {(effectiveShipFraction*100).toFixed(0)}% per action</div>
         </div>
-        <div className="stat">
+        <div className={`stat ${techDebt > 0 ? 'stat-debt' : 'stat-agents'}`}>
           <div className="label">{techDebt > 0 ? 'Tech Debt' : 'Agents'}</div>
           <div className="value">{techDebt > 0 ? fmt(techDebt) : `${caps.agentConcurrencyCap} cap`}</div>
           <div className="label">{techDebt > 0 ? `${((techDebt/1000)*100).toFixed(0)}% ship penalty` : `${caps.parallelismCap} jobs`}</div>

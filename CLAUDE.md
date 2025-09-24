@@ -165,7 +165,16 @@ Tech tree branches use CSS variables for visual differentiation:
 /* etc. */
 ```
 
-### Component Styling Patterns
+#### Component Styling Patterns
+
+#### HUD Stat Blocks
+- **Varied theming**: Each stat block has distinct color accents for visual differentiation
+- **LoC Block**: Cyan accent (#46e6ff) with subtle blue-tinted gradients
+- **Revenue Block**: Green accent (#5ad6a0) matching the primary accent color
+- **Buffered LoC Block**: Yellow accent (#ffca5f) for attention-drawing queued work
+- **Agents/Debt Block**: Purple accent for agents (#8a78ff), red accent for tech debt (#f45b69)
+- **Hover effects**: Subtle glow and enhanced border colors for interactivity
+- **Readability first**: All variations maintain excellent text contrast and clarity
 
 #### Futuristic UI Elements
 - **Tron-style buttons**: Animated with glow effects and hover states
