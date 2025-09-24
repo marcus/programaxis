@@ -1,0 +1,236 @@
+/* Mobile-specific styles and navigation */
+
+/* Mobile navigation tabs */
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--panel);
+  border-top: 1px solid #213148;
+  display: flex;
+  z-index: 100;
+  padding: 8px;
+  gap: 4px;
+}
+
+.mobile-nav-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  min-height: 60px;
+  touch-action: manipulation;
+}
+
+.mobile-nav-tab.active {
+  color: var(--accent);
+  background: rgba(90, 214, 160, 0.1);
+}
+
+.mobile-nav-tab:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mobile-nav-tab.active:hover {
+  color: var(--accent);
+  background: rgba(90, 214, 160, 0.15);
+}
+
+.mobile-nav-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.mobile-nav-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Mobile tab content */
+.mobile-tab-content {
+  background: var(--panel);
+  border: 1px solid #213148;
+  border-radius: 12px;
+  padding: 12px;
+  overflow: auto;
+  height: calc(100vh - 160px);
+  margin-bottom: 80px; /* Space for mobile nav */
+}
+
+/* Mobile layout adjustments */
+@media (max-width: 767px) {
+  .app {
+    grid-template-rows: auto 1fr;
+  }
+
+  .main {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .footer {
+    display: none; /* Hide footer on mobile to save space */
+  }
+
+  /* Ensure content doesn't overlap with mobile nav */
+  .mobile-tab-content {
+    padding-bottom: 20px;
+  }
+}
+
+/* Touch-friendly button improvements */
+@media (max-width: 767px) {
+  /* Make tron buttons larger and more touch-friendly */
+  .tron-button {
+    min-height: 48px;
+    font-size: 16px;
+    padding: 14px 24px;
+    border-radius: 12px;
+  }
+
+  /* Action buttons specific improvements */
+  .actions {
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .actions .tron-button {
+    min-height: 52px;
+    padding: 16px 20px;
+    font-size: 15px;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  /* HUD component improvements */
+  .hud-grid {
+    gap: 12px;
+  }
+
+  .stat {
+    padding: 14px;
+    border-radius: 12px;
+    min-height: 80px;
+  }
+
+  .stat .value {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .stat .label {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Badge improvements for mobile */
+  .badge {
+    padding: 8px 12px;
+    font-size: 13px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Ribbon improvements */
+  .ribbon {
+    gap: 12px;
+    padding: 8px 0;
+  }
+}
+
+/* Prevent zoom on double tap for iOS */
+* {
+  touch-action: manipulation;
+}
+
+/* Smooth scrolling for mobile */
+@media (max-width: 767px) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Reduce motion for battery saving on mobile */
+  @media (prefers-reduced-motion: no-preference) {
+    .tron-button {
+      transition: all 0.2s ease;
+    }
+
+    .tron-button::before {
+      transition: left 0.3s ease;
+    }
+
+    .node-hero {
+      transition: transform 0.2s ease;
+    }
+  }
+
+  /* Disable complex animations on mobile to save battery */
+  .pulse-subtle {
+    animation: none;
+  }
+
+  /* Simplify hover effects for touch devices */
+  .tron-button:hover {
+    transform: none;
+  }
+
+  .tron-button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  /* Optimize text rendering on mobile */
+  body, .tron-button, .node-name, .stat .value {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Mobile viewport adjustments */
+@media (max-width: 767px) {
+  /* Ensure app fills viewport properly */
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .app {
+    height: 100vh;
+    height: 100dvh; /* Use dynamic viewport height on modern browsers */
+  }
+
+  /* Fix mobile Safari bottom bar issues */
+  .mobile-tab-content {
+    height: calc(100vh - 140px);
+    height: calc(100dvh - 140px);
+    padding-bottom: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  /* Add safe area padding for notched devices */
+  .header {
+    padding-top: max(8px, env(safe-area-inset-top));
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+
+  .mobile-nav {
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    padding-left: max(8px, env(safe-area-inset-left));
+    padding-right: max(8px, env(safe-area-inset-right));
+  }
+}

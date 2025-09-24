@@ -32,3 +32,6 @@
 
 /* Action button 3D animations */
 @import './styles/action-animations.css';
+
+/* Mobile-specific styles and navigation */
+@import './styles/mobile.css';

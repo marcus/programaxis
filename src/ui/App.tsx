@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { HUD } from './HUD'
 import { TechTree } from './TechTree'
 import { Milestones } from './Milestones'
@@ -6,6 +6,7 @@ import { TechPurchaseAnimation } from './TechPurchaseAnimation'
 import { ActionButtonAnimation } from './ActionButtonAnimation'
 import { AnimationTestPanel } from './AnimationTestPanel'
 import { IntroModal } from './IntroModal'
+import { MobileNav } from './MobileNav'
 import { useStore } from '../state/store'
 import { clear, del, get } from 'idb-keyval'
 
@@ -13,9 +14,24 @@ import { clear, del, get } from 'idb-keyval'
 const ENABLE_ANIMATION_TESTING = false
 
 export const App: React.FC = () => {
+  // Mobile navigation state
+  const [activeTab, setActiveTab] = useState<'hud' | 'tech-tree'>('hud')
+  const [isMobile, setIsMobile] = useState(false)
+
   // Subscribe to UI state for intro modal
   const showIntroModal = useStore(state => state.ui.showIntroModal)
   const markIntroAsSeen = useStore(state => state.markIntroAsSeen)
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
   const handleClearData = async () => {
     const confirmed = window.confirm(
       '⚠️ WARNING: This will permanently delete ALL your save data!\n\n' +
@@ -95,12 +111,33 @@ export const App: React.FC = () => {
         <span style={{ color: '#9bb1c9' }}>Build features, ship, grow revenue.</span>
       </header>
       <main className="main">
-        <aside className="sidebar">
-          <HUD />
-        </aside>
-        <section className="content">
-          <TechTree />
-        </section>
+        {isMobile ? (
+          <>
+            {/* Mobile: Show only active tab content */}
+            {activeTab === 'hud' && (
+              <section className="mobile-tab-content">
+                <HUD />
+              </section>
+            )}
+            {activeTab === 'tech-tree' && (
+              <section className="mobile-tab-content">
+                <TechTree />
+              </section>
+            )}
+            {/* Mobile navigation */}
+            <MobileNav activeTab={activeTab} onTabChange={setActiveTab} />
+          </>
+        ) : (
+          <>
+            {/* Desktop: Show both sidebar and content */}
+            <aside className="sidebar">
+              <HUD />
+            </aside>
+            <section className="content">
+              <TechTree />
+            </section>
+          </>
+        )}
       </main>
       <footer className="footer">
         <span>v0.1 — Local save only • React + Vite • Zustand • IndexedDB</span>
