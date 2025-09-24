@@ -1,0 +1,61 @@
+/* Basic component styles */
+
+.hud-grid { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 8px; 
+}
+
+.stat { 
+  background: #0e1520; 
+  border: 1px solid #1e2a3d; 
+  border-radius: 10px; 
+  padding: 10px; 
+}
+
+.stat .label { 
+  color: var(--muted); 
+  font-size: 12px; 
+}
+
+.stat .value { 
+  font-size: 20px; 
+  font-weight: 600; 
+}
+
+.actions { 
+  display: flex; 
+  gap: 8px; 
+  margin-top: 8px; 
+  flex-wrap: wrap; 
+}
+
+.ribbon { 
+  display: flex; 
+  gap: 8px; 
+  overflow: auto; 
+  padding: 4px 0; 
+}
+
+.badge { 
+  background: #0e1520; 
+  border: 1px solid #1e2a3d; 
+  border-radius: 999px; 
+  padding: 6px 10px; 
+  font-size: 12px; 
+  white-space: nowrap; 
+}
+
+.badge.hit { 
+  background: #13301f; 
+  border-color: #224c30; 
+  color: #b6ffd2; 
+}
+
+.pill { 
+  display: inline-block; 
+  padding: 2px 8px; 
+  border-radius: 999px; 
+  border: 1px solid rgba(255,255,255,0.06); 
+  background: rgba(255,255,255,0.03); 
+}

@@ -102,7 +102,95 @@ interface StoreState {
 - **Game balance**: `context/tech-tree.json`, `src/game/progression.ts`
 - **UI components**: `src/ui/App.tsx`, `src/ui/HUD.tsx`, `src/ui/TechTree.tsx`
 - **Game mechanics**: `src/game/loop.ts`, `src/state/resourcesSlice.ts`
-- **Visual design**: `src/index.css`, `src/ui/Icons.tsx`
+- **Visual design**: `src/styles/*.css`, `src/ui/Icons.tsx`
+
+## CSS Architecture
+
+### Modular CSS Structure
+
+The CSS is organized into modular files by functionality, all imported through `src/index.css`:
+
+```
+src/
+├── index.css           # Main import file
+└── styles/             # CSS modules by functionality
+    ├── base.css        # Variables, resets, basic elements
+    ├── layout.css      # App structure (grid, header, sidebar)
+    ├── components.css  # Common UI components (stats, badges)
+    ├── tron-buttons.css # Button variants with animations
+    ├── tech-tree.css   # Tech tree, nodes, branches styles
+    ├── progress.css    # Progress bars, milestone components
+    ├── dashboard.css   # Agent dashboard, indicators
+    ├── modals.css      # Modal dialogs, overlays
+    └── animations.css  # Special effects, keyframes
+```
+
+### CSS Variables and Theming
+
+Core design tokens are defined as CSS variables in `base.css`:
+
+```css
+:root {
+  --bg: #0b0f14;        /* Main background */
+  --panel: #121821;     /* Panel/card background */
+  --text: #e5eef5;      /* Primary text */
+  --muted: #9bb1c9;     /* Secondary text */
+  --accent: #5ad6a0;    /* Primary accent (success/enabled) */
+  --warn: #ffca5f;      /* Warning/attention color */
+  --danger: #f45b69;    /* Error/danger color */
+}
+```
+
+### Adding New Styles
+
+1. **Choose the appropriate module** based on functionality
+2. **Follow existing patterns** for naming and structure
+3. **Use CSS variables** for colors and consistent values
+4. **Keep selectors specific** to avoid style collisions
+5. **Add new modules** if a new distinct component category emerges
+
+### Branch Styling
+
+Tech tree branches use CSS variables for visual differentiation:
+
+```css
+.branch { 
+  --branch-accent: #5ad6a0; 
+  --branch-glow: rgba(90, 214, 160, 0.22); 
+  --branch-bg1: #0d1420; 
+  --branch-bg2: #0b121a; 
+}
+.branch-A { --branch-accent: #46e6ff; ... }
+.branch-B { --branch-accent: #5aa6ff; ... }
+/* etc. */
+```
+
+### Component Styling Patterns
+
+#### Futuristic UI Elements
+- **Tron-style buttons**: Animated with glow effects and hover states
+- **Gradient backgrounds**: Linear gradients for depth and visual interest
+- **Glow effects**: Box-shadows with color-matched glows for interactive elements
+- **Corner accents**: Animated corner elements for modal dialogs
+
+#### Animation Guidelines
+- **Smooth transitions**: Use `transition: all 0.3s ease` for general interactions
+- **Subtle pulses**: Keyframe animations for attention-drawing elements
+- **Text effects**: Specialized animations for garbled/encrypted text states
+- **Performance**: Use `transform` and `opacity` for hardware-accelerated animations
+
+#### Responsive Design
+- **Mobile-first approach**: Base styles for mobile, enhance for desktop
+- **Grid layouts**: CSS Grid for main app structure, Flexbox for components
+- **Media queries**: Breakpoint at `min-width: 768px` for desktop enhancements
+
+### Styling Best Practices
+
+1. **Use semantic class names** that describe purpose, not appearance
+2. **Scope styles appropriately** to avoid unintended inheritance
+3. **Leverage CSS custom properties** for dynamic theming and consistency
+4. **Group related styles** within logical sections in each module
+5. **Comment complex animations** and calculations for maintainability
 
 ## Save Data
 

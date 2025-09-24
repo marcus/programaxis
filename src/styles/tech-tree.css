@@ -1,0 +1,389 @@
+/* Tech tree components */
+
+.techtree { 
+  display: grid; 
+  grid-auto-flow: column; 
+  grid-auto-columns: minmax(220px, 1fr); 
+  gap: 12px; 
+  overflow: auto; 
+}
+
+.branch { 
+  min-width: 220px; 
+}
+
+.branch h3 { 
+  margin: 0 0 8px; 
+  font-size: 14px; 
+  color: var(--muted); 
+  font-family: "Orbitron", ui-sans-serif; 
+  letter-spacing: 0.02em; 
+}
+
+/* Base node styles */
+.node { 
+  background: #0e1520; 
+  border: 1px solid #1e2a3d; 
+  border-radius: 10px; 
+  padding: 10px; 
+  margin-bottom: 8px; 
+}
+
+.node .title { 
+  font-weight: 600; 
+}
+
+.node .cost { 
+  color: var(--muted); 
+  font-size: 12px; 
+}
+
+.node .req { 
+  color: var(--muted); 
+  font-size: 11px; 
+}
+
+.node .purchased { 
+  color: var(--accent); 
+  font-size: 12px; 
+}
+
+.node .effects { 
+  margin-top: 6px; 
+}
+
+.node .effect { 
+  font-size: 12px; 
+  color: var(--muted); 
+}
+
+.node .effect.loc { 
+  color: #9ed0ff; 
+}
+
+.node .effect.ship { 
+  color: #ffd48a; 
+}
+
+.node .effect.revenue { 
+  color: #9df1c7; 
+}
+
+.node .effect.global { 
+  color: #d0b3ff; 
+}
+
+/* Dependency graph styles */
+.dependency-line {
+  transition: stroke-opacity 0.3s ease, stroke-width 0.3s ease;
+  filter: drop-shadow(0 0 2px rgba(90, 214, 160, 0.3));
+}
+
+.dependency-line:hover {
+  stroke-opacity: 0.8 !important;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 4px rgba(90, 214, 160, 0.6));
+}
+
+/* Enhanced node highlighting when dependencies are shown */
+.techtree .node[data-node-id] {
+  transition: all 0.3s ease;
+}
+
+.techtree .node[data-node-id]:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 20px rgba(90, 214, 160, 0.2),
+    0 0 0 2px rgba(90, 214, 160, 0.1);
+}
+
+/* Status icon container styling */
+.status-icon-container {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Individual status icon styling */
+.status-icon {
+  transition: all 0.3s ease;
+}
+
+.purchased-icon {
+  color: #5ad6a0;
+  filter: drop-shadow(0 0 6px rgba(90, 214, 160, 0.4));
+}
+
+.unlocked-icon {
+  color: #00eaff;
+  filter: drop-shadow(0 0 6px rgba(0, 234, 255, 0.4));
+}
+
+.locked-icon {
+  color: #9bb1c9;
+  opacity: 0.7;
+  filter: drop-shadow(0 0 4px rgba(155, 177, 201, 0.2));
+}
+
+/* Enhanced glow effects for different states */
+.node.is-purchased .status-icon-container {
+  background: rgba(90, 214, 160, 0.15);
+  border-color: rgba(90, 214, 160, 0.4);
+  box-shadow: 0 0 12px rgba(90, 214, 160, 0.3);
+}
+
+.node.is-unlocked .status-icon-container {
+  background: rgba(0, 234, 255, 0.15);
+  border-color: rgba(0, 234, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 234, 255, 0.3);
+}
+
+.node.is-locked .status-icon-container {
+  background: rgba(155, 177, 201, 0.1);
+  border-color: rgba(155, 177, 201, 0.2);
+}
+
+/* Branch color variations */
+.branch { 
+  --branch-accent: #5ad6a0; 
+  --branch-glow: rgba(90, 214, 160, 0.22); 
+  --branch-bg1: #0d1420; 
+  --branch-bg2: #0b121a; 
+}
+
+.branch-A { 
+  --branch-accent: #46e6ff; 
+  --branch-glow: rgba(70, 230, 255, 0.25); 
+  --branch-bg1: #061622; 
+  --branch-bg2: #0b2433; 
+}
+
+.branch-B { 
+  --branch-accent: #5aa6ff; 
+  --branch-glow: rgba(90, 166, 255, 0.22); 
+  --branch-bg1: #0a1424; 
+  --branch-bg2: #0b1b34; 
+}
+
+.branch-C { 
+  --branch-accent: #4ae58f; 
+  --branch-glow: rgba(74, 229, 143, 0.25); 
+  --branch-bg1: #081a16; 
+  --branch-bg2: #0d281e; 
+}
+
+.branch-D { 
+  --branch-accent: #4fd3c6; 
+  --branch-glow: rgba(79, 211, 198, 0.25); 
+  --branch-bg1: #0a171a; 
+  --branch-bg2: #0e2326; 
+}
+
+.branch-E { 
+  --branch-accent: #b388ff; 
+  --branch-glow: rgba(179, 136, 255, 0.25); 
+  --branch-bg1: #130f1a; 
+  --branch-bg2: #1a1530; 
+}
+
+.branch-F { 
+  --branch-accent: #ff7ad9; 
+  --branch-glow: rgba(255, 122, 217, 0.28); 
+  --branch-bg1: #1a0f16; 
+  --branch-bg2: #2a1830; 
+}
+
+.branch-G { 
+  --branch-accent: #ffb15c; 
+  --branch-glow: rgba(255, 177, 92, 0.28); 
+  --branch-bg1: #1a140b; 
+  --branch-bg2: #2a1d10; 
+}
+
+.branch-H { 
+  --branch-accent: #ff6e9a; 
+  --branch-glow: rgba(255, 110, 154, 0.28); 
+  --branch-bg1: #1a0e14; 
+  --branch-bg2: #2a1620; 
+}
+
+/* Enhanced branch node styling */
+.branch .node { 
+  background: linear-gradient(180deg, var(--branch-bg1), var(--branch-bg2)); 
+  border: 1px solid rgba(255,255,255,0.05); 
+  border-radius: 14px; 
+  padding: 12px; 
+  margin-bottom: 12px; 
+  position: relative; 
+  overflow: hidden; 
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 0 12px var(--branch-glow); 
+}
+
+.branch .node::before { 
+  content: ""; 
+  position: absolute; 
+  inset: -1px; 
+  border-radius: 14px; 
+  pointer-events: none; 
+  box-shadow: 0 0 0 1px var(--branch-accent) inset; 
+  opacity: 0.18; 
+}
+
+/* Node state treatments */
+.branch .node.is-unlocked { 
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 0 16px var(--branch-glow), 0 0 28px color-mix(in srgb, var(--branch-accent) 25%, transparent); 
+}
+
+.branch .node.is-unlocked .icon-wrap { 
+  transform: scale(1.02); 
+  box-shadow: 0 0 0 1px var(--branch-accent), 0 0 28px var(--branch-glow) inset, 0 0 24px color-mix(in srgb, var(--branch-accent) 25%, transparent); 
+}
+
+.branch .node.is-locked { 
+  opacity: 0.6; 
+  filter: grayscale(0.2) saturate(0.8); 
+}
+
+.branch .node.is-locked .icon-wrap { 
+  opacity: 0.6; 
+  filter: grayscale(0.5); 
+}
+
+.branch .node.is-purchased { 
+  border-color: rgba(90,214,160,0.6); 
+  box-shadow: 0 0 0 1px rgba(90,214,160,0.3), 0 0 20px rgba(90,214,160,0.25) inset; 
+}
+
+/* Node hero layout */
+.node-hero { 
+  display: grid; 
+  grid-template-columns: 64px 1fr; 
+  gap: 10px; 
+  align-items: center; 
+  padding: 6px; 
+  border-radius: 10px; 
+  background: radial-gradient(120px 60px at 20% 40%, rgba(255,255,255,0.06), transparent 60%); 
+}
+
+.icon-wrap { 
+  display: grid; 
+  place-items: center; 
+  width: 64px; 
+  height: 64px; 
+  border-radius: 12px; 
+  color: #bfe9ff; 
+  background: radial-gradient(70% 70% at 50% 40%, rgba(255,255,255,0.06), transparent), linear-gradient(180deg, rgba(255,255,255,0.03), transparent); 
+  outline: 1px solid rgba(255,255,255,0.06); 
+  box-shadow: 0 0 0 1px var(--branch-accent), 0 0 24px var(--branch-glow) inset; 
+}
+
+.node-head { 
+  display: grid; 
+  gap: 2px; 
+  min-height: 3.5em; /* Ensure consistent height */
+}
+
+.node-id { 
+  font-family: "Orbitron", ui-sans-serif; 
+  font-size: 12px; 
+  letter-spacing: 0.08em; 
+  color: var(--muted); 
+  min-height: 1.2em;
+  line-height: 1.2;
+}
+
+.node-name { 
+  font-family: "Orbitron", ui-sans-serif; 
+  font-weight: 700; 
+  letter-spacing: 0.02em; 
+  font-size: 14px; 
+  min-height: 2em;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Enhanced branch node styles */
+.branch .node .cost { 
+  color: var(--muted); 
+  font-size: 12px; 
+  margin-top: 6px; 
+}
+
+.branch .node .req { 
+  color: var(--muted); 
+  font-size: 11px; 
+  margin-top: 6px; 
+}
+
+.branch .node .purchased { 
+  color: var(--accent); 
+  font-size: 12px; 
+  margin-top: 6px; 
+}
+
+.branch .node button { 
+  margin-top: 8px; 
+  width: 100%; 
+  font-family: "Orbitron", ui-sans-serif; 
+  letter-spacing: 0.04em; 
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), transparent); 
+  border: 1px solid var(--branch-accent); 
+  color: var(--text); 
+  box-shadow: 0 0 12px var(--branch-glow), inset 0 0 18px rgba(255,255,255,0.04); 
+}
+
+.branch .node button:hover:not(:disabled) { 
+  box-shadow: 0 0 16px var(--branch-glow), inset 0 0 24px rgba(255,255,255,0.07); 
+  filter: saturate(1.05); 
+}
+
+/* Purchased indicator styling */
+.purchased-indicator {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(90, 214, 160, 0.1), rgba(90, 214, 160, 0.05));
+  border: 1px solid rgba(90, 214, 160, 0.3);
+  text-align: center;
+  font-family: "Orbitron", ui-sans-serif;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 12px rgba(90, 214, 160, 0.2);
+}
+
+/* Unaffordable price styling */
+.unaffordable-price {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(139, 0, 0, 0.15), rgba(139, 0, 0, 0.08));
+  border: 1px solid rgba(139, 0, 0, 0.4);
+  text-align: center;
+  font-family: "Orbitron", ui-sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: #8B0000;
+  text-shadow: 0 0 8px rgba(139, 0, 0, 0.3);
+  box-shadow: 0 0 8px rgba(139, 0, 0, 0.15);
+}
+
+/* Stabilize node content heights */
+.effects {
+  min-height: 1.5em; /* Prevent jumping when effects appear/disappear */
+}
+
+.effect {
+  line-height: 1.3;
+  min-height: 1.3em;
+}

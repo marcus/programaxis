@@ -1,0 +1,164 @@
+/* Progress components */
+
+/* Milestone Progress Component */
+.milestone-progress {
+  background: linear-gradient(135deg, #0a1118 0%, #1a2332 50%, #0f1419 100%);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 20px rgba(90, 214, 160, 0.15),
+    inset 0 1px 0 rgba(90, 214, 160, 0.2),
+    inset 0 -1px 0 rgba(90, 214, 160, 0.1);
+}
+
+.milestone-progress::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--accent);
+  border-radius: 16px;
+  opacity: 0.3;
+  background: radial-gradient(circle at 70% 30%, rgba(90, 214, 160, 0.1), transparent 50%);
+}
+
+.milestone-progress.completed {
+  background: linear-gradient(135deg, #1a1108 0%, #332a1a 50%, #19140f 100%);
+  border-color: rgba(255, 202, 95, 0.4);
+  box-shadow:
+    0 0 25px rgba(255, 202, 95, 0.3),
+    inset 0 1px 0 rgba(255, 202, 95, 0.2);
+}
+
+.milestone-progress.completed::before {
+  border-color: var(--warn);
+}
+
+.milestone-header {
+  margin-bottom: 12px;
+}
+
+.milestone-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Orbitron", ui-sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+.current-milestone {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.next-arrow {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.next-milestone {
+  color: var(--text);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.starting {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.milestone-crown {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.milestone-title {
+  font-family: "Orbitron", ui-sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--warn);
+  letter-spacing: 0.05em;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.milestone-subtitle {
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.milestone-revenue {
+  font-family: "Orbitron", ui-sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+}
+
+.milestone-progress-bar {
+  margin: 12px 0;
+}
+
+.progress-track {
+  position: relative;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #7ee8b8);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 8px rgba(90, 214, 160, 0.4);
+}
+
+.progress-glow {
+  position: absolute;
+  top: -2px;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, rgba(90, 214, 160, 0.8), transparent);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition: left 0.5s ease;
+  filter: blur(1px);
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: "Orbitron", ui-sans-serif;
+}
+
+.milestone-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.progress-percent {
+  font-family: "Orbitron", ui-sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.remaining-amount {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+}
