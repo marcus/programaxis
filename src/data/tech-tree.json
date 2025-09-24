@@ -255,7 +255,7 @@
           "baseCost": 16000,
           "costCurve": "soft_expo_115",
           "effects": [
-            { "stat": "refactor_bonus", "type": "add", "value": 5.0 },
+            { "stat": "refactor_bonus", "type": "add", "value": 0.5 },
             { "stat": "tech_debt_growth", "type": "mul", "value": 0.8 },
             { "stat": "code_quality", "type": "mul", "value": 1.2 }
           ]
