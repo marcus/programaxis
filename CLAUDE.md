@@ -247,6 +247,39 @@ else if (system.velocityPattern === 'your_pattern_name') {
 - **Shaders**: Custom vertex/fragment shaders for glowing particle effects
 - **Cleanup**: Automatic geometry/material disposal prevents memory leaks
 
+## Action Button Animations
+
+### Button Animation System
+
+Subtle 3D spark animations trigger when clicking action buttons (Write Code, Ship Build, Pay Down Debt). The system is designed for frequent use with minimal performance impact.
+
+- **Action Animation Manager** (`src/game/actionAnimationSystem.ts`): Lightweight event system with performance monitoring
+- **Action Button Component** (`src/ui/ActionButtonAnimation.tsx`): Three.js renderer optimized for small, frequent effects
+- **CSS Enhancements** (`src/styles/action-animations.css`): 3D button transforms and immediate feedback
+
+### Animation Characteristics
+
+Each action button has a distinct spark pattern:
+
+- **Write Code**: 3-6 green sparks floating upward with gentle scatter (optimized for frequent clicking)
+- **Ship Build**: 4-8 yellow sparks in radial burst pattern with physics fall
+- **Pay Down Debt**: 5-9 red sparks in spiral dissolve pattern (delayed execution to prevent component refresh interruption)
+
+### Performance Features
+
+- **Adaptive Quality**: Auto-reduces particle count/duration if FPS drops below 30
+- **Object Pooling**: Reuses particles and shared materials
+- **Smart Throttling**: Limits animations to prevent overwhelming on rapid clicks
+- **Small Scale**: 1.5-5px spark particles, 280-420ms duration
+- **3D Effects**: Cross-shaped spark shaders with Z-axis movement and rotation
+
+### Integration Notes
+
+- Animations trigger before game state changes to avoid component re-render interruption
+- Intensity scales with game state (LoC amount, buffered code, debt reduction)
+- Canvas at 70% opacity to avoid covering content
+- Respects `prefers-reduced-motion` accessibility setting
+
 ## Save Data
 
 - **Storage**: IndexedDB key `programaxis_save_v1`

@@ -29,3 +29,6 @@
 
 /* Three.js tech purchase animations */
 @import './styles/tech-animation.css';
+
+/* Action button 3D animations */
+@import './styles/action-animations.css';

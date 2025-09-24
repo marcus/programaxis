@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useStore } from '../state/store'
 import { CodeHealthInfoModal } from './CodeHealthInfoModal'
+import { actionAnimationSystem } from '../game/actionAnimationSystem'
 
 function formatNumber(num: number, precision = 1): string {
   if (num >= 1000000) return (num / 1000000).toFixed(precision) + 'M'
@@ -143,7 +144,24 @@ export const QualityIndicator: React.FC = () => {
           {debtReduction > 0 && (
             <button
               className="tron-button debt-paydown-btn"
-              onClick={() => payDownTechDebt(debtReduction)}
+              onClick={(e) => {
+                if (currentLoc < debtCost) return
+
+                const rect = e.currentTarget.getBoundingClientRect()
+                const centerX = rect.left + rect.width / 2
+                const centerY = rect.top + rect.height / 2
+
+                // Trigger animation first
+                actionAnimationSystem.triggerPayDebtAnimation(
+                  { x: centerX, y: centerY },
+                  Math.min(1, (debtReduction / 500) + 0.2)
+                )
+
+                // Delay the state change to allow animation to start
+                setTimeout(() => {
+                  payDownTechDebt(debtReduction)
+                }, 50) // Small delay to ensure animation starts before re-render
+              }}
               disabled={currentLoc < debtCost}
             >
               Pay {formatNumber(debtCost)} LoC → -{formatNumber(debtReduction)} debt

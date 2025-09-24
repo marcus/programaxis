@@ -1,0 +1,233 @@
+/* Action Button Animation Enhancements */
+
+/* Action Button Animation Canvas */
+.action-button-animation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 500;
+  /* Subtle blend mode for action effects */
+  mix-blend-mode: normal;
+}
+
+.action-button-animation-overlay canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Performance optimizations */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  /* Refined visibility for balanced 3D sparks */
+  opacity: 0.7;
+  filter: brightness(1.08) saturate(1.05);
+}
+
+/* Enhanced button interactions with 3D effects */
+.tron-button {
+  position: relative;
+  transition: all 0.15s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Write Code Button - Subtle float effect */
+.tron-button.write-code {
+  transition: all 0.1s ease; /* Faster for frequent clicks */
+}
+
+.tron-button.write-code:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow:
+    0 2px 8px rgba(90, 214, 160, 0.3),
+    inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.2);
+}
+
+.tron-button.write-code:hover:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow:
+    0 4px 12px rgba(90, 214, 160, 0.4),
+    inset 0 -1px 3px rgba(90, 214, 160, 0.1);
+}
+
+/* Ship Build Button - Launch effect */
+.tron-button.ship-build:active {
+  transform: translateY(2px) scale(0.96) rotateX(2deg);
+  box-shadow:
+    0 1px 4px rgba(255, 202, 95, 0.4),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.3) saturate(1.2);
+}
+
+.tron-button.ship-build:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.04) rotateX(-1deg);
+  box-shadow:
+    0 6px 16px rgba(255, 202, 95, 0.5),
+    inset 0 -2px 4px rgba(255, 202, 95, 0.1);
+}
+
+/* Pay Debt Button - Dissolve effect */
+.debt-paydown-btn {
+  position: relative;
+  transition: all 0.2s ease;
+  transform-style: preserve-3d;
+}
+
+.debt-paydown-btn:active {
+  transform: scale(0.94) rotateX(3deg);
+  box-shadow:
+    0 2px 8px rgba(244, 91, 105, 0.4),
+    inset 0 2px 6px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.1) contrast(1.1);
+}
+
+.debt-paydown-btn:hover:not(:disabled) {
+  transform: scale(1.03) rotateX(-1deg);
+  box-shadow:
+    0 4px 12px rgba(244, 91, 105, 0.6),
+    inset 0 -1px 3px rgba(244, 91, 105, 0.2);
+}
+
+/* Ripple effect for button presses */
+@keyframes button-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.tron-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.tron-button:active::before {
+  animation: button-ripple 0.3s ease-out;
+  width: 100%;
+  height: 100%;
+}
+
+/* Write code specific ripple */
+.tron-button.write-code::before {
+  background: rgba(90, 214, 160, 0.4);
+}
+
+/* Ship build specific ripple */
+.tron-button.ship-build::before {
+  background: rgba(255, 202, 95, 0.4);
+}
+
+/* Debt paydown specific ripple */
+.debt-paydown-btn::before {
+  background: rgba(244, 91, 105, 0.4);
+}
+
+/* Subtle glow pulse for active buttons */
+@keyframes action-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 15px currentColor, 0 0 25px currentColor;
+  }
+}
+
+/* Apply glow when animations are active */
+.action-animation-active.write-code {
+  animation: action-glow-pulse 0.6s ease-in-out;
+}
+
+.action-animation-active.ship-build {
+  animation: action-glow-pulse 0.8s ease-in-out;
+}
+
+.action-animation-active.debt-paydown-btn {
+  animation: action-glow-pulse 1s ease-in-out;
+}
+
+/* Performance optimizations */
+.tron-button,
+.debt-paydown-btn {
+  contain: layout style;
+  will-change: transform, box-shadow;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .action-button-animation-overlay {
+    display: none;
+  }
+
+  .tron-button,
+  .debt-paydown-btn {
+    transition: none;
+  }
+
+  .tron-button:active,
+  .tron-button:hover,
+  .debt-paydown-btn:active,
+  .debt-paydown-btn:hover {
+    transform: none;
+    animation: none;
+  }
+
+  .tron-button::before {
+    display: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .action-button-animation-overlay {
+    opacity: 1;
+    filter: contrast(2);
+  }
+
+  .tron-button:active,
+  .debt-paydown-btn:active {
+    outline: 2px solid currentColor;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .action-button-animation-overlay canvas {
+    opacity: 0.6; /* Reduce intensity on mobile */
+  }
+
+  .tron-button:active,
+  .debt-paydown-btn:active {
+    transform: scale(0.96); /* Simpler transforms on mobile */
+  }
+
+  .tron-button:hover,
+  .debt-paydown-btn:hover {
+    transform: none; /* No hover effects on touch devices */
+  }
+}
+
+/* Debug mode (can be toggled with class on body) */
+.debug-action-animations .action-button-animation-overlay {
+  outline: 1px dashed #00ff00;
+  opacity: 1;
+}

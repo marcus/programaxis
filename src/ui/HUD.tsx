@@ -5,6 +5,7 @@ import { MilestoneProgress } from './MilestoneProgress'
 import { AgentDashboard } from './AgentDashboard'
 import { QualityIndicator } from './QualityIndicator'
 import { AutomationIndicator } from './AutomationIndicator'
+import { actionAnimationSystem } from '../game/actionAnimationSystem'
 
 function fmt(n: number, digits = 2) {
   if (!isFinite(n)) return '0'
@@ -59,8 +60,43 @@ export const HUD: React.FC = () => {
       </div>
 
       <div className="actions">
-        <button className="tron-button write-code" onClick={onClick}>Write Code (+LoC)</button>
-        <button className="tron-button ship-build" onClick={onShip} disabled={autoShip || shipAutomation > 0}>{autoShip || shipAutomation>0 ? 'Ship (Auto)' : 'Ship Build'}</button>
+        <button
+          className="tron-button write-code"
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect()
+            const centerX = rect.left + rect.width / 2
+            const centerY = rect.top + rect.height / 2
+
+            actionAnimationSystem.triggerWriteCodeAnimation(
+              { x: centerX, y: centerY },
+              Math.min(1, (loc / 1000) * 0.1 + 0.5) // Intensity based on current LoC
+            )
+
+            onClick()
+          }}
+        >
+          Write Code (+LoC)
+        </button>
+        <button
+          className="tron-button ship-build"
+          onClick={(e) => {
+            if (autoShip || shipAutomation > 0) return
+
+            const rect = e.currentTarget.getBoundingClientRect()
+            const centerX = rect.left + rect.width / 2
+            const centerY = rect.top + rect.height / 2
+
+            actionAnimationSystem.triggerShipBuildAnimation(
+              { x: centerX, y: centerY },
+              Math.min(1, (bufferedLoc / 1000) * 0.2 + 0.3) // Intensity based on buffered LoC
+            )
+
+            onShip()
+          }}
+          disabled={autoShip || shipAutomation > 0}
+        >
+          {autoShip || shipAutomation>0 ? 'Ship (Auto)' : 'Ship Build'}
+        </button>
       </div>
 
       <AgentDashboard />

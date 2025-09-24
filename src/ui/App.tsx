@@ -3,11 +3,12 @@ import { HUD } from './HUD'
 import { TechTree } from './TechTree'
 import { Milestones } from './Milestones'
 import { TechPurchaseAnimation } from './TechPurchaseAnimation'
+import { ActionButtonAnimation } from './ActionButtonAnimation'
 import { AnimationTestPanel } from './AnimationTestPanel'
 import { clear, del, get } from 'idb-keyval'
 
 // Set to true to enable animation testing panel
-const ENABLE_ANIMATION_TESTING = true
+const ENABLE_ANIMATION_TESTING = false
 
 export const App: React.FC = () => {
   const handleClearData = async () => {
@@ -116,6 +117,7 @@ export const App: React.FC = () => {
         </button>
       </footer>
       <TechPurchaseAnimation />
+      <ActionButtonAnimation />
       {ENABLE_ANIMATION_TESTING && <AnimationTestPanel />}
     </div>
   )

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { animationSystem } from '../game/animationSystem'
+import { actionAnimationSystem } from '../game/actionAnimationSystem'
 
 export const AnimationTestPanel: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -29,6 +30,12 @@ export const AnimationTestPanel: React.FC = () => {
       name: 'Quality Test',
       effects: [{ text: 'Bug reduction -30%', kind: 'global' as const }]
     }
+  ]
+
+  const actionTestAnimations = [
+    { type: 'write-code' as const, name: 'Write Code', color: '#5ad6a0' },
+    { type: 'ship-build' as const, name: 'Ship Build', color: '#ffca5f' },
+    { type: 'pay-debt' as const, name: 'Pay Debt', color: '#f45b69' }
   ]
 
   const triggerTestAnimation = (test: typeof testAnimations[0]) => {
@@ -149,6 +156,66 @@ export const AnimationTestPanel: React.FC = () => {
         ))}
 
         <div style={{
+          marginTop: '12px',
+          paddingTop: '12px',
+          borderTop: '1px solid #243044'
+        }}>
+          <h4 style={{
+            margin: '0 0 8px 0',
+            fontSize: '12px',
+            color: '#ffca5f',
+            fontFamily: 'monospace'
+          }}>
+            🎯 Action Buttons
+          </h4>
+          {actionTestAnimations.map(action => (
+            <button
+              key={action.type}
+              onClick={() => {
+                const x = Math.random() * (window.innerWidth - 200) + 100
+                const y = Math.random() * (window.innerHeight - 200) + 100
+
+                switch (action.type) {
+                  case 'write-code':
+                    actionAnimationSystem.triggerWriteCodeAnimation({ x, y }, Math.random())
+                    break
+                  case 'ship-build':
+                    actionAnimationSystem.triggerShipBuildAnimation({ x, y }, Math.random())
+                    break
+                  case 'pay-debt':
+                    actionAnimationSystem.triggerPayDebtAnimation({ x, y }, Math.random())
+                    break
+                }
+              }}
+              style={{
+                width: '100%',
+                marginBottom: '4px',
+                padding: '6px 12px',
+                backgroundColor: '#2a3441',
+                color: action.color,
+                border: `1px solid ${action.color}40`,
+                borderRadius: '4px',
+                fontSize: '11px',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = `${action.color}15`
+                e.currentTarget.style.borderColor = action.color
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#2a3441'
+                e.currentTarget.style.borderColor = `${action.color}40`
+              }}
+              title={`Test ${action.name} animation`}
+            >
+              {action.name} Animation
+            </button>
+          ))}
+        </div>
+
+        <div style={{
           marginTop: '8px',
           padding: '8px',
           backgroundColor: '#0b0f14',
@@ -158,10 +225,10 @@ export const AnimationTestPanel: React.FC = () => {
           lineHeight: '1.4'
         }}>
           <strong>Tips:</strong><br/>
-          • Animations spawn at random positions<br/>
-          • Each branch has unique colors/symbols<br/>
-          • Click multiple times for overlapping effects<br/>
-          • Real purchases trigger at button positions
+          • Tech animations: Random positions, branch-specific<br/>
+          • Action animations: Subtle, performance-optimized<br/>
+          • Real buttons trigger at actual positions<br/>
+          • Check performance with multiple rapid clicks
         </div>
       </div>
     </div>
