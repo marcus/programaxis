@@ -142,7 +142,6 @@ export const App: React.FC = () => {
       </main>
       <NewsTicker key="news-ticker" />
       <footer className="footer">
-        <span>v0.1 — Local save only • React + Vite • Zustand • IndexedDB</span>
         <button
           onClick={handleClearData}
           style={{
@@ -155,9 +154,9 @@ export const App: React.FC = () => {
             borderRadius: '4px',
             cursor: 'pointer'
           }}
-          title="⚠️ Permanently delete all save data and restart the game"
+          title="⚠ Permanently delete all save data and restart the game"
         >
-          🗑️ Clear Data
+          Clear Data
         </button>
       </footer>
       <TechPurchaseAnimation />

@@ -6,6 +6,7 @@ import { GarbledText } from './GarbledText'
 import { PurchasedIcon, UnlockedIcon, LockedIcon } from './StatusIcons'
 import { animationSystem } from '../game/animationSystem'
 import { TechTreeCanvas } from './TechTreeCanvas'
+import { TechNodeModal } from './TechNodeModal'
 
 function costFor(nodeId: string) {
   const s = useStore.getState()
@@ -109,6 +110,20 @@ export const TechTree: React.FC = () => {
 
   // State for toggling between old and new layouts - default to classic view
   const [useNewLayout, setUseNewLayout] = useState(false)
+
+  // State for tech node modal
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const openModal = (nodeId: string) => {
+    setSelectedNodeId(nodeId)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setSelectedNodeId(null)
+  }
 
   const containerRef = useRef<HTMLDivElement>(null)
   const [nodePositions, setNodePositions] = useState<Record<string, { x: number; y: number; width: number; height: number }>>({})
@@ -271,7 +286,27 @@ export const TechTree: React.FC = () => {
               const stateClass = isPurchased ? 'is-purchased' : isUnlocked ? 'is-unlocked' : 'is-locked'
               const statusText = isPurchased ? 'Purchased' : isUnlocked ? 'Unlocked' : 'Locked'
               return (
-                <div key={n.id} className={`node ${stateClass}`} data-node-id={n.id} style={{ position: 'relative', zIndex: 2 }}>
+                <div
+                  key={n.id}
+                  className={`node ${stateClass}`}
+                  data-node-id={n.id}
+                  onClick={(e) => {
+                    // Prevent modal from opening when clicking the buy button
+                    if ((e.target as HTMLElement).closest('button')) {
+                      return
+                    }
+                    // Only allow modal to open for unlocked or purchased nodes
+                    if (isUnlocked || isPurchased) {
+                      openModal(n.id)
+                    }
+                  }}
+                  title={isUnlocked || isPurchased ? "Click to view details" : "Locked - unlock prerequisites to view details"}
+                  style={{
+                    position: 'relative',
+                    zIndex: 2,
+                    cursor: isUnlocked || isPurchased ? 'pointer' : 'not-allowed'
+                  }}
+                >
                   {/* Background Icon */}
                   <div className="node-background-icon">
                     <NodeIcon id={n.id} size={64} />
@@ -421,6 +456,13 @@ export const TechTree: React.FC = () => {
           </svg>
         )}
       </div>
+
+      {/* Tech Node Modal */}
+      <TechNodeModal
+        nodeId={selectedNodeId}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   )
 }

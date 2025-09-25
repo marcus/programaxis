@@ -324,6 +324,161 @@ export const NodeIcon: React.FC<{ id: string, size?: number }> = ({ id, size=20 
         <path d="M12 12l4-4M12 12l-4 4M12 12l4 4M12 12l-4-4" stroke={stroke} strokeWidth={sw} opacity="0.4"/>
       </svg>
     )
+    case 'I5': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="8" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 12l2 2 4-4" stroke={stroke} strokeWidth={sw}/>
+        <path d="M12 4a8 8 0 0 1 0 16M12 20a8 8 0 0 1 0-16" stroke={stroke} strokeWidth={sw} opacity="0.6"/>
+      </svg>
+    )
+    case 'I6': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke={stroke} strokeWidth={sw}/>
+        <path d="M12 8v8M8 12h8" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="12" cy="12" r="3" stroke={stroke} strokeWidth={sw} fill="none"/>
+        <path d="M12 3v2M12 19v2M21 12h-2M5 12H3" stroke={stroke} strokeWidth={sw} opacity="0.7"/>
+      </svg>
+    )
+
+    // Missing high-tier icons for other branches
+    case 'A5': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="6" stroke={stroke} strokeWidth={sw}/>
+        <path d="M12 6a6 6 0 0 1 0 12M6 12a6 6 0 0 1 12 0" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="12" cy="12" r="2" fill={stroke}/>
+        <path d="M12 8v8M8 12h8" stroke={stroke} strokeWidth={sw} opacity="0.6"/>
+      </svg>
+    )
+    case 'A6': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7l3-7z" stroke={stroke} strokeWidth={sw} fill="none"/>
+        <circle cx="12" cy="12" r="4" stroke={stroke} strokeWidth={sw} opacity="0.6"/>
+        <path d="M12 8v8M8 12h8" stroke={stroke} strokeWidth={sw} opacity="0.4"/>
+      </svg>
+    )
+    case 'B5': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="8" width="16" height="8" rx="4" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="8" cy="12" r="2" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="16" cy="12" r="2" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 4v4M16 4v4M8 16v4M16 16v4" stroke={stroke} strokeWidth={sw} opacity="0.6"/>
+      </svg>
+    )
+    case 'B6': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="8" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 8l8 8M16 8l-8 8" stroke={stroke} strokeWidth={sw} opacity="0.3"/>
+        <circle cx="12" cy="12" r="3" stroke={stroke} strokeWidth={sw}/>
+        <path d="M12 9v6M9 12h6" stroke={stroke} strokeWidth={sw}/>
+      </svg>
+    )
+    case 'C5': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 6h12v12H6V6z" stroke={stroke} strokeWidth={sw}/>
+        <path d="M6 6l12 12M18 6L6 18" stroke={stroke} strokeWidth={sw} opacity="0.4"/>
+        <circle cx="9" cy="9" r="1" fill={stroke}/>
+        <circle cx="15" cy="9" r="1" fill={stroke}/>
+        <circle cx="9" cy="15" r="1" fill={stroke}/>
+        <circle cx="15" cy="15" r="1" fill={stroke}/>
+      </svg>
+    )
+    case 'C6': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="12,2 15,8 22,8 17,12 19,20 12,16 5,20 7,12 2,8 9,8" stroke={stroke} strokeWidth={sw} fill="none"/>
+        <circle cx="12" cy="12" r="6" stroke={stroke} strokeWidth={sw} opacity="0.3"/>
+        <path d="M12 6v12M6 12h12" stroke={stroke} strokeWidth={sw} opacity="0.5"/>
+      </svg>
+    )
+    case 'D5': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="14" height="14" rx="2" stroke={stroke} strokeWidth={sw}/>
+        <path d="M9 12l2 2 4-4" stroke={stroke} strokeWidth={sw}/>
+        <path d="M5 9h14M5 15h14" stroke={stroke} strokeWidth={sw} opacity="0.4"/>
+        <circle cx="8" cy="8" r="1" fill={stroke} opacity="0.6"/>
+        <circle cx="16" cy="8" r="1" fill={stroke} opacity="0.6"/>
+      </svg>
+    )
+    case 'D6': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 12l2 2 4-4" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="12" cy="12" r="5" stroke={stroke} strokeWidth={sw} opacity="0.4"/>
+        <circle cx="12" cy="12" r="2" stroke={stroke} strokeWidth={sw}/>
+        <path d="M12 3v2M12 19v2M21 12h-2M5 12H3" stroke={stroke} strokeWidth={sw} opacity="0.6"/>
+      </svg>
+    )
+    case 'E5': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="6" width="16" height="12" rx="2" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="8" cy="10" r="1" fill={stroke}/>
+        <circle cx="12" cy="10" r="1" fill={stroke}/>
+        <circle cx="16" cy="10" r="1" fill={stroke}/>
+        <circle cx="6" cy="14" r="1" fill={stroke}/>
+        <circle cx="10" cy="14" r="1" fill={stroke}/>
+        <circle cx="14" cy="14" r="1" fill={stroke}/>
+        <circle cx="18" cy="14" r="1" fill={stroke}/>
+      </svg>
+    )
+    case 'E6': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="8" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="9" cy="9" r="1.5" fill={stroke}/>
+        <circle cx="15" cy="9" r="1.5" fill={stroke}/>
+        <circle cx="6" cy="12" r="1.5" fill={stroke}/>
+        <circle cx="12" cy="12" r="1.5" fill={stroke}/>
+        <circle cx="18" cy="12" r="1.5" fill={stroke}/>
+        <circle cx="9" cy="15" r="1.5" fill={stroke}/>
+        <circle cx="15" cy="15" r="1.5" fill={stroke}/>
+      </svg>
+    )
+    case 'F5': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="7" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 8l8 8M16 8l-8 8" stroke={stroke} strokeWidth={sw} opacity="0.3"/>
+        <circle cx="6" cy="6" r="2" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="18" cy="6" r="2" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="6" cy="18" r="2" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="18" cy="18" r="2" stroke={stroke} strokeWidth={sw}/>
+      </svg>
+    )
+    case 'F6': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 12h18M12 3v18" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="12" cy="12" r="6" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 8l8 8M16 8l-8 8" stroke={stroke} strokeWidth={sw} opacity="0.4"/>
+        <circle cx="12" cy="12" r="2" fill={stroke}/>
+      </svg>
+    )
+    case 'G5': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="4" width="12" height="16" rx="2" stroke={stroke} strokeWidth={sw}/>
+        <rect x="4" y="8" width="16" height="8" rx="2" stroke={stroke} strokeWidth={sw} opacity="0.6"/>
+        <path d="M10 12h4M12 10v4" stroke={stroke} strokeWidth={sw}/>
+      </svg>
+    )
+    case 'G6': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="8" stroke={stroke} strokeWidth={sw}/>
+        <path d="M12 4a8 8 0 0 0 0 16M12 20a8 8 0 0 0 0-16" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="12" cy="12" r="4" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 8l8 8M16 8l-8 8" stroke={stroke} strokeWidth={sw} opacity="0.3"/>
+      </svg>
+    )
+    case 'H5': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3l2 4 4 .6-3 3 .7 4.4-3.7-2-3.7 2 .7-4.4-3-3 4-.6 2-4z" stroke={stroke} strokeWidth={sw}/>
+        <circle cx="12" cy="12" r="6" stroke={stroke} strokeWidth={sw} opacity="0.4"/>
+        <path d="M8 8l8 8M16 8l-8 8" stroke={stroke} strokeWidth={sw} opacity="0.2"/>
+      </svg>
+    )
+    case 'H6': return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9" stroke={stroke} strokeWidth={sw}/>
+        <path d="M8 12l2 2 4-4" stroke={stroke} strokeWidth={sw}/>
+        <path d="M12 3l2 4 4 .6-3 3 .7 4.4-3.7-2-3.7 2 .7-4.4-3-3 4-.6 2-4z" stroke={stroke} strokeWidth={sw} opacity="0.3"/>
+        <circle cx="12" cy="12" r="2" fill={stroke}/>
+      </svg>
+    )
   }
   // Default generic chip
   return (

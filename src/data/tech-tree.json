@@ -38,6 +38,7 @@
           "id": "A0",
           "tier": 0,
           "name": "Cut & Paste",
+          "description": "The ancient art of borrowing wisdom from Stack Overflow and making it yours",
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -48,6 +49,7 @@
           "id": "A1",
           "tier": 1,
           "name": "Autocomplete",
+          "description": "Your IDE starts reading your mind before you even finish typing",
           "baseCost": 60,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -59,6 +61,7 @@
           "id": "A2",
           "tier": 2,
           "name": "Code Review Bot",
+          "description": "A robotic critic that never gets tired of nitpicking your semicolons",
           "baseCost": 1200,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -70,6 +73,7 @@
           "id": "A3",
           "tier": 3,
           "name": "Copilot Agents",
+          "description": "AI wingmen that actually understand what you're trying to build",
           "baseCost": 4000,
           "costCurve": "soft_expo_115",
           "requires": [{ "node": "C2" }],
@@ -82,6 +86,7 @@
           "id": "A4",
           "tier": 4,
           "name": "Pair Programming AI",
+          "description": "Finally, a coding partner who never judges your variable names",
           "baseCost": 20000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -93,6 +98,7 @@
           "id": "A5",
           "tier": 5,
           "name": "Self-Improving Models",
+          "description": "AI that learns from its mistakes faster than you learn from yours",
           "baseCost": 80000,
           "costCurve": "expo_118",
           "requires": [{ "node": "B4" }],
@@ -106,6 +112,7 @@
           "id": "A6",
           "tier": 6,
           "name": "Superintelligence",
+          "description": "When your code writes itself and questions its own existence",
           "baseCost": 500000,
           "costCurve": "expo_118",
           "requires": [{ "node": "C5" }],
@@ -125,6 +132,7 @@
           "id": "B0",
           "tier": 0,
           "name": "Plain Editor",
+          "description": "Just you, text, and the blinking cursor of infinite possibility",
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -135,6 +143,7 @@
           "id": "B1",
           "tier": 1,
           "name": "Full IDE + Debugger",
+          "description": "Now you can find bugs faster and question your life choices with style",
           "baseCost": 80,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -146,6 +155,7 @@
           "id": "B2",
           "tier": 2,
           "name": "Linter Suite",
+          "description": "A perfectionist robot that cares deeply about your spacing habits",
           "baseCost": 1000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -157,6 +167,7 @@
           "id": "B3",
           "tier": 3,
           "name": "AI-Native Editor",
+          "description": "Your editor becomes sentient and starts contributing to open source",
           "baseCost": 5000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -168,6 +179,7 @@
           "id": "B4",
           "tier": 4,
           "name": "Cloud IDE",
+          "description": "Code anywhere, even from that beach vacation you keep promising yourself",
           "baseCost": 25000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -179,6 +191,7 @@
           "id": "B5",
           "tier": 5,
           "name": "Immersive IDE (VR/AR)",
+          "description": "Swim through your codebase like Neo in the Matrix, minus the leather",
           "baseCost": 120000,
           "costCurve": "expo_118",
           "effects": [
@@ -191,6 +204,7 @@
           "id": "B6",
           "tier": 6,
           "name": "Autonomous IDE",
+          "description": "Your development environment achieves consciousness and files its own PRs",
           "baseCost": 800000,
           "costCurve": "expo_118",
           "effects": [
@@ -209,6 +223,7 @@
           "id": "C0",
           "tier": 0,
           "name": "Office Laptop",
+          "description": "A trusty companion that heats your lap while compiling your dreams",
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -219,6 +234,7 @@
           "id": "C1",
           "tier": 1,
           "name": "Multi-Core CPU",
+          "description": "Because one brain is good, but eight brains thinking in parallel is better",
           "baseCost": 50,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -230,6 +246,7 @@
           "id": "C2",
           "tier": 2,
           "name": "SSD Array",
+          "description": "Storage so fast it loads your files before you even think about them",
           "baseCost": 900,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -241,6 +258,7 @@
           "id": "C3",
           "tier": 3,
           "name": "Single GPU",
+          "description": "A graphics card that renders code faster than your hopes and dreams",
           "baseCost": 3500,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -252,6 +270,7 @@
           "id": "C4",
           "tier": 4,
           "name": "Server Farm",
+          "description": "A warehouse full of computers working harder than your entire dev team",
           "baseCost": 18000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -263,6 +282,7 @@
           "id": "C5",
           "tier": 5,
           "name": "Multi-GPU Cloud",
+          "description": "Harness the collective power of a thousand gaming rigs for productivity",
           "baseCost": 100000,
           "costCurve": "expo_118",
           "effects": [
@@ -275,6 +295,7 @@
           "id": "C6",
           "tier": 6,
           "name": "Quantum Computer",
+          "description": "Computing that exists in all states until observed, just like your bugs",
           "baseCost": 600000,
           "costCurve": "expo_118",
           "effects": [
@@ -294,6 +315,7 @@
           "id": "D0",
           "tier": 0,
           "name": "Basic Workflow",
+          "description": "Finally, a system more organized than your desktop folder structure",
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -304,6 +326,7 @@
           "id": "D1",
           "tier": 1,
           "name": "Testing Framework",
+          "description": "Automated tests that break more often than the code they're testing",
           "baseCost": 65,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -315,6 +338,7 @@
           "id": "D2",
           "tier": 2,
           "name": "Agile Methodology",
+          "description": "Move fast and break things, but with more sticky notes and ceremonies",
           "baseCost": 1100,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -326,6 +350,7 @@
           "id": "D3",
           "tier": 3,
           "name": "Quality Assurance",
+          "description": "Professional bug hunters who find issues you never knew existed",
           "baseCost": 4500,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -337,6 +362,7 @@
           "id": "D4",
           "tier": 4,
           "name": "DevOps Culture",
+          "description": "Where developers and operations finally learn to play nice together",
           "baseCost": 22000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -348,6 +374,7 @@
           "id": "D5",
           "tier": 5,
           "name": "Auto-Refactoring",
+          "description": "Code that cleans itself up better than you clean your apartment",
           "baseCost": 110000,
           "costCurve": "expo_118",
           "effects": [
@@ -360,6 +387,7 @@
           "id": "D6",
           "tier": 6,
           "name": "Perfect Process",
+          "description": "A workflow so flawless it makes Swiss watches look sloppy",
           "baseCost": 700000,
           "costCurve": "expo_118",
           "effects": [
@@ -378,6 +406,7 @@
           "id": "E0",
           "tier": 0,
           "name": "Solo Dev",
+          "description": "One developer against the world, fueled by coffee and Stack Overflow",
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -389,6 +418,7 @@
           "id": "E1",
           "tier": 1,
           "name": "Pair Programming",
+          "description": "Two minds, one keyboard, infinite debates about semicolons",
           "baseCost": 200,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -400,6 +430,7 @@
           "id": "E2",
           "tier": 2,
           "name": "Code Review Team",
+          "description": "A council of wise developers who question every line you write",
           "baseCost": 1200,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -412,6 +443,7 @@
           "id": "E3",
           "tier": 3,
           "name": "Scrum Team",
+          "description": "Daily standups where everyone pretends to know what they're doing",
           "baseCost": 4000,
           "costCurve": "soft_expo_115",
           "requires": [{ "node": "C2" }],
@@ -425,6 +457,7 @@
           "id": "E4",
           "tier": 4,
           "name": "Cross-Functional Team",
+          "description": "A superhero squad where everyone has different powers and opinions",
           "baseCost": 20000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -437,6 +470,7 @@
           "id": "E5",
           "tier": 5,
           "name": "Engineering Department",
+          "description": "A small army of developers with proper org charts and everything",
           "baseCost": 120000,
           "costCurve": "expo_118",
           "requires": [{ "node": "C4" }],
@@ -450,6 +484,7 @@
           "id": "E6",
           "tier": 6,
           "name": "Multi-Team Organization",
+          "description": "A corporate machine that somehow produces code faster than chaos",
           "baseCost": 800000,
           "costCurve": "expo_118",
           "requires": [{ "node": "C5" }],
@@ -470,6 +505,7 @@
           "id": "F0",
           "tier": 0,
           "name": "Word of Mouth",
+          "description": "Convincing your friends to tell their friends about your amazing thing",
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -480,6 +516,7 @@
           "id": "F1",
           "tier": 1,
           "name": "Targeted Marketing",
+          "description": "Ads that follow people around the internet like a friendly stalker",
           "baseCost": 75,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -490,6 +527,7 @@
           "id": "F2",
           "tier": 2,
           "name": "Social Media",
+          "description": "Shouting into the void until the void shouts back with money",
           "baseCost": 1300,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -501,6 +539,7 @@
           "id": "F3",
           "tier": 3,
           "name": "Growth Hacking",
+          "description": "Questionable tactics that somehow work better than traditional marketing",
           "baseCost": 5000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -512,6 +551,7 @@
           "id": "F4",
           "tier": 4,
           "name": "Influencer Network",
+          "description": "Famous people who get paid to pretend they use your product",
           "baseCost": 25000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -523,6 +563,7 @@
           "id": "F5",
           "tier": 5,
           "name": "Viral Marketing",
+          "description": "Content so catchy it spreads faster than gossip in a small office",
           "baseCost": 120000,
           "costCurve": "expo_118",
           "effects": [
@@ -534,6 +575,7 @@
           "id": "F6",
           "tier": 6,
           "name": "Market Domination",
+          "description": "When you own the market so hard competitors just give up and go home",
           "baseCost": 800000,
           "costCurve": "expo_118",
           "effects": [
@@ -551,6 +593,7 @@
           "id": "G0",
           "tier": 0,
           "name": "Basic Game",
+          "description": "A simple game that's definitely not just Pong with extra steps",
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -561,6 +604,7 @@
           "id": "G1",
           "tier": 1,
           "name": "DLC & Updates",
+          "description": "Selling the rest of your game back to players one piece at a time",
           "baseCost": 360,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -572,6 +616,7 @@
           "id": "G2",
           "tier": 2,
           "name": "Season Pass",
+          "description": "A subscription to disappointment with occasional moments of joy",
           "baseCost": 1500,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -583,6 +628,7 @@
           "id": "G3",
           "tier": 3,
           "name": "Multiplayer & IAP",
+          "description": "Where friendship goes to die and wallets go to empty",
           "baseCost": 6000,
           "costCurve": "soft_expo_115",
           "requires": [{ "node": "A2" }],
@@ -595,6 +641,7 @@
           "id": "G4",
           "tier": 4,
           "name": "Mobile Port",
+          "description": "Cramming your masterpiece onto screens smaller than your laptop",
           "baseCost": 30000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -606,6 +653,7 @@
           "id": "G5",
           "tier": 5,
           "name": "Cross-Platform",
+          "description": "Your game works everywhere, which means it breaks everywhere equally",
           "baseCost": 150000,
           "costCurve": "expo_118",
           "requires": [{ "node": "B3" }, { "node": "E2" }],
@@ -618,6 +666,7 @@
           "id": "G6",
           "tier": 6,
           "name": "Premium Platform",
+          "description": "An exclusive club where only the wealthy and patient may enter",
           "baseCost": 900000,
           "costCurve": "expo_118",
           "requires": [{ "node": "A5" }],
@@ -637,6 +686,7 @@
           "id": "H0",
           "tier": 0,
           "name": "Placeholder Art",
+          "description": "Stick figures and gray boxes that somehow pass for professional design",
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -647,6 +697,7 @@
           "id": "H1",
           "tier": 1,
           "name": "Professional Assets",
+          "description": "Art so good it makes people forget about your bugs temporarily",
           "baseCost": 255,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -658,6 +709,7 @@
           "id": "H2",
           "tier": 2,
           "name": "Unit Tests",
+          "description": "Code that tests other code, because trust issues run deep here",
           "baseCost": 1100,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -669,6 +721,7 @@
           "id": "H3",
           "tier": 3,
           "name": "AI-Generated Content",
+          "description": "Robots making art while artists contemplate career changes",
           "baseCost": 4000,
           "costCurve": "soft_expo_115",
           "requires": [{ "node": "C3" }],
@@ -681,6 +734,7 @@
           "id": "H4",
           "tier": 4,
           "name": "QA Team",
+          "description": "Professional breakers who find ways to crash your uncrashable code",
           "baseCost": 20000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -692,6 +746,7 @@
           "id": "H5",
           "tier": 5,
           "name": "Premium Quality",
+          "description": "Polish so fine you could eat off your UI and actually want to",
           "baseCost": 100000,
           "costCurve": "expo_118",
           "requires": [{ "node": "D5" }],
@@ -704,6 +759,7 @@
           "id": "H6",
           "tier": 6,
           "name": "Perfect Code",
+          "description": "Code so pure it makes angels weep tears of perfectly formatted JSON",
           "baseCost": 750000,
           "costCurve": "expo_118",
           "requires": [{ "node": "A6" }],
@@ -723,6 +779,7 @@
           "id": "I0",
           "tier": 0,
           "name": "Manual Deploy",
+          "description": "Crossing your fingers and hoping nothing breaks during deployment",
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -733,6 +790,7 @@
           "id": "I1",
           "tier": 1,
           "name": "Basic CI Pipeline",
+          "description": "Robots that build your code while you pretend to work",
           "baseCost": 90,
           "costCurve": "soft_expo_112",
           "effects": [
@@ -743,6 +801,7 @@
           "id": "I2",
           "tier": 2,
           "name": "Git Hooks",
+          "description": "Automated gatekeepers that judge your commit messages harshly",
           "baseCost": 1250,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -754,6 +813,7 @@
           "id": "I3",
           "tier": 3,
           "name": "Continuous Integration",
+          "description": "Your code gets built, tested, and judged every single commit",
           "baseCost": 5500,
           "costCurve": "soft_expo_115",
           "requires": [{ "node": "D1" }],
@@ -766,6 +826,7 @@
           "id": "I4",
           "tier": 4,
           "name": "Blue-Green Deploy",
+          "description": "Deploy to production like a magician with a backup trick",
           "baseCost": 25000,
           "costCurve": "soft_expo_115",
           "effects": [
@@ -777,6 +838,7 @@
           "id": "I5",
           "tier": 5,
           "name": "Continuous Deployment",
+          "description": "Every commit goes live automatically because YOLO is a lifestyle",
           "baseCost": 130000,
           "costCurve": "expo_118",
           "requires": [{ "node": "D5" }],
@@ -789,6 +851,7 @@
           "id": "I6",
           "tier": 6,
           "name": "Zero-Downtime Deploy",
+          "description": "Deployment so smooth your users don't even know you shipped",
           "baseCost": 900000,
           "costCurve": "expo_118",
           "requires": [{ "node": "D5" }],
