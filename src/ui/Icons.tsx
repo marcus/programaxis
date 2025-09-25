@@ -556,3 +556,78 @@ export const HealthChartIcon: React.FC<{ size?: number }> = ({ size = 18 }) => (
     <circle cx="20" cy="18" r="0.5" fill={stroke} opacity="0.6"/>
   </svg>
 )
+
+// CI/CD Pipeline Icons
+export const PackageIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2L4 7v10l8 5 8-5V7l-8-5z" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M4 7l8 5 8-5" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M12 12v10" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M8 4.5L16 4.5" stroke="currentColor" strokeWidth={sw} opacity="0.6"/>
+  </svg>
+)
+
+export const SyncIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21 10c0-5-4-9-9-9s-9 4-9 9" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M3 14c0 5 4 9 9 9s9-4 9-9" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M18 10l3-3-3-3" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M6 14l-3 3 3 3" stroke="currentColor" strokeWidth={sw}/>
+  </svg>
+)
+
+export const LightningIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M8 10h2" stroke="currentColor" strokeWidth={sw} opacity="0.6"/>
+    <path d="M14 16h2" stroke="currentColor" strokeWidth={sw} opacity="0.6"/>
+  </svg>
+)
+
+export const RocketIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4.5 16.5c-1.5 1.5-2 4.5-2 4.5s3-0.5 4.5-2L12 14l5-5s4.5-2.5 3.5-8.5-6 3.5-8.5 3.5L7 9l-2.5 7.5z" stroke="currentColor" strokeWidth={sw}/>
+    <circle cx="15" cy="9" r="1" fill="currentColor"/>
+    <path d="M8.5 16.5L10 18M6 19l1.5 1.5" stroke="currentColor" strokeWidth={sw} opacity="0.6"/>
+  </svg>
+)
+
+export const BuildIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M12 1v6m0 10v6M4.22 4.22l4.24 4.24m11.32 11.32l-4.24-4.24M1 12h6m10 0h6M4.22 19.78l4.24-4.24m11.32-11.32l-4.24 4.24" stroke="currentColor" strokeWidth={sw}/>
+  </svg>
+)
+
+export const DeployIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2L12 18" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M5 9L12 2L19 9" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M5 22h14" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M8 18h8" stroke="currentColor" strokeWidth={sw} opacity="0.6"/>
+  </svg>
+)
+
+export const CheckCircleIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M8 12l2 2 4-4" stroke="currentColor" strokeWidth={sw}/>
+    <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1" opacity="0.4"/>
+  </svg>
+)
+
+export const HourglassIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 2h8v6l-4 4 4 4v6H8v-6l4-4-4-4V2z" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M8 2h8M8 22h8" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M10 6h4" stroke="currentColor" strokeWidth={sw} opacity="0.6"/>
+  </svg>
+)
+
+export const AlertIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2L2 20h20L12 2z" stroke="currentColor" strokeWidth={sw}/>
+    <path d="M12 8v4" stroke="currentColor" strokeWidth={sw}/>
+    <circle cx="12" cy="16" r="1" fill="currentColor"/>
+  </svg>
+)

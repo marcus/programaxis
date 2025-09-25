@@ -7,6 +7,24 @@
   height: 100%;
 }
 
+/* Fixed logo container that stays above HUD */
+.fixed-logo {
+  position: fixed;
+  top: -55px;
+  left: 8px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.fixed-logo .logo {
+  height: 72px;
+  width: auto;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  display: block;
+}
+
 .header {
   padding: 8px 16px;
   background:
@@ -109,17 +127,11 @@
 .header .brand {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 12px;
+  margin-left: 300px; /* Make room for fixed logo on desktop */
 }
 
-.header .logo {
-  height: 72px;
-  width: auto;
-  border-radius: 0;
-  box-shadow: none;
-  background: transparent;
-  display: block;
-}
 
 .header .tagline {
   color: #e5eef5;
@@ -132,7 +144,7 @@
   .header {
     min-height: 80px;
   }
-  .header .logo {
+  .fixed-logo .logo {
     height: 192px;
   }
   .header .tagline {
@@ -270,6 +282,19 @@
 
 /* Mobile adjustments */
 @media (max-width: 767px) {
+  .fixed-logo {
+    top: 4px;
+    left: 4px;
+  }
+
+  .fixed-logo .logo {
+    height: 48px;
+  }
+
+  .header .brand {
+    margin-left: 60px; /* Make room for smaller mobile logo */
+  }
+
   .music-player {
     top: 8px;
     right: 8px;

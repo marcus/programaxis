@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useStore } from '../state/store'
+import {
+  PackageIcon,
+  SyncIcon,
+  LightningIcon,
+  RocketIcon,
+  BuildIcon,
+  DeployIcon,
+  CheckCircleIcon,
+  HourglassIcon,
+  AlertIcon
+} from './Icons'
 
 export const CICDPipelineIndicator: React.FC = () => {
   const automationLevel = useStore(s => s.systems?.shipping?.automationLevel ?? 0)
@@ -20,10 +31,10 @@ export const CICDPipelineIndicator: React.FC = () => {
   }
 
   const getPipelineIcon = (level: number) => {
-    if (level === 0) return '📦'
-    if (level === 1) return '🔄'
-    if (level <= 3) return '⚡'
-    return '🚀'
+    if (level === 0) return <PackageIcon size={18} />
+    if (level === 1) return <SyncIcon size={18} />
+    if (level <= 3) return <LightningIcon size={18} />
+    return <RocketIcon size={18} />
   }
 
   const getPipelineStatus = (level: number) => {
@@ -67,12 +78,12 @@ export const CICDPipelineIndicator: React.FC = () => {
         setTimeUntilNext(deployInterval)
       }
 
-      // Simulate pipeline states
+      // Simple state logic with gentle transitions
       if (timeUntilNext === 0) {
         setPipelineState('success')
-      } else if (timeUntilNext < deployInterval * 0.3) {
+      } else if (timeUntilNext < deployInterval * 0.2) {
         setPipelineState('deploying')
-      } else if (timeUntilNext < deployInterval * 0.7) {
+      } else if (timeUntilNext < deployInterval * 0.5) {
         setPipelineState('building')
       } else {
         setPipelineState('idle')
@@ -82,6 +93,7 @@ export const CICDPipelineIndicator: React.FC = () => {
     return () => clearInterval(interval)
   }, [automationLevel, manualShipAuto, lastAutoShipAt, lastKnownDeployTime])
 
+
   if (automationLevel === 0 && !manualShipAuto) return null
 
   const { description } = getDeployFrequency(automationLevel)
@@ -90,10 +102,10 @@ export const CICDPipelineIndicator: React.FC = () => {
 
   const getPipelineStateIcon = () => {
     switch (pipelineState) {
-      case 'building': return '🔨'
-      case 'deploying': return '🚀'
-      case 'success': return '✅'
-      default: return '⏳'
+      case 'building': return <BuildIcon size={16} />
+      case 'deploying': return <DeployIcon size={16} />
+      case 'success': return <CheckCircleIcon size={16} />
+      default: return <HourglassIcon size={16} />
     }
   }
 
@@ -112,7 +124,10 @@ export const CICDPipelineIndicator: React.FC = () => {
   return (
     <div className={`cicd-pipeline-indicator ${isFlashing ? 'flashing' : ''} ${isHighFrequency ? 'high-frequency' : ''}`}>
       <div className="pipeline-header">
-        <h3>{statusIcon} {statusText} Pipeline</h3>
+        <h3>
+          <span className="pipeline-icon">{statusIcon}</span>
+          {statusText} Pipeline
+        </h3>
         <div className="pipeline-level">
           Level {automationLevel}
         </div>
@@ -161,7 +176,8 @@ export const CICDPipelineIndicator: React.FC = () => {
 
       {manualShipAuto && automationLevel === 0 && (
         <div className="manual-auto-notice">
-          ⚠️ Manual auto-ship enabled
+          <AlertIcon size={14} />
+          Manual auto-ship enabled
         </div>
       )}
     </div>

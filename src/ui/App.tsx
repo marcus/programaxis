@@ -109,9 +109,11 @@ export const App: React.FC = () => {
 
   return (
     <div className="app">
+      <div className="fixed-logo">
+        <img className="logo" src="/logo.png" alt="Programaxis logo" />
+      </div>
       <header className="header">
         <div className="brand">
-          <img className="logo" src="/logo.png" alt="Programaxis logo" />
           <h1 className="sr-only">Programaxis</h1>
           <span className="tagline">Build features, ship, grow revenue.</span>
         </div>
