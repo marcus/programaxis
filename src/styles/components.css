@@ -1,9 +1,15 @@
 /* Basic component styles */
 
-.hud-grid { 
-  display: grid; 
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 8px; 
+.hud-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 480px) {
+  .hud-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .stat { 

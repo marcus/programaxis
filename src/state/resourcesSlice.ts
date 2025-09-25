@@ -49,6 +49,10 @@ export interface StatsState {
   compile_speed: number
   refactor_bonus: number
   tech_debt_growth: number
+  // Agent specialization stats
+  qa_agents: number
+  devops_agents: number
+  // Future expansion space for specialized stats
 }
 
 export interface MilestonesState {
@@ -126,6 +130,10 @@ export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], Resource
     compile_speed: 1.0,
     refactor_bonus: 0.0,
     tech_debt_growth: 1.0,
+    // Agent specialization stats
+    qa_agents: 0,
+    devops_agents: 0,
+    // Future expansion space
   },
   milestones: {
     reached: [],
@@ -243,7 +251,14 @@ export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], Resource
     const baseAgentRate = 0.5
     const productivity = s.systems?.agents?.agentProductivity || 1
     const globalMult = s.stats?.global_multiplier || 1
-    return agentCount * baseAgentRate * productivity * globalMult
+    // Team synergy bonuses based on agent count (simplified implementation)
+    let synergyBonus = 1
+    if (agentCount >= 5) synergyBonus = 1.2   // Small team
+    if (agentCount >= 15) synergyBonus = 1.4  // Full team
+    if (agentCount >= 30) synergyBonus = 1.7  // Department
+    if (agentCount >= 60) synergyBonus = 2.0  // Large organization
+
+    return agentCount * baseAgentRate * productivity * globalMult * synergyBonus
   },
 
   ensureProperState: () => set(state => {
@@ -274,5 +289,11 @@ export const createResourcesSlice: StateCreator<ResourcesSlice, [], [], Resource
     if (state.stats.compile_speed === undefined) state.stats.compile_speed = 1.0
     if (state.stats.refactor_bonus === undefined) state.stats.refactor_bonus = 0.0
     if (state.stats.tech_debt_growth === undefined) state.stats.tech_debt_growth = 1.0
+
+    // Agent specialization stats
+    if (state.stats.qa_agents === undefined) state.stats.qa_agents = 0
+    if (state.stats.devops_agents === undefined) state.stats.devops_agents = 0
+
+    // Future stats initialization space
   }),
 })

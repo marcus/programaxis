@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useStore } from '../state/store'
 import { CodeHealthInfoModal } from './CodeHealthInfoModal'
 import { actionAnimationSystem } from '../game/actionAnimationSystem'
@@ -35,6 +35,9 @@ function getTechDebtColor(debt: number): string {
 
 export const QualityIndicator: React.FC = () => {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false)
+  const [showTechDebtSection, setShowTechDebtSection] = useState(false)
+  const [showPayButton, setShowPayButton] = useState(false)
+  const hasEverHadDebt = useRef(false)
 
   const codeQuality = useStore(s => s.stats?.code_quality ?? 1.0)
   const bugRate = useStore(s => s.stats?.bug_rate ?? 1.0)
@@ -46,6 +49,44 @@ export const QualityIndicator: React.FC = () => {
 
   const debtCost = Math.ceil(Math.min(techDebt, currentLoc / 2) * 2)
   const debtReduction = Math.ceil(Math.min(techDebt, currentLoc / 2))
+
+  // Manage tech debt section visibility with stable state
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null
+
+    if (techDebt > 0) {
+      hasEverHadDebt.current = true
+      setShowTechDebtSection(true)
+    } else if (hasEverHadDebt.current && techDebt === 0) {
+      // Keep showing for a brief moment after debt is paid off
+      timer = setTimeout(() => {
+        setShowTechDebtSection(false)
+        setShowPayButton(false)
+      }, 1000)
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer)
+    }
+  }, [techDebt])
+
+  // Manage pay button visibility separately to prevent flashing
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null
+
+    if (debtReduction > 0 && currentLoc >= debtCost) {
+      setShowPayButton(true)
+    } else if (techDebt === 0) {
+      // Hide button when debt is fully paid
+      timer = setTimeout(() => {
+        setShowPayButton(false)
+      }, 500)
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer)
+    }
+  }, [debtReduction, currentLoc, debtCost, techDebt])
 
   return (
     <div className="quality-indicator">
@@ -123,25 +164,25 @@ export const QualityIndicator: React.FC = () => {
         </div>
       </div>
 
-      {techDebt > 0 && (
-        <div className="tech-debt-section">
+      {showTechDebtSection && (
+        <div className="tech-debt-section" style={{ opacity: techDebt > 0 ? 1 : 0.5 }}>
           <div className="tech-debt-header">
             <span className="debt-label">Tech Debt:</span>
             <span
               className="debt-value"
               style={{ color: getTechDebtColor(techDebt) }}
             >
-              {formatNumber(techDebt)}
+              {formatNumber(Math.max(0, techDebt))}
             </span>
           </div>
 
           <div className="debt-impact">
             <span className="debt-penalty">
-              Ship penalty: -{((techDebt / 1000) * 100).toFixed(1)}%
+              Ship penalty: -{((Math.max(0, techDebt) / 1000) * 100).toFixed(1)}%
             </span>
           </div>
 
-          {debtReduction > 0 && (
+          {showPayButton && (
             <button
               className="tron-button debt-paydown-btn"
               onClick={(e) => {
@@ -163,6 +204,7 @@ export const QualityIndicator: React.FC = () => {
                 }, 50) // Small delay to ensure animation starts before re-render
               }}
               disabled={currentLoc < debtCost}
+              style={{ opacity: currentLoc < debtCost ? 0.5 : 1 }}
             >
               Pay {formatNumber(debtCost)} LoC → -{formatNumber(debtReduction)} debt
             </button>

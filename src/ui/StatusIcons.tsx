@@ -13,6 +13,7 @@ export const PurchasedIcon: React.FC<StatusIconProps> = ({ size = 20, className 
     viewBox="0 0 24 24"
     fill="none"
     className={`status-icon purchased-icon ${className}`}
+    style={{ display: 'block', margin: 0, padding: 0, verticalAlign: 'middle' }}
   >
     <circle
       cx="12"
@@ -24,7 +25,7 @@ export const PurchasedIcon: React.FC<StatusIconProps> = ({ size = 20, className 
       strokeWidth="2"
     />
     <path
-      d="M8 12.5l3 3 5-6"
+      d="M8.5 12.5l2.5 2.5 4.5-5"
       stroke="currentColor"
       strokeWidth="2.5"
       strokeLinecap="round"
@@ -42,30 +43,39 @@ export const UnlockedIcon: React.FC<StatusIconProps> = ({ size = 20, className =
     viewBox="0 0 24 24"
     fill="none"
     className={`status-icon unlocked-icon ${className}`}
+    style={{ display: 'block', margin: 0, padding: 0, verticalAlign: 'middle' }}
   >
-    <rect
-      x="6"
-      y="11"
-      width="12"
-      height="8"
-      rx="2"
+    <circle
+      cx="12"
+      cy="12"
+      r="10"
       fill="currentColor"
       fillOpacity="0.1"
       stroke="currentColor"
       strokeWidth="2"
     />
-    <path
-      d="M16 11V7a4 4 0 0 0-8 0"
+    <rect
+      x="7"
+      y="11"
+      width="10"
+      height="6"
+      rx="1.5"
+      fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.8"
+    />
+    <path
+      d="M15 11V8a3 3 0 0 0-6 0"
+      stroke="currentColor"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       fill="none"
     />
     <circle
       cx="12"
-      cy="15"
-      r="1.5"
+      cy="14"
+      r="1.2"
       fill="currentColor"
     />
   </svg>
@@ -79,30 +89,39 @@ export const LockedIcon: React.FC<StatusIconProps> = ({ size = 20, className = '
     viewBox="0 0 24 24"
     fill="none"
     className={`status-icon locked-icon ${className}`}
+    style={{ display: 'block', margin: 0, padding: 0, verticalAlign: 'middle' }}
   >
-    <rect
-      x="6"
-      y="11"
-      width="12"
-      height="8"
-      rx="2"
+    <circle
+      cx="12"
+      cy="12"
+      r="10"
       fill="currentColor"
       fillOpacity="0.1"
       stroke="currentColor"
       strokeWidth="2"
     />
-    <path
-      d="M16 11V7a4 4 0 0 0-8 0v4"
+    <rect
+      x="7"
+      y="11"
+      width="10"
+      height="6"
+      rx="1.5"
+      fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.8"
+    />
+    <path
+      d="M15 11V8a3 3 0 0 0-6 0v3"
+      stroke="currentColor"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       fill="none"
     />
     <circle
       cx="12"
-      cy="15"
-      r="1.5"
+      cy="14"
+      r="1.2"
       fill="currentColor"
     />
   </svg>
@@ -116,6 +135,7 @@ export const UnaffordableIcon: React.FC<StatusIconProps> = ({ size = 20, classNa
     viewBox="0 0 24 24"
     fill="none"
     className={`status-icon unaffordable-icon ${className}`}
+    style={{ display: 'block', margin: 0, padding: 0, verticalAlign: 'middle' }}
   >
     <circle
       cx="12"
@@ -127,11 +147,16 @@ export const UnaffordableIcon: React.FC<StatusIconProps> = ({ size = 20, classNa
       strokeWidth="2"
     />
     <path
-      d="M12 6v2m0 8v2m-4-8h8M8 14h8"
+      d="M12 6v2m0 8v2"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="2.2"
       strokeLinecap="round"
-      strokeLinejoin="round"
+    />
+    <path
+      d="M9.5 10h5M9.5 14h5"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
     />
   </svg>
 )

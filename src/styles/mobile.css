@@ -77,9 +77,7 @@
   border: 1px solid #213148;
   border-radius: 12px;
   padding: 12px;
-  overflow: auto;
-  height: calc(100vh - 160px);
-  margin-bottom: 80px; /* Space for mobile nav */
+  margin-bottom: 108px; /* Space for mobile nav (68px) + news ticker (28px) + padding (12px) */
 }
 
 /* Mobile layout adjustments */
@@ -123,21 +121,30 @@
 
   .actions .tron-button {
     min-height: 52px;
-    padding: 16px 20px;
+    padding: 16px 12px;
     font-size: 15px;
     flex: 1;
-    min-width: 120px;
+    min-width: 0;
+    max-width: 100%;
   }
 
   /* HUD component improvements */
   .hud-grid {
     gap: 12px;
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .stat {
     padding: 14px;
     border-radius: 12px;
     min-height: 80px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .stat .value {
@@ -220,7 +227,6 @@
   /* Ensure app fills viewport properly */
   html, body {
     height: 100%;
-    overflow: hidden;
   }
 
   .app {
@@ -230,11 +236,15 @@
 
   /* Fix mobile Safari bottom bar issues */
   .mobile-tab-content {
-    height: calc(100vh - 140px);
-    height: calc(100dvh - 140px);
     padding-bottom: 20px;
-    overflow-y: auto;
+    width: 100%;
+    max-width: 100vw;
     overflow-x: hidden;
+  }
+
+  .mobile-tab-content * {
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   /* Add safe area padding for notched devices */
