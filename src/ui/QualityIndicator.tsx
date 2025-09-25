@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useStore } from '../state/store'
 import { CodeHealthInfoModal } from './CodeHealthInfoModal'
 import { actionAnimationSystem } from '../game/actionAnimationSystem'
+import { HealthChartIcon } from './Icons'
 
 function formatNumber(num: number, precision = 1): string {
   if (num >= 1000000) return (num / 1000000).toFixed(precision) + 'M'
@@ -91,7 +92,10 @@ export const QualityIndicator: React.FC = () => {
   return (
     <div className="quality-indicator">
       <div className="quality-header">
-        <h3>📊 Code Health</h3>
+        <h3>
+          <HealthChartIcon size={18} />
+          Code Health
+        </h3>
         <button
           className="info-button"
           onClick={() => setIsInfoModalOpen(true)}

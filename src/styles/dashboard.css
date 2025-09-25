@@ -22,6 +22,9 @@
   color: var(--accent);
   font-size: 16px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .agent-count {
@@ -106,6 +109,9 @@
   color: var(--accent);
   font-size: 16px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .info-button {

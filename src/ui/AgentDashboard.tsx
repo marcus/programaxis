@@ -1,5 +1,6 @@
 import React from 'react'
 import { useStore } from '../state/store'
+import { AgentIcon } from './Icons'
 
 function formatNumber(num: number, precision = 1): string {
   if (num >= 1000000) return (num / 1000000).toFixed(precision) + 'M'
@@ -18,7 +19,10 @@ export const AgentDashboard: React.FC = () => {
   return (
     <div className="agent-dashboard">
       <div className="agent-header">
-        <h3>🤖 AI Agents</h3>
+        <h3>
+          <AgentIcon size={18} />
+          AI Agents
+        </h3>
         <div className="agent-count">
           {activeAgents}/{maxAgents}
         </div>

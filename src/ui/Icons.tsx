@@ -487,3 +487,72 @@ export const NodeIcon: React.FC<{ id: string, size?: number }> = ({ id, size=20 
     </svg>
   )
 }
+
+export const AgentIcon: React.FC<{ size?: number }> = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Robot head */}
+    <rect x="6" y="4" width="12" height="10" rx="2" stroke={stroke} strokeWidth={sw}/>
+    {/* Eyes */}
+    <circle cx="9" cy="8" r="1.5" fill={stroke} opacity="0.8"/>
+    <circle cx="15" cy="8" r="1.5" fill={stroke} opacity="0.8"/>
+    {/* Mouth/speaker grill */}
+    <path d="M8 11h8M9 13h6" stroke={stroke} strokeWidth={sw} opacity="0.6"/>
+    {/* Antenna */}
+    <path d="M12 4V2" stroke={stroke} strokeWidth={sw}/>
+    <circle cx="12" cy="2" r="1" fill={stroke}/>
+    {/* Body */}
+    <rect x="8" y="14" width="8" height="6" rx="1" stroke={stroke} strokeWidth={sw}/>
+    {/* Arms */}
+    <path d="M6 16h2M16 16h2" stroke={stroke} strokeWidth={sw}/>
+    <circle cx="5" cy="16" r="1" stroke={stroke} strokeWidth={sw}/>
+    <circle cx="19" cy="16" r="1" stroke={stroke} strokeWidth={sw}/>
+    {/* Legs */}
+    <path d="M10 20v2M14 20v2" stroke={stroke} strokeWidth={sw}/>
+    <rect x="9" y="22" width="2" height="1" fill={stroke} opacity="0.6"/>
+    <rect x="13" y="22" width="2" height="1" fill={stroke} opacity="0.6"/>
+    {/* Circuit pattern overlay */}
+    <path d="M10 6l2 1-2 1M14 6l-2 1 2 1" stroke={stroke} strokeWidth={sw} opacity="0.4"/>
+  </svg>
+)
+
+export const HealthChartIcon: React.FC<{ size?: number }> = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Chart background/frame */}
+    <rect x="3" y="3" width="18" height="14" rx="2" stroke={stroke} strokeWidth={sw} opacity="0.6"/>
+
+    {/* Grid lines */}
+    <path d="M3 9h18M3 13h18" stroke={stroke} strokeWidth="1" opacity="0.3"/>
+    <path d="M7 3v14M11 3v14M15 3v14M19 3v14" stroke={stroke} strokeWidth="1" opacity="0.3"/>
+
+    {/* Health trend line (zigzag pattern showing improvement) */}
+    <path d="M5 15l3-3 3-1 3-2 3-1 2-1" stroke={stroke} strokeWidth="2" fill="none" opacity="0.9"/>
+
+    {/* Data points */}
+    <circle cx="5" cy="15" r="1.5" fill={stroke} opacity="0.7"/>
+    <circle cx="8" cy="12" r="1.5" fill={stroke} opacity="0.7"/>
+    <circle cx="11" cy="11" r="1.5" fill={stroke} opacity="0.7"/>
+    <circle cx="14" cy="9" r="1.5" fill={stroke} opacity="0.8"/>
+    <circle cx="17" cy="8" r="1.5" fill={stroke} opacity="0.9"/>
+    <circle cx="19" cy="7" r="1.5" fill={stroke}/>
+
+    {/* Bar charts in background */}
+    <rect x="6" y="13" width="1" height="2" fill={stroke} opacity="0.4"/>
+    <rect x="10" y="11" width="1" height="4" fill={stroke} opacity="0.4"/>
+    <rect x="14" y="9" width="1" height="6" fill={stroke} opacity="0.4"/>
+    <rect x="18" y="7" width="1" height="8" fill={stroke} opacity="0.4"/>
+
+    {/* Status indicators */}
+    <circle cx="20" cy="5" r="1" fill={stroke} opacity="0.8"/>
+    <path d="M19 5l1 1 2-2" stroke={stroke} strokeWidth="1" opacity="0.8"/>
+
+    {/* Bottom axis */}
+    <path d="M3 17h18" stroke={stroke} strokeWidth={sw}/>
+
+    {/* Futuristic accent dots */}
+    <circle cx="4" cy="18" r="0.5" fill={stroke} opacity="0.6"/>
+    <circle cx="8" cy="18" r="0.5" fill={stroke} opacity="0.6"/>
+    <circle cx="12" cy="18" r="0.5" fill={stroke} opacity="0.6"/>
+    <circle cx="16" cy="18" r="0.5" fill={stroke} opacity="0.6"/>
+    <circle cx="20" cy="18" r="0.5" fill={stroke} opacity="0.6"/>
+  </svg>
+)

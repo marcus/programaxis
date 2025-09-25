@@ -4,7 +4,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(180px, 1fr);
-  gap: 8px;
+  gap: 12px;
   overflow: auto;
 }
 
@@ -21,12 +21,12 @@
 }
 
 /* Base node styles */
-.node { 
-  background: #0e1520; 
-  border: 1px solid #1e2a3d; 
-  border-radius: 10px; 
-  padding: 10px; 
-  margin-bottom: 8px; 
+.node {
+  background: #0e1520;
+  border: 1px solid #1e2a3d;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 16px;
 }
 
 .node .title { 
