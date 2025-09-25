@@ -1,15 +1,15 @@
 /* Tech tree components */
 
-.techtree { 
-  display: grid; 
-  grid-auto-flow: column; 
-  grid-auto-columns: minmax(220px, 1fr); 
-  gap: 12px; 
-  overflow: auto; 
+.techtree {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(180px, 1fr);
+  gap: 8px;
+  overflow: auto;
 }
 
-.branch { 
-  min-width: 220px; 
+.branch {
+  min-width: 180px;
 }
 
 .branch h3 { 
@@ -97,21 +97,34 @@
     0 0 0 2px rgba(90, 214, 160, 0.1);
 }
 
+/* Background icon styling */
+.node-background-icon {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  opacity: 0.35;
+  z-index: 1;
+  pointer-events: none;
+  color: var(--branch-accent);
+  filter: drop-shadow(0 0 8px var(--branch-accent));
+}
+
 /* Status icon container styling */
 .status-icon-container {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 3;
+  top: 6px;
+  right: 6px;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Individual status icon styling */
@@ -140,22 +153,128 @@
   filter: drop-shadow(0 0 4px rgba(155, 177, 201, 0.2));
 }
 
+/* Compact node content layout */
+.node-compact-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 4px;
+}
+
+.node-id-compact {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--branch-accent);
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.node-name-compact {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.node-effects-compact {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 8px;
+}
+
+.node-effects-compact .effect {
+  font-size: 11px;
+  line-height: 1.3;
+  margin-bottom: 1px;
+  color: var(--muted);
+}
+
+.node-action-compact {
+  position: relative;
+  z-index: 2;
+}
+
+.node-requirements-compact {
+  font-size: 10px;
+  color: var(--muted);
+  opacity: 0.7;
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 2;
+}
+
 /* Enhanced glow effects for different states */
 .node.is-purchased .status-icon-container {
-  background: rgba(90, 214, 160, 0.15);
-  border-color: rgba(90, 214, 160, 0.4);
-  box-shadow: 0 0 12px rgba(90, 214, 160, 0.3);
+  background: rgba(90, 214, 160, 0.25);
+  border-color: rgba(90, 214, 160, 0.6);
+  box-shadow: 0 0 8px rgba(90, 214, 160, 0.4);
 }
 
 .node.is-unlocked .status-icon-container {
-  background: rgba(0, 234, 255, 0.15);
-  border-color: rgba(0, 234, 255, 0.4);
-  box-shadow: 0 0 12px rgba(0, 234, 255, 0.3);
+  background: rgba(0, 234, 255, 0.25);
+  border-color: rgba(0, 234, 255, 0.6);
+  box-shadow: 0 0 8px rgba(0, 234, 255, 0.4);
 }
 
 .node.is-locked .status-icon-container {
-  background: rgba(155, 177, 201, 0.1);
-  border-color: rgba(155, 177, 201, 0.2);
+  background: rgba(155, 177, 201, 0.15);
+  border-color: rgba(155, 177, 201, 0.3);
+}
+
+/* Compact button styling */
+.node .tron-button {
+  font-size: 12px;
+  padding: 4px 8px;
+  min-height: 24px;
+  border-radius: 6px;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+  border: 1px solid var(--branch-accent);
+  color: var(--branch-accent);
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.node .tron-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--branch-accent), rgba(255,255,255,0.1));
+  color: var(--bg);
+  box-shadow: 0 0 12px var(--branch-accent);
+  transform: translateY(-1px);
+}
+
+.node .tron-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Purchased indicator styling */
+.purchased-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  padding: 4px;
+  background: rgba(90, 214, 160, 0.1);
+  border: 1px solid rgba(90, 214, 160, 0.3);
+  border-radius: 6px;
+  color: var(--accent);
+  min-height: 24px;
+}
+
+/* Unaffordable price styling */
+.unaffordable-price {
+  font-size: 10px;
+  color: var(--danger);
+  text-align: center;
+  padding: 4px;
+  background: rgba(244, 91, 105, 0.1);
+  border: 1px solid rgba(244, 91, 105, 0.3);
+  border-radius: 6px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Branch color variations */
@@ -230,15 +349,20 @@
 }
 
 /* Enhanced branch node styling */
-.branch .node { 
-  background: linear-gradient(180deg, var(--branch-bg1), var(--branch-bg2)); 
-  border: 1px solid rgba(255,255,255,0.05); 
-  border-radius: 14px; 
-  padding: 12px; 
-  margin-bottom: 12px; 
-  position: relative; 
-  overflow: hidden; 
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 0 12px var(--branch-glow); 
+.branch .node {
+  background: linear-gradient(135deg, var(--branch-bg1), var(--branch-bg2));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 8px;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 2px 8px var(--branch-glow),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  min-height: 120px;
+  transition: all 0.3s ease;
 }
 
 .branch .node::before { 

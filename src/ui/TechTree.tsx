@@ -272,38 +272,42 @@ export const TechTree: React.FC = () => {
               const statusText = isPurchased ? 'Purchased' : isUnlocked ? 'Unlocked' : 'Locked'
               return (
                 <div key={n.id} className={`node ${stateClass}`} data-node-id={n.id} style={{ position: 'relative', zIndex: 2 }}>
+                  {/* Background Icon */}
+                  <div className="node-background-icon">
+                    <NodeIcon id={n.id} size={64} />
+                  </div>
+
+                  {/* Status Icon */}
                   <div className="status-icon-container">
                     {isPurchased ? (
-                      <PurchasedIcon size={18} />
+                      <PurchasedIcon size={14} />
                     ) : isUnlocked ? (
-                      <UnlockedIcon size={18} />
+                      <UnlockedIcon size={14} />
                     ) : (
-                      <LockedIcon size={18} />
+                      <LockedIcon size={14} />
                     )}
                   </div>
-                  <div className="node-hero">
-                    <div className="icon-wrap">
-                      <NodeIcon id={n.id} size={56} />
+
+                  {/* Compact Header */}
+                  <div className="node-compact-header">
+                    <div className="node-id-compact">
+                      <GarbledText isLocked={!isUnlocked} category={br.key}>
+                        {n.id}
+                      </GarbledText>
                     </div>
-                    <div className="node-head">
-                      <div className="node-id">
-                        <GarbledText isLocked={!isUnlocked} category={br.key}>
-                          {n.id}
-                        </GarbledText>
-                      </div>
-                      <div className="node-name">
-                        <GarbledText
-                          isLocked={!isUnlocked}
-                          category={br.key}
-                          revealOnHover={true}
-                        >
-                          {n.name}
-                        </GarbledText>
-                      </div>
+                    <div className="node-name-compact">
+                      <GarbledText
+                        isLocked={!isUnlocked}
+                        category={br.key}
+                        revealOnHover={true}
+                      >
+                        {n.name}
+                      </GarbledText>
                     </div>
                   </div>
+                  {/* Effects */}
                   {lines.length > 0 && (
-                    <div className="effects">
+                    <div className="node-effects-compact">
                       {lines.map((l, i) => (
                         <div key={i} className={`effect ${l.kind}`}>
                           • <GarbledText
@@ -318,42 +322,50 @@ export const TechTree: React.FC = () => {
                       ))}
                     </div>
                   )}
-                  {requires.length>0 && (
-                    <div className="req">Requires: {requires.map(r=>r.node).join(', ')}</div>
-                  )}
-                  {isPurchased ? (
-                    <div className="purchased-indicator">
-                      <span style={{ color: 'var(--accent)', fontWeight: 600 }}>✓ Purchased</span>
-                    </div>
-                  ) : isUnlocked && !afford ? (
-                    <div className="unaffordable-price">
-                      ${c.toLocaleString()}
-                    </div>
-                  ) : (
-                    <button
-                      className="tron-button"
-                      disabled={!isUnlocked || !afford}
-                      onClick={(e) => {
-                        const buttonRect = e.currentTarget.getBoundingClientRect()
-                        const centerX = buttonRect.left + buttonRect.width / 2
-                        const centerY = buttonRect.top + buttonRect.height / 2
 
-                        // Trigger animation before purchase
-                        animationSystem.triggerTechPurchaseAnimation(
-                          n.id,
-                          br.key,
-                          { x: centerX, y: centerY },
-                          n.tier,
-                          lines
-                        )
-
-                        // Execute purchase
-                        buy(n.id)
-                      }}
-                    >
-                      {isUnlocked ? `Buy $${c.toLocaleString()}` : 'Locked'}
-                    </button>
+                  {/* Requirements */}
+                  {requires.length > 0 && (
+                    <div className="node-requirements-compact">
+                      Requires: {requires.map(r => r.node).join(', ')}
+                    </div>
                   )}
+
+                  {/* Action */}
+                  <div className="node-action-compact">
+                    {isPurchased ? (
+                      <div className="purchased-indicator">
+                        ✓ Purchased
+                      </div>
+                    ) : isUnlocked && !afford ? (
+                      <div className="unaffordable-price">
+                        ${c.toLocaleString()}
+                      </div>
+                    ) : (
+                      <button
+                        className="tron-button"
+                        disabled={!isUnlocked || !afford}
+                        onClick={(e) => {
+                          const buttonRect = e.currentTarget.getBoundingClientRect()
+                          const centerX = buttonRect.left + buttonRect.width / 2
+                          const centerY = buttonRect.top + buttonRect.height / 2
+
+                          // Trigger animation before purchase
+                          animationSystem.triggerTechPurchaseAnimation(
+                            n.id,
+                            br.key,
+                            { x: centerX, y: centerY },
+                            n.tier,
+                            lines
+                          )
+
+                          // Execute purchase
+                          buy(n.id)
+                        }}
+                      >
+                        {isUnlocked ? `$${c.toLocaleString()}` : 'Locked'}
+                      </button>
+                    )}
+                  </div>
                 </div>
               )
             })}
