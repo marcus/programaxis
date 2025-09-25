@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useStore } from '../state/store'
 import { AgentIcon } from './Icons'
 
@@ -8,46 +8,90 @@ function formatNumber(num: number, precision = 1): string {
   return num.toFixed(precision)
 }
 
+// Generate agent particles with randomized positions and speeds
+function generateAgentParticles(count: number) {
+  const particles = []
+  const maxVisualAgents = Math.min(count, 35) // Cap for performance
+
+  for (let i = 0; i < maxVisualAgents; i++) {
+    particles.push({
+      id: i,
+      // Random orbital parameters
+      radius: 20 + Math.random() * 25, // Orbit radius
+      speed: 0.5 + Math.random() * 1.5, // Rotation speed multiplier
+      offset: Math.random() * Math.PI * 2, // Starting angle
+      size: 2 + Math.random() * 2, // Particle size
+      brightness: 0.6 + Math.random() * 0.4 // Glow intensity
+    })
+  }
+
+  return particles
+}
+
 export const AgentDashboard: React.FC = () => {
   const activeAgents = useStore(s => s.systems?.agents?.activeAgents ?? 0)
   const maxAgents = useStore(s => s.caps?.agentConcurrencyCap ?? 0)
   const agentProductivity = useStore(s => s.systems?.agents?.agentProductivity ?? 1.0)
   const agentLocPerSec = useStore(s => s.getAgentLocPerSec?.() ?? 0)
 
+  // Generate particles when agent count changes
+  const agentParticles = useMemo(() => generateAgentParticles(activeAgents), [activeAgents])
+
   if (maxAgents === 0) return null
 
   return (
     <div className="agent-dashboard">
-      <div className="agent-header">
-        <h3>
-          <AgentIcon size={18} />
-          AI Agents
-        </h3>
-        <div className="agent-count">
-          {activeAgents}/{maxAgents}
+      {/* Digital Agent Counter */}
+      <div className="agent-digital-display">
+        <div className="agent-count-large">
+          <span className="count-number">{activeAgents}</span>
+          <span className="count-max">/{maxAgents}</span>
+        </div>
+        <div className="agent-label">
+          <AgentIcon size={14} />
+          AGENTS ACTIVE
         </div>
       </div>
 
-      <div className="agent-stats">
-        <div className="agent-stat">
-          <span className="stat-label">Productivity:</span>
-          <span className="stat-value">{agentProductivity.toFixed(1)}x</span>
+      {/* Swarm Visualization */}
+      <div className="agent-swarm-container">
+        <div className="agent-swarm-grid" />
+        <div className="agent-swarm">
+          {agentParticles.map((particle) => (
+            <div
+              key={particle.id}
+              className="agent-particle"
+              style={{
+                '--radius': `${particle.radius}px`,
+                '--speed': `${particle.speed}`,
+                '--offset': `${particle.offset}rad`,
+                '--size': `${particle.size}px`,
+                '--brightness': particle.brightness,
+                animationDelay: `${particle.id * 0.1}s`
+              } as React.CSSProperties}
+            />
+          ))}
+
+          {/* Center hub */}
+          <div className="agent-swarm-center">
+            <AgentIcon size={16} />
+          </div>
         </div>
-        <div className="agent-stat">
-          <span className="stat-label">LoC/sec:</span>
+
+        {/* Scan line effect */}
+        <div className="agent-scan-line" />
+      </div>
+
+      {/* Stats Row */}
+      <div className="agent-stats-compact">
+        <div className="agent-stat-item">
+          <span className="stat-value">{agentProductivity.toFixed(1)}×</span>
+          <span className="stat-label">EFFICIENCY</span>
+        </div>
+        <div className="agent-stat-divider" />
+        <div className="agent-stat-item">
           <span className="stat-value">{formatNumber(agentLocPerSec)}</span>
-        </div>
-      </div>
-
-      <div className="agent-progress">
-        <div className="progress-bar">
-          <div
-            className="progress-fill agent-progress-fill"
-            style={{ width: `${(activeAgents / Math.max(1, maxAgents)) * 100}%` }}
-          />
-        </div>
-        <div className="progress-label">
-          {activeAgents > 0 ? `${activeAgents} agents working` : 'No agents active'}
+          <span className="stat-label">LOC/SEC</span>
         </div>
       </div>
     </div>

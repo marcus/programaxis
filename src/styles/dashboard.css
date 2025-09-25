@@ -1,90 +1,253 @@
 /* Dashboard components */
 
-/* Agent Dashboard */
+/* Agent Dashboard - Redesigned with Tron Theme */
 .agent-dashboard {
-  background: linear-gradient(135deg, #0a1118 0%, #1a2332 50%, #0f1419 100%);
-  border: 1px solid #213148;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(0, 206, 209, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, #0a1118 0%, #0e1822 50%, #0a1319 100%);
+  border: 1px solid rgba(0, 206, 209, 0.3);
   border-radius: 12px;
-  padding: 16px;
+  padding: 16px 12px 12px;
   margin-bottom: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.agent-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.agent-header h3 {
-  margin: 0;
-  color: var(--accent);
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.agent-count {
-  background: rgba(90, 214, 160, 0.1);
-  color: var(--accent);
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  border: 1px solid var(--accent);
-}
-
-.agent-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.agent-stat {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #2a3441;
-}
-
-.stat-label {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.stat-value {
-  color: var(--accent);
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.agent-progress .progress-bar {
-  background: rgba(0, 0, 0, 0.4);
-  height: 8px;
-  border-radius: 4px;
+  position: relative;
   overflow: hidden;
-  margin-bottom: 8px;
-  border: 1px solid #2a3441;
+  box-shadow:
+    0 4px 20px rgba(0, 206, 209, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(0, 206, 209, 0.1);
 }
 
-.agent-progress-fill {
-  background: linear-gradient(90deg, var(--accent), #4fb3d9);
-  height: 100%;
-  transition: width 0.3s ease;
-  box-shadow: 0 0 8px rgba(90, 214, 160, 0.4);
+.agent-dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(90deg, transparent 0%, rgba(0, 206, 209, 0.03) 50%, transparent 100%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(0, 206, 209, 0.02) 20px,
+      rgba(0, 206, 209, 0.02) 22px
+    );
+  pointer-events: none;
+  z-index: 0;
 }
 
-.progress-label {
-  font-size: 12px;
-  color: var(--muted);
+/* Digital Display for Agent Count */
+.agent-digital-display {
+  position: relative;
+  z-index: 2;
   text-align: center;
+  margin-bottom: 16px;
+}
+
+.agent-count-large {
+  font-family: "Courier New", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  color: #00ced1;
+  text-shadow:
+    0 0 8px rgba(0, 206, 209, 0.8),
+    0 0 16px rgba(0, 206, 209, 0.4);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.count-number {
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+.count-max {
+  opacity: 0.7;
+  font-size: 20px;
+}
+
+.agent-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(0, 206, 209, 0.8);
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Swarm Visualization Container */
+.agent-swarm-container {
+  position: relative;
+  height: 70px;
+  margin-bottom: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 206, 209, 0.2);
+  overflow: hidden;
+  z-index: 2;
+}
+
+.agent-swarm-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(rgba(0, 206, 209, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 206, 209, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.agent-swarm {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Individual Agent Particles */
+.agent-particle {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: #00ced1;
+  border-radius: 50%;
+  box-shadow:
+    0 0 6px rgba(0, 206, 209, var(--brightness)),
+    0 0 12px rgba(0, 206, 209, calc(var(--brightness) * 0.5));
+  animation: orbit calc(8s / var(--speed)) linear infinite;
+  will-change: transform;
+  contain: layout style;
+}
+
+/* Orbital Animation */
+@keyframes orbit {
+  from {
+    transform: rotate(var(--offset)) translateX(var(--radius)) rotate(calc(-1 * var(--offset)));
+  }
+  to {
+    transform: rotate(calc(var(--offset) + 360deg)) translateX(var(--radius)) rotate(calc(-1 * (var(--offset) + 360deg)));
+  }
+}
+
+/* Center Hub */
+.agent-swarm-center {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle, rgba(0, 206, 209, 0.2), transparent);
+  border-radius: 50%;
+  border: 2px solid rgba(0, 206, 209, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00ced1;
+  z-index: 3;
+}
+
+/* Scan Line Effect */
+.agent-scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 206, 209, 0.8) 50%,
+    transparent 100%
+  );
+  animation: scan 4s linear infinite;
+  z-index: 4;
+}
+
+@keyframes scan {
+  0% { left: 0; }
+  100% { left: calc(100% - 2px); }
+}
+
+/* Compact Stats Row */
+.agent-stats-compact {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 206, 209, 0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.agent-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.agent-stat-item .stat-value {
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #00ced1;
+  text-shadow: 0 0 4px rgba(0, 206, 209, 0.6);
+}
+
+.agent-stat-item .stat-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(0, 206, 209, 0.7);
+  letter-spacing: 0.5px;
+}
+
+.agent-stat-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(0, 206, 209, 0.3);
+}
+
+/* Performance Optimizations */
+.agent-dashboard {
+  contain: layout style;
+}
+
+.agent-swarm-container {
+  contain: layout style;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .agent-particle {
+    animation: none;
+    position: static;
+    display: inline-block;
+    margin: 2px;
+    transform: none !important;
+  }
+
+  .agent-swarm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .agent-scan-line {
+    display: none;
+  }
 }
 
 /* Quality Indicator */
