@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useMemo } from 'react'
 import { useStore } from '../state/store'
-import { CodeHealthInfoModal } from './CodeHealthInfoModal'
 import { actionAnimationSystem } from '../game/actionAnimationSystem'
 import { HealthChartIcon } from './Icons'
 
@@ -34,8 +33,54 @@ function getTechDebtColor(debt: number): string {
   return 'var(--accent)'
 }
 
-export const QualityIndicator: React.FC = () => {
-  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false)
+// Generate SVG path for mini line graph
+function generateGraphPath(dataPoints: number[], width: number, height: number): string {
+  if (dataPoints.length < 2) return ''
+
+  const maxValue = Math.max(...dataPoints, 1)
+  const minValue = Math.min(...dataPoints, 0)
+  const range = maxValue - minValue || 1
+
+  const stepX = width / (dataPoints.length - 1)
+
+  let path = ''
+  dataPoints.forEach((value, index) => {
+    const x = index * stepX
+    const normalizedValue = (value - minValue) / range
+    const y = height - (normalizedValue * height * 0.8) - (height * 0.1) // Leave 10% padding top/bottom
+
+    if (index === 0) {
+      path += `M ${x} ${y}`
+    } else {
+      path += ` L ${x} ${y}`
+    }
+  })
+
+  return path
+}
+
+// Generate historical data points (simulated trend)
+function useGraphData(currentValue: number, dataPointCount = 20) {
+  return useMemo(() => {
+    const points = []
+    for (let i = 0; i < dataPointCount; i++) {
+      // Simulate gradual trend toward current value with some noise
+      const progress = i / (dataPointCount - 1)
+      const baseValue = currentValue * (0.7 + progress * 0.3)
+      const noise = (Math.random() - 0.5) * currentValue * 0.1
+      points.push(Math.max(0, baseValue + noise))
+    }
+    // Ensure the last point is exactly the current value
+    points[points.length - 1] = currentValue
+    return points
+  }, [currentValue])
+}
+
+interface QualityIndicatorProps {
+  onInfoClick?: () => void
+}
+
+export const QualityIndicator: React.FC<QualityIndicatorProps> = ({ onInfoClick }) => {
   const [showTechDebtSection, setShowTechDebtSection] = useState(false)
   const [showPayButton, setShowPayButton] = useState(false)
   const hasEverHadDebt = useRef(false)
@@ -47,6 +92,11 @@ export const QualityIndicator: React.FC = () => {
   const techDebt = useStore(s => s.resources?.techDebt ?? 0)
   const payDownTechDebt = useStore(s => s.payDownTechDebt)
   const currentLoc = useStore(s => s.resources?.loc ?? 0)
+
+  // Generate graph data
+  const qualityGraphData = useGraphData(codeQuality)
+  const bugFreeGraphData = useGraphData(bugFreeRate)
+  const testCoverageGraphData = useGraphData(testCoverage)
 
   const debtCost = Math.ceil(Math.min(techDebt, currentLoc / 2) * 2)
   const debtReduction = Math.ceil(Math.min(techDebt, currentLoc / 2))
@@ -90,18 +140,19 @@ export const QualityIndicator: React.FC = () => {
   }, [debtReduction, currentLoc, debtCost, techDebt])
 
   return (
-    <div className="quality-indicator">
-      <div className="quality-header">
-        <h3>
-          <HealthChartIcon size={18} />
-          Code Health
-        </h3>
+    <div className="quality-dashboard">
+      {/* Header */}
+      <div className="quality-dashboard-header">
+        <div className="dashboard-title">
+          <HealthChartIcon size={16} />
+          <span>CODE HEALTH</span>
+        </div>
         <button
-          className="info-button"
-          onClick={() => setIsInfoModalOpen(true)}
+          className="dashboard-info-btn"
+          onClick={onInfoClick}
           title="Learn about code health mechanics"
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
             <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
             <path d="M8 12V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             <circle cx="8" cy="5" r="1" fill="currentColor"/>
@@ -109,86 +160,157 @@ export const QualityIndicator: React.FC = () => {
         </button>
       </div>
 
-      <div className="quality-metrics">
-        <div className="quality-metric">
-          <div className="metric-row">
-            <span className="metric-label">Quality:</span>
-            <span
-              className="metric-value"
-              style={{ color: getQualityColor(codeQuality) }}
-            >
-              {codeQuality.toFixed(1)}x
-            </span>
+      {/* Graphs Grid */}
+      <div className="health-graphs-grid">
+        {/* Quality Graph */}
+        <div className="health-graph-container">
+          <div className="graph-header-stacked">
+            <div className="graph-label">QUALITY</div>
+            <div className="graph-value" style={{ color: getQualityColor(codeQuality) }}>
+              {codeQuality.toFixed(1)}×
+            </div>
           </div>
-          <div className="metric-bar">
-            <div
-              className="metric-fill"
-              style={{
-                width: `${Math.min(100, (codeQuality - 1) * 50)}%`,
-                backgroundColor: getQualityColor(codeQuality)
-              }}
-            />
+          <div className="graph-display">
+            <svg width="100%" height="40" viewBox="0 0 100 40" className="health-graph">
+              <defs>
+                <linearGradient id="qualityGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor={getQualityColor(codeQuality)} stopOpacity="0.6"/>
+                  <stop offset="100%" stopColor={getQualityColor(codeQuality)} stopOpacity="0.1"/>
+                </linearGradient>
+              </defs>
+              <path
+                d={`${generateGraphPath(qualityGraphData, 100, 40)} L 100 40 L 0 40 Z`}
+                fill="url(#qualityGradient)"
+                className="graph-fill"
+              />
+              <path
+                d={generateGraphPath(qualityGraphData, 100, 40)}
+                stroke={getQualityColor(codeQuality)}
+                strokeWidth="1.5"
+                fill="none"
+                className="graph-line"
+              />
+              {/* Current value dot */}
+              <circle
+                cx="100"
+                cy={40 - ((codeQuality - Math.min(...qualityGraphData)) / (Math.max(...qualityGraphData) - Math.min(...qualityGraphData) || 1)) * 32 - 4}
+                r="2"
+                fill={getQualityColor(codeQuality)}
+                className="graph-dot"
+              />
+            </svg>
           </div>
         </div>
 
-        <div className="quality-metric">
-          <div className="metric-row">
-            <span className="metric-label">Bug-Free:</span>
-            <span
-              className="metric-value"
-              style={{ color: getBugFreeColor(bugFreeRate) }}
-            >
+        {/* Bug-Free Graph */}
+        <div className="health-graph-container">
+          <div className="graph-header-stacked">
+            <div className="graph-label">BUG-FREE</div>
+            <div className="graph-value" style={{ color: getBugFreeColor(bugFreeRate) }}>
               {(bugFreeRate * 100).toFixed(0)}%
-            </span>
+            </div>
           </div>
-          <div className="metric-bar">
-            <div
-              className="metric-fill"
-              style={{
-                width: `${bugFreeRate * 100}%`,
-                backgroundColor: getBugFreeColor(bugFreeRate)
-              }}
-            />
+          <div className="graph-display">
+            <svg width="100%" height="40" viewBox="0 0 100 40" className="health-graph">
+              <defs>
+                <linearGradient id="bugFreeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor={getBugFreeColor(bugFreeRate)} stopOpacity="0.6"/>
+                  <stop offset="100%" stopColor={getBugFreeColor(bugFreeRate)} stopOpacity="0.1"/>
+                </linearGradient>
+              </defs>
+              <path
+                d={`${generateGraphPath(bugFreeGraphData, 100, 40)} L 100 40 L 0 40 Z`}
+                fill="url(#bugFreeGradient)"
+                className="graph-fill"
+              />
+              <path
+                d={generateGraphPath(bugFreeGraphData, 100, 40)}
+                stroke={getBugFreeColor(bugFreeRate)}
+                strokeWidth="1.5"
+                fill="none"
+                className="graph-line"
+              />
+              <circle
+                cx="100"
+                cy={40 - (bugFreeRate - Math.min(...bugFreeGraphData)) / (Math.max(...bugFreeGraphData) - Math.min(...bugFreeGraphData) || 1) * 32 - 4}
+                r="2"
+                fill={getBugFreeColor(bugFreeRate)}
+                className="graph-dot"
+              />
+            </svg>
           </div>
         </div>
 
-        <div className="quality-metric">
-          <div className="metric-row">
-            <span className="metric-label">Test Coverage:</span>
-            <span className="metric-value">
+        {/* Test Coverage Graph */}
+        <div className="health-graph-container">
+          <div className="graph-header-stacked">
+            <div className="graph-label">TEST COV</div>
+            <div className="graph-value" style={{ color: '#8a78ff' }}>
               {(testCoverage * 100).toFixed(0)}%
-            </span>
+            </div>
           </div>
-          <div className="metric-bar">
-            <div
-              className="metric-fill test-coverage-fill"
-              style={{ width: `${Math.min(100, testCoverage * 100)}%` }}
-            />
+          <div className="graph-display">
+            <svg width="100%" height="40" viewBox="0 0 100 40" className="health-graph">
+              <defs>
+                <linearGradient id="coverageGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#8a78ff" stopOpacity="0.6"/>
+                  <stop offset="100%" stopColor="#8a78ff" stopOpacity="0.1"/>
+                </linearGradient>
+              </defs>
+              <path
+                d={`${generateGraphPath(testCoverageGraphData, 100, 40)} L 100 40 L 0 40 Z`}
+                fill="url(#coverageGradient)"
+                className="graph-fill"
+              />
+              <path
+                d={generateGraphPath(testCoverageGraphData, 100, 40)}
+                stroke="#8a78ff"
+                strokeWidth="1.5"
+                fill="none"
+                className="graph-line"
+              />
+              <circle
+                cx="100"
+                cy={40 - (testCoverage - Math.min(...testCoverageGraphData)) / (Math.max(...testCoverageGraphData) - Math.min(...testCoverageGraphData) || 1) * 32 - 4}
+                r="2"
+                fill="#8a78ff"
+                className="graph-dot"
+              />
+            </svg>
           </div>
         </div>
       </div>
 
+      {/* Tech Debt Warning Panel */}
       {showTechDebtSection && (
-        <div className="tech-debt-section" style={{ opacity: techDebt > 0 ? 1 : 0.5 }}>
-          <div className="tech-debt-header">
-            <span className="debt-label">Tech Debt:</span>
-            <span
-              className="debt-value"
-              style={{ color: getTechDebtColor(techDebt) }}
-            >
+        <div className={`tech-debt-warning ${techDebt > 200 ? 'critical' : ''}`}>
+          <div className="warning-header">
+            <div className="warning-indicator">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 1L15 15H1L8 1Z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                <path d="M8 6V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <circle cx="8" cy="12" r="0.5" fill="currentColor"/>
+              </svg>
+              TECH DEBT
+            </div>
+            <div className="debt-amount" style={{ color: getTechDebtColor(techDebt) }}>
               {formatNumber(Math.max(0, techDebt))}
-            </span>
+            </div>
           </div>
 
-          <div className="debt-impact">
-            <span className="debt-penalty">
-              Ship penalty: -{((Math.max(0, techDebt) / 1000) * 100).toFixed(1)}%
-            </span>
+          <div className="debt-penalty-bar">
+            <div className="penalty-fill" style={{
+              width: `${Math.min(100, (techDebt / 1000) * 100)}%`,
+              backgroundColor: getTechDebtColor(techDebt)
+            }} />
+            <div className="penalty-text">
+              -{((Math.max(0, techDebt) / 1000) * 100).toFixed(1)}% ship efficiency
+            </div>
           </div>
 
           {showPayButton && (
             <button
-              className="tron-button debt-paydown-btn"
+              className="tron-button debt-emergency-btn"
               onClick={(e) => {
                 if (currentLoc < debtCost) return
 
@@ -196,30 +318,23 @@ export const QualityIndicator: React.FC = () => {
                 const centerX = rect.left + rect.width / 2
                 const centerY = rect.top + rect.height / 2
 
-                // Trigger animation first
                 actionAnimationSystem.triggerPayDebtAnimation(
                   { x: centerX, y: centerY },
                   Math.min(1, (debtReduction / 500) + 0.2)
                 )
 
-                // Delay the state change to allow animation to start
                 setTimeout(() => {
                   payDownTechDebt(debtReduction)
-                }, 50) // Small delay to ensure animation starts before re-render
+                }, 50)
               }}
               disabled={currentLoc < debtCost}
               style={{ opacity: currentLoc < debtCost ? 0.5 : 1 }}
             >
-              Pay {formatNumber(debtCost)} LoC → -{formatNumber(debtReduction)} debt
+              EMERGENCY REFACTOR: {formatNumber(debtCost)} LoC → -{formatNumber(debtReduction)}
             </button>
           )}
         </div>
       )}
-
-      <CodeHealthInfoModal
-        isOpen={isInfoModalOpen}
-        onClose={() => setIsInfoModalOpen(false)}
-      />
     </div>
   )
 }

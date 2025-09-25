@@ -6,6 +6,7 @@ import { TechPurchaseAnimation } from './TechPurchaseAnimation'
 import { ActionButtonAnimation } from './ActionButtonAnimation'
 import { AnimationTestPanel } from './AnimationTestPanel'
 import { IntroModal } from './IntroModal'
+import { CodeHealthInfoModal } from './CodeHealthInfoModal'
 import { MobileNav } from './MobileNav'
 import { NewsTicker } from './NewsTicker'
 import { MusicPlayer } from './MusicPlayer'
@@ -19,6 +20,9 @@ export const App: React.FC = () => {
   // Mobile navigation state
   const [activeTab, setActiveTab] = useState<'hud' | 'tech-tree'>('hud')
   const [isMobile, setIsMobile] = useState(false)
+
+  // Code health modal state
+  const [isCodeHealthModalOpen, setIsCodeHealthModalOpen] = useState(false)
 
   // Subscribe to UI state for intro modal
   const showIntroModal = useStore(state => state.ui.showIntroModal)
@@ -119,7 +123,7 @@ export const App: React.FC = () => {
             {/* Mobile: Show only active tab content */}
             {activeTab === 'hud' && (
               <section className="mobile-tab-content">
-                <HUD />
+                <HUD onQualityInfoClick={() => setIsCodeHealthModalOpen(true)} />
               </section>
             )}
             {activeTab === 'tech-tree' && (
@@ -134,7 +138,7 @@ export const App: React.FC = () => {
           <>
             {/* Desktop: Show both sidebar and content */}
             <aside className="sidebar">
-              <HUD />
+              <HUD onQualityInfoClick={() => setIsCodeHealthModalOpen(true)} />
             </aside>
             <section className="content">
               <TechTree />
@@ -167,6 +171,10 @@ export const App: React.FC = () => {
       <IntroModal
         isOpen={showIntroModal}
         onClose={markIntroAsSeen}
+      />
+      <CodeHealthInfoModal
+        isOpen={isCodeHealthModalOpen}
+        onClose={() => setIsCodeHealthModalOpen(false)}
       />
     </div>
   )

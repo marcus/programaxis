@@ -17,7 +17,11 @@ function fmt(n: number, digits = 2) {
   return n.toFixed(digits)
 }
 
-export const HUD: React.FC = () => {
+interface HUDProps {
+  onQualityInfoClick?: () => void
+}
+
+export const HUD: React.FC<HUDProps> = ({ onQualityInfoClick }) => {
   const loc = useStore(s => s.resources.loc)
   const revenue = useStore(s => s.resources.revenue)
   const uiLocPerSec = useStore(s => s.resources.uiLocPerSec)
@@ -145,7 +149,7 @@ export const HUD: React.FC = () => {
       </div>
 
       <AgentDashboard />
-      <QualityIndicator />
+      <QualityIndicator onInfoClick={onQualityInfoClick} />
       <CICDPipelineIndicator />
 
       <Milestones compact />
