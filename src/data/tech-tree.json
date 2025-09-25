@@ -4,11 +4,11 @@
   "currency": "Revenue",
   "secondaryCurrency": "LoC",
   "costCurves": {
-    "soft_expo_112": { "kind": "exponential", "k": 1.12 },
-    "soft_expo_115": { "kind": "exponential", "k": 1.15 },
-    "expo_118":      { "kind": "exponential", "k": 1.18 },
-    "expo_120":      { "kind": "exponential", "k": 1.20 },
-    "expo_125":      { "kind": "exponential", "k": 1.25 }
+    "soft_expo_112": { "kind": "exponential", "k": 1.25 },
+    "soft_expo_115": { "kind": "exponential", "k": 1.30 },
+    "expo_118":      { "kind": "exponential", "k": 1.35 },
+    "expo_120":      { "kind": "exponential", "k": 1.40 },
+    "expo_125":      { "kind": "exponential", "k": 1.45 }
   },
   "effectTypes": [
     "add", "mul", "cap", "unlock", "toggle"
@@ -42,7 +42,7 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "loc_per_click", "type": "add", "value": 4.0 }
+            { "stat": "loc_per_click", "type": "add", "value": 0.5 }
           ]
         },
         {
@@ -50,11 +50,12 @@
           "tier": 1,
           "name": "Autocomplete",
           "description": "Your IDE starts reading your mind before you even finish typing",
-          "baseCost": 60,
+          "baseCost": 180,
           "costCurve": "soft_expo_112",
+          "requires": [{ "node": "A0" }],
           "effects": [
-            { "stat": "loc_per_click", "type": "mul", "value": 1.8 },
-            { "stat": "idle_loc_per_sec", "type": "mul", "value": 2.0 }
+            { "stat": "loc_per_click", "type": "mul", "value": 1.2 },
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.3 }
           ]
         },
         {
@@ -62,8 +63,9 @@
           "tier": 2,
           "name": "Code Review Bot",
           "description": "A robotic critic that never gets tired of nitpicking your semicolons",
-          "baseCost": 1200,
+          "baseCost": 4000,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "A1" }],
           "effects": [
             { "stat": "bug_rate", "type": "mul", "value": 0.9 },
             { "stat": "agentConcurrencyCap", "type": "add", "value": 1 }
@@ -74,9 +76,9 @@
           "tier": 3,
           "name": "Copilot Agents",
           "description": "AI wingmen that actually understand what you're trying to build",
-          "baseCost": 4000,
+          "baseCost": 20000,
           "costCurve": "soft_expo_115",
-          "requires": [{ "node": "C2" }],
+          "requires": [{ "node": "A2" }, { "node": "C2" }],
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 3 },
             { "stat": "agentProductivity", "type": "mul", "value": 1.3 }
@@ -90,8 +92,8 @@
           "baseCost": 20000,
           "costCurve": "soft_expo_115",
           "effects": [
-            { "stat": "loc_per_click", "type": "mul", "value": 1.8 },
-            { "stat": "agentProductivity", "type": "mul", "value": 1.4 }
+            { "stat": "loc_per_click", "type": "mul", "value": 1.2 },
+            { "stat": "agentProductivity", "type": "mul", "value": 1.2 }
           ]
         },
         {
@@ -103,9 +105,9 @@
           "costCurve": "expo_118",
           "requires": [{ "node": "B4" }],
           "effects": [
-            { "stat": "code_quality", "type": "mul", "value": 1.5 },
+            { "stat": "code_quality", "type": "mul", "value": 1.2 },
             { "stat": "automationLevel", "type": "add", "value": 1 },
-            { "stat": "agentProductivity", "type": "mul", "value": 1.5 }
+            { "stat": "agentProductivity", "type": "mul", "value": 1.2 }
           ]
         },
         {
@@ -117,8 +119,8 @@
           "costCurve": "expo_118",
           "requires": [{ "node": "C5" }],
           "effects": [
-            { "stat": "agentProductivity", "type": "mul", "value": 2.5 },
-            { "stat": "global_multiplier", "type": "mul", "value": 1.8 },
+            { "stat": "agentProductivity", "type": "mul", "value": 1.3 },
+            { "stat": "global_multiplier", "type": "mul", "value": 1.2 },
             { "stat": "agentConcurrencyCap", "type": "add", "value": 10 }
           ]
         }
@@ -136,7 +138,7 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "loc_per_click", "type": "add", "value": 2.5 }
+            { "stat": "loc_per_click", "type": "add", "value": 0.3 }
           ]
         },
         {
@@ -144,11 +146,12 @@
           "tier": 1,
           "name": "Full IDE + Debugger",
           "description": "Now you can find bugs faster and question your life choices with style",
-          "baseCost": 80,
+          "baseCost": 240,
           "costCurve": "soft_expo_112",
+          "requires": [{ "node": "B0" }],
           "effects": [
-            { "stat": "compile_speed", "type": "mul", "value": 1.8 },
-            { "stat": "test_coverage", "type": "mul", "value": 1.5 }
+            { "stat": "compile_speed", "type": "mul", "value": 1.2 },
+            { "stat": "test_coverage", "type": "mul", "value": 1.2 }
           ]
         },
         {
@@ -156,8 +159,9 @@
           "tier": 2,
           "name": "Linter Suite",
           "description": "A perfectionist robot that cares deeply about your spacing habits",
-          "baseCost": 1000,
+          "baseCost": 3500,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "B1" }],
           "effects": [
             { "stat": "bug_rate", "type": "mul", "value": 0.95 },
             { "stat": "compile_speed", "type": "mul", "value": 1.3 }
@@ -168,10 +172,11 @@
           "tier": 3,
           "name": "AI-Native Editor",
           "description": "Your editor becomes sentient and starts contributing to open source",
-          "baseCost": 5000,
+          "baseCost": 25000,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "B2" }],
           "effects": [
-            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.4 },
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.2 },
             { "stat": "automationLevel", "type": "add", "value": 1 }
           ]
         },
@@ -183,7 +188,7 @@
           "baseCost": 25000,
           "costCurve": "soft_expo_115",
           "effects": [
-            { "stat": "idle_loc_per_sec", "type": "mul", "value": 2.0 },
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.3 },
             { "stat": "agentConcurrencyCap", "type": "add", "value": 5 }
           ]
         },
@@ -197,7 +202,7 @@
           "effects": [
             { "stat": "refactor_bonus", "type": "add", "value": 2.0 },
             { "stat": "ship_fraction", "type": "mul", "value": 1.2 },
-            { "stat": "loc_per_click", "type": "mul", "value": 1.5 }
+            { "stat": "loc_per_click", "type": "mul", "value": 1.2 }
           ]
         },
         {
@@ -209,8 +214,8 @@
           "costCurve": "expo_118",
           "effects": [
             { "stat": "automationLevel", "type": "add", "value": 2 },
-            { "stat": "global_multiplier", "type": "mul", "value": 1.5 },
-            { "stat": "agentProductivity", "type": "mul", "value": 1.8 }
+            { "stat": "global_multiplier", "type": "mul", "value": 1.2 },
+            { "stat": "agentProductivity", "type": "mul", "value": 1.2 }
           ]
         }
       ]
@@ -227,7 +232,7 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "idle_loc_per_sec", "type": "add", "value": 1.5 }
+            { "stat": "idle_loc_per_sec", "type": "add", "value": 0.1 }
           ]
         },
         {
@@ -235,11 +240,12 @@
           "tier": 1,
           "name": "Multi-Core CPU",
           "description": "Because one brain is good, but eight brains thinking in parallel is better",
-          "baseCost": 50,
+          "baseCost": 150,
           "costCurve": "soft_expo_112",
+          "requires": [{ "node": "C0" }],
           "effects": [
-            { "stat": "idle_loc_per_sec", "type": "mul", "value": 2.2 },
-            { "stat": "compile_speed", "type": "mul", "value": 1.6 }
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.3 },
+            { "stat": "compile_speed", "type": "mul", "value": 1.2 }
           ]
         },
         {
@@ -247,10 +253,11 @@
           "tier": 2,
           "name": "SSD Array",
           "description": "Storage so fast it loads your files before you even think about them",
-          "baseCost": 900,
+          "baseCost": 3000,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "C1" }],
           "effects": [
-            { "stat": "compile_speed", "type": "mul", "value": 1.4 },
+            { "stat": "compile_speed", "type": "mul", "value": 1.2 },
             { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.3 }
           ]
         },
@@ -259,8 +266,9 @@
           "tier": 3,
           "name": "Single GPU",
           "description": "A graphics card that renders code faster than your hopes and dreams",
-          "baseCost": 3500,
+          "baseCost": 18000,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "C2" }],
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 2 },
             { "stat": "agentProductivity", "type": "mul", "value": 1.25 }
@@ -275,7 +283,7 @@
           "costCurve": "soft_expo_115",
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 4 },
-            { "stat": "idle_loc_per_sec", "type": "mul", "value": 2.5 }
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.3 }
           ]
         },
         {
@@ -288,7 +296,7 @@
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 8 },
             { "stat": "global_multiplier", "type": "mul", "value": 1.2 },
-            { "stat": "agentProductivity", "type": "mul", "value": 1.5 }
+            { "stat": "agentProductivity", "type": "mul", "value": 1.2 }
           ]
         },
         {
@@ -300,9 +308,9 @@
           "costCurve": "expo_118",
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 15 },
-            { "stat": "idle_loc_per_sec", "type": "mul", "value": 2.0 },
-            { "stat": "compile_speed", "type": "mul", "value": 3.0 },
-            { "stat": "global_multiplier", "type": "mul", "value": 1.4 }
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.3 },
+            { "stat": "compile_speed", "type": "mul", "value": 1.5 },
+            { "stat": "global_multiplier", "type": "mul", "value": 1.2 }
           ]
         }
       ]
@@ -319,7 +327,7 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "ship_fraction", "type": "add", "value": 0.35 }
+            { "stat": "ship_fraction", "type": "add", "value": 0.05 }
           ]
         },
         {
@@ -327,8 +335,9 @@
           "tier": 1,
           "name": "Testing Framework",
           "description": "Automated tests that break more often than the code they're testing",
-          "baseCost": 65,
+          "baseCost": 200,
           "costCurve": "soft_expo_112",
+          "requires": [{ "node": "D0" }],
           "effects": [
             { "stat": "test_coverage", "type": "mul", "value": 1.3 },
             { "stat": "bug_rate", "type": "mul", "value": 0.85 }
@@ -339,8 +348,9 @@
           "tier": 2,
           "name": "Agile Methodology",
           "description": "Move fast and break things, but with more sticky notes and ceremonies",
-          "baseCost": 1100,
+          "baseCost": 4000,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "D1" }],
           "effects": [
             { "stat": "ship_fraction", "type": "mul", "value": 1.2 },
             { "stat": "agentProductivity", "type": "mul", "value": 1.1 }
@@ -351,8 +361,9 @@
           "tier": 3,
           "name": "Quality Assurance",
           "description": "Professional bug hunters who find issues you never knew existed",
-          "baseCost": 4500,
+          "baseCost": 22000,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "D2" }],
           "effects": [
             { "stat": "code_quality", "type": "mul", "value": 1.25 },
             { "stat": "tech_debt_growth", "type": "mul", "value": 0.9 }
@@ -366,7 +377,7 @@
           "baseCost": 22000,
           "costCurve": "soft_expo_115",
           "effects": [
-            { "stat": "ship_fraction", "type": "mul", "value": 1.5 },
+            { "stat": "ship_fraction", "type": "mul", "value": 1.2 },
             { "stat": "automationLevel", "type": "add", "value": 1 }
           ]
         },
@@ -392,8 +403,8 @@
           "costCurve": "expo_118",
           "effects": [
             { "stat": "tech_debt_growth", "type": "mul", "value": 0.0 },
-            { "stat": "ship_fraction", "type": "mul", "value": 2.0 },
-            { "stat": "global_multiplier", "type": "mul", "value": 1.6 }
+            { "stat": "ship_fraction", "type": "mul", "value": 1.3 },
+            { "stat": "global_multiplier", "type": "mul", "value": 1.2 }
           ]
         }
       ]
@@ -411,7 +422,7 @@
           "costCurve": "soft_expo_112",
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "cap", "value": 1 },
-            { "stat": "idle_loc_per_sec", "type": "add", "value": 0.5 }
+            { "stat": "idle_loc_per_sec", "type": "add", "value": 0.05 }
           ]
         },
         {
@@ -419,8 +430,9 @@
           "tier": 1,
           "name": "Pair Programming",
           "description": "Two minds, one keyboard, infinite debates about semicolons",
-          "baseCost": 200,
+          "baseCost": 600,
           "costCurve": "soft_expo_112",
+          "requires": [{ "node": "E0" }],
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 2 },
             { "stat": "agentProductivity", "type": "mul", "value": 1.3 }
@@ -431,8 +443,9 @@
           "tier": 2,
           "name": "Code Review Team",
           "description": "A council of wise developers who question every line you write",
-          "baseCost": 1200,
+          "baseCost": 4000,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "E1" }],
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 3 },
             { "stat": "agentProductivity", "type": "mul", "value": 1.2 },
@@ -444,12 +457,12 @@
           "tier": 3,
           "name": "Scrum Team",
           "description": "Daily standups where everyone pretends to know what they're doing",
-          "baseCost": 4000,
+          "baseCost": 20000,
           "costCurve": "soft_expo_115",
-          "requires": [{ "node": "C2" }],
+          "requires": [{ "node": "E2" }, { "node": "C2" }],
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 5 },
-            { "stat": "agentProductivity", "type": "mul", "value": 1.4 },
+            { "stat": "agentProductivity", "type": "mul", "value": 1.2 },
             { "stat": "passive_rev_per_sec", "type": "add", "value": 0.1 }
           ]
         },
@@ -462,8 +475,8 @@
           "costCurve": "soft_expo_115",
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 8 },
-            { "stat": "agentProductivity", "type": "mul", "value": 1.6 },
-            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.3 }
+            { "stat": "agentProductivity", "type": "mul", "value": 1.2 },
+            { "stat": "idle_loc_per_sec", "type": "mul", "value": 1.2 }
           ]
         },
         {
@@ -476,7 +489,7 @@
           "requires": [{ "node": "C4" }],
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 15 },
-            { "stat": "agentProductivity", "type": "mul", "value": 2.0 },
+            { "stat": "agentProductivity", "type": "mul", "value": 1.3 },
             { "stat": "global_multiplier", "type": "mul", "value": 1.2 }
           ]
         },
@@ -490,7 +503,7 @@
           "requires": [{ "node": "C5" }],
           "effects": [
             { "stat": "agentConcurrencyCap", "type": "add", "value": 25 },
-            { "stat": "agentProductivity", "type": "mul", "value": 2.8 },
+            { "stat": "agentProductivity", "type": "mul", "value": 1.3 },
             { "stat": "automationLevel", "type": "add", "value": 1 },
             { "stat": "global_multiplier", "type": "mul", "value": 1.3 }
           ]
@@ -509,7 +522,7 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "revenue_per_loc", "type": "add", "value": 0.30 }
+            { "stat": "revenue_per_loc", "type": "add", "value": 0.002 }
           ]
         },
         {
@@ -517,10 +530,11 @@
           "tier": 1,
           "name": "Targeted Marketing",
           "description": "Ads that follow people around the internet like a friendly stalker",
-          "baseCost": 75,
+          "baseCost": 225,
           "costCurve": "soft_expo_112",
+          "requires": [{ "node": "F0" }],
           "effects": [
-            { "stat": "revenue_multiplier", "type": "mul", "value": 1.4 }
+            { "stat": "revenue_multiplier", "type": "mul", "value": 1.2 }
           ]
         },
         {
@@ -528,8 +542,9 @@
           "tier": 2,
           "name": "Social Media",
           "description": "Shouting into the void until the void shouts back with money",
-          "baseCost": 1300,
+          "baseCost": 4500,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "F1" }],
           "effects": [
             { "stat": "passive_rev_per_sec", "type": "add", "value": 0.01 },
             { "stat": "market_expansion", "type": "mul", "value": 1.2 }
@@ -540,7 +555,7 @@
           "tier": 3,
           "name": "Growth Hacking",
           "description": "Questionable tactics that somehow work better than traditional marketing",
-          "baseCost": 5000,
+          "baseCost": 25000,
           "costCurve": "soft_expo_115",
           "effects": [
             { "stat": "market_expansion", "type": "mul", "value": 1.3 },
@@ -567,8 +582,8 @@
           "baseCost": 120000,
           "costCurve": "expo_118",
           "effects": [
-            { "stat": "price_premium", "type": "mul", "value": 1.5 },
-            { "stat": "passive_rev_per_sec", "type": "add", "value": 0.2 }
+            { "stat": "price_premium", "type": "mul", "value": 1.2 },
+            { "stat": "passive_rev_per_sec", "type": "add", "value": 0.05 }
           ]
         },
         {
@@ -579,8 +594,8 @@
           "baseCost": 800000,
           "costCurve": "expo_118",
           "effects": [
-            { "stat": "revenue_multiplier", "type": "mul", "value": 2.0 },
-            { "stat": "passive_rev_per_sec", "type": "add", "value": 1.0 }
+            { "stat": "revenue_multiplier", "type": "mul", "value": 1.3 },
+            { "stat": "passive_rev_per_sec", "type": "add", "value": 0.1 }
           ]
         }
       ]
@@ -597,7 +612,7 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "revenue_multiplier", "type": "mul", "value": 1.4 }
+            { "stat": "revenue_multiplier", "type": "mul", "value": 1.05 }
           ]
         },
         {
@@ -605,8 +620,9 @@
           "tier": 1,
           "name": "DLC & Updates",
           "description": "Selling the rest of your game back to players one piece at a time",
-          "baseCost": 360,
+          "baseCost": 1000,
           "costCurve": "soft_expo_112",
+          "requires": [{ "node": "G0" }],
           "effects": [
             { "stat": "features_multiplier", "type": "mul", "value": 1.25 },
             { "stat": "passive_rev_per_sec", "type": "add", "value": 0.02 }
@@ -617,8 +633,9 @@
           "tier": 2,
           "name": "Season Pass",
           "description": "A subscription to disappointment with occasional moments of joy",
-          "baseCost": 1500,
+          "baseCost": 5000,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "G1" }],
           "effects": [
             { "stat": "passive_rev_per_sec", "type": "add", "value": 0.03 },
             { "stat": "features_multiplier", "type": "mul", "value": 1.2 }
@@ -629,11 +646,11 @@
           "tier": 3,
           "name": "Multiplayer & IAP",
           "description": "Where friendship goes to die and wallets go to empty",
-          "baseCost": 6000,
+          "baseCost": 30000,
           "costCurve": "soft_expo_115",
           "requires": [{ "node": "A2" }],
           "effects": [
-            { "stat": "features_multiplier", "type": "mul", "value": 1.4 },
+            { "stat": "features_multiplier", "type": "mul", "value": 1.2 },
             { "stat": "revenue_multiplier", "type": "mul", "value": 1.2 }
           ]
         },
@@ -645,7 +662,7 @@
           "baseCost": 30000,
           "costCurve": "soft_expo_115",
           "effects": [
-            { "stat": "market_expansion", "type": "mul", "value": 1.8 },
+            { "stat": "market_expansion", "type": "mul", "value": 1.3 },
             { "stat": "passive_rev_per_sec", "type": "add", "value": 0.1 }
           ]
         },
@@ -658,7 +675,7 @@
           "costCurve": "expo_118",
           "requires": [{ "node": "B3" }, { "node": "E2" }],
           "effects": [
-            { "stat": "market_expansion", "type": "mul", "value": 1.6 },
+            { "stat": "market_expansion", "type": "mul", "value": 1.2 },
             { "stat": "features_multiplier", "type": "mul", "value": 1.3 }
           ]
         },
@@ -671,9 +688,9 @@
           "costCurve": "expo_118",
           "requires": [{ "node": "A5" }],
           "effects": [
-            { "stat": "revenue_multiplier", "type": "mul", "value": 2.0 },
-            { "stat": "global_multiplier", "type": "mul", "value": 1.5 },
-            { "stat": "features_multiplier", "type": "mul", "value": 1.8 }
+            { "stat": "revenue_multiplier", "type": "mul", "value": 1.3 },
+            { "stat": "global_multiplier", "type": "mul", "value": 1.2 },
+            { "stat": "features_multiplier", "type": "mul", "value": 1.3 }
           ]
         }
       ]
@@ -690,7 +707,7 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "revenue_per_loc", "type": "add", "value": 0.15 }
+            { "stat": "revenue_per_loc", "type": "add", "value": 0.001 }
           ]
         },
         {
@@ -698,8 +715,9 @@
           "tier": 1,
           "name": "Professional Assets",
           "description": "Art so good it makes people forget about your bugs temporarily",
-          "baseCost": 255,
+          "baseCost": 750,
           "costCurve": "soft_expo_112",
+          "requires": [{ "node": "H0" }],
           "effects": [
             { "stat": "bug_rate", "type": "mul", "value": 0.9 },
             { "stat": "test_coverage", "type": "mul", "value": 1.1 }
@@ -710,8 +728,9 @@
           "tier": 2,
           "name": "Unit Tests",
           "description": "Code that tests other code, because trust issues run deep here",
-          "baseCost": 1100,
+          "baseCost": 4000,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "H1" }],
           "effects": [
             { "stat": "test_coverage", "type": "mul", "value": 1.2 },
             { "stat": "bug_rate", "type": "mul", "value": 0.95 }
@@ -722,7 +741,7 @@
           "tier": 3,
           "name": "AI-Generated Content",
           "description": "Robots making art while artists contemplate career changes",
-          "baseCost": 4000,
+          "baseCost": 20000,
           "costCurve": "soft_expo_115",
           "requires": [{ "node": "C3" }],
           "effects": [
@@ -751,7 +770,7 @@
           "costCurve": "expo_118",
           "requires": [{ "node": "D5" }],
           "effects": [
-            { "stat": "price_premium", "type": "mul", "value": 1.5 },
+            { "stat": "price_premium", "type": "mul", "value": 1.2 },
             { "stat": "bug_rate", "type": "mul", "value": 0.7 }
           ]
         },
@@ -764,9 +783,9 @@
           "costCurve": "expo_118",
           "requires": [{ "node": "A6" }],
           "effects": [
-            { "stat": "bug_rate", "type": "mul", "value": 0.1 },
-            { "stat": "revenue_per_loc", "type": "mul", "value": 2.0 },
-            { "stat": "global_multiplier", "type": "mul", "value": 1.4 }
+            { "stat": "bug_rate", "type": "mul", "value": 0.5 },
+            { "stat": "revenue_per_loc", "type": "mul", "value": 1.3 },
+            { "stat": "global_multiplier", "type": "mul", "value": 1.2 }
           ]
         }
       ]
@@ -783,7 +802,7 @@
           "baseCost": 1,
           "costCurve": "soft_expo_112",
           "effects": [
-            { "stat": "ship_fraction", "type": "add", "value": 0.30 }
+            { "stat": "ship_fraction", "type": "add", "value": 0.05 }
           ]
         },
         {
@@ -791,8 +810,9 @@
           "tier": 1,
           "name": "Basic CI Pipeline",
           "description": "Robots that build your code while you pretend to work",
-          "baseCost": 90,
+          "baseCost": 270,
           "costCurve": "soft_expo_112",
+          "requires": [{ "node": "I0" }],
           "effects": [
             { "stat": "automationLevel", "type": "add", "value": 1 }
           ]
@@ -802,8 +822,9 @@
           "tier": 2,
           "name": "Git Hooks",
           "description": "Automated gatekeepers that judge your commit messages harshly",
-          "baseCost": 1250,
+          "baseCost": 4500,
           "costCurve": "soft_expo_115",
+          "requires": [{ "node": "I1" }],
           "effects": [
             { "stat": "automationLevel", "type": "add", "value": 0.5 },
             { "stat": "bug_rate", "type": "mul", "value": 0.95 }
@@ -814,7 +835,7 @@
           "tier": 3,
           "name": "Continuous Integration",
           "description": "Your code gets built, tested, and judged every single commit",
-          "baseCost": 5500,
+          "baseCost": 28000,
           "costCurve": "soft_expo_115",
           "requires": [{ "node": "D1" }],
           "effects": [
@@ -857,8 +878,8 @@
           "requires": [{ "node": "D5" }],
           "effects": [
             { "stat": "automationLevel", "type": "add", "value": 4 },
-            { "stat": "ship_fraction", "type": "mul", "value": 2.0 },
-            { "stat": "revenue_multiplier", "type": "mul", "value": 1.5 }
+            { "stat": "ship_fraction", "type": "mul", "value": 1.3 },
+            { "stat": "revenue_multiplier", "type": "mul", "value": 1.2 }
           ]
         }
       ]
