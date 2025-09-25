@@ -62,6 +62,7 @@ function effectLines(n: any): { text: string; kind: 'loc' | 'ship' | 'revenue' |
       if (ef.type === 'mul') lines.push({ text: `Agent productivity ${formatPct(ef.value)}`, kind: 'global' })
     } else if (s === 'agentConcurrencyCap') {
       if (ef.type === 'cap') lines.push({ text: `Agent slots: ${ef.value}`, kind: 'global' })
+      else if (ef.type === 'add') lines.push({ text: `Agent slots +${ef.value}`, kind: 'global' })
     } else if (s === 'automationLevel') {
       if (ef.type === 'add') {
         const levelTexts = {
