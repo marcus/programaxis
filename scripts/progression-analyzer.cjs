@@ -15,15 +15,29 @@ const path = require('path');
 const techTreePath = path.join(__dirname, '../src/data/tech-tree.json');
 const techTree = JSON.parse(fs.readFileSync(techTreePath, 'utf8'));
 
-const milestonesPath = path.join(__dirname, '../src/data/milestones.json');
-const milestones = JSON.parse(fs.readFileSync(milestonesPath, 'utf8'));
+// Import milestones from the actual game code
+const progressionPath = path.join(__dirname, '../src/game/progression.ts');
+const progressionContent = fs.readFileSync(progressionPath, 'utf8');
 
-// Game constants - Updated to reflect current mechanics
+// Extract milestone data from TypeScript source
+const milestoneMatches = progressionContent.match(/threshold:\s*(\d+(?:_\d+)*),\s*title:\s*'([^']+)'/g);
+const milestones = milestoneMatches ? milestoneMatches.map(match => {
+  const thresholdMatch = match.match(/threshold:\s*(\d+(?:_\d+)*)/);
+  const titleMatch = match.match(/title:\s*'([^']+)'/);
+  const threshold = parseInt(thresholdMatch[1].replace(/_/g, ''));
+  return {
+    id: `M_${threshold}`,
+    name: titleMatch[1].split('(')[0].trim(),
+    threshold: threshold
+  };
+}) : [];
+
+// Game constants - Updated to reflect current mechanics from tech-tree.json and resourcesSlice.ts
 const BASE_STATS = {
-  loc_per_click: 1.0,
-  idle_loc_per_sec: 0.1,
-  ship_fraction: 0.2,
-  revenue_per_loc: 0.05,
+  loc_per_click: 4.0,  // From tech-tree.json base stats
+  idle_loc_per_sec: 1.0,  // From tech-tree.json base stats
+  ship_fraction: 0.40,  // From tech-tree.json base stats
+  revenue_per_loc: 0.20,  // From tech-tree.json base stats
   bug_rate: 1.0,
   code_quality: 1.0,
   test_coverage: 1.0,
@@ -35,14 +49,16 @@ const BASE_STATS = {
   revenue_multiplier: 1.0,
   price_premium: 1.0,
   market_expansion: 1.0,
-  passive_rev_per_sec: 0.0
+  passive_rev_per_sec: 0.0,
+  // Agent specialization stats
+  qa_agents: 0,
+  devops_agents: 0
   // Note: focus_multiplier removed as it was non-functional
-  // Added missing stats for complete coverage
 };
 
 const BASE_SYSTEMS = {
   agentConcurrencyCap: 0,
-  automationLevel: 0,
+  automationLevel: 0,  // From shipping system
   agentProductivity: 1.0
 };
 
@@ -71,6 +87,10 @@ function applyEffect(stats, systems, effect) {
     case 'add':
       if (stat === 'automationLevel') {
         systems.automationLevel += value;
+      } else if (stat === 'agentConcurrencyCap') {
+        systems.agentConcurrencyCap += value;
+      } else if (stat === 'agentProductivity') {
+        systems.agentProductivity += value;
       } else if (stat in stats) {
         stats[stat] += value;
       }
@@ -86,6 +106,12 @@ function applyEffect(stats, systems, effect) {
       if (stat === 'agentConcurrencyCap') {
         systems.agentConcurrencyCap = Math.max(systems.agentConcurrencyCap, value);
       }
+      break;
+    case 'unlock':
+      // Handle unlock effects (these don't affect numerical calculations directly)
+      break;
+    case 'toggle':
+      // Handle toggle effects (these don't affect numerical calculations directly)
       break;
   }
 }
@@ -134,7 +160,7 @@ function calculateRevPerSec(stats, systems) {
   };
 }
 
-// Calculate ROI for a tech node
+// Calculate ROI for a tech node with better baseline simulation
 function calculateROI(nodeId, beforeStats, beforeSystems) {
   const node = techTree.branches.flatMap(b => b.nodes).find(n => n.id === nodeId);
   if (!node) return null;
@@ -163,6 +189,23 @@ function calculateROI(nodeId, beforeStats, beforeSystems) {
     afterMetrics,
     effects: node.effects || []
   };
+}
+
+// Calculate ROI with simulated early game progression
+function calculateRealisticROI(nodeId) {
+  // Simulate having bought some basic early game nodes for more realistic comparison
+  const earlyGameStats = { ...BASE_STATS };
+  const earlyGameSystems = { ...BASE_SYSTEMS };
+
+  // Simulate buying tier 0 nodes (free)
+  const tier0Nodes = techTree.branches.flatMap(b => b.nodes).filter(n => n.tier === 0 && n.baseCost === 1);
+  for (const node of tier0Nodes) {
+    for (const effect of node.effects || []) {
+      applyEffect(earlyGameStats, earlyGameSystems, effect);
+    }
+  }
+
+  return calculateROI(nodeId, earlyGameStats, earlyGameSystems);
 }
 
 // Generate progression analysis
@@ -201,7 +244,7 @@ function analyzeProgression() {
   console.log('| Tier | Min Cost | Max Cost | Average | Median |');
   console.log('|------|----------|----------|---------|--------|');
 
-  for (let tier = 0; tier <= 4; tier++) {
+  for (let tier = 0; tier <= 6; tier++) {
     const tierNodes = techTree.branches.flatMap(b => b.nodes).filter(n => n.tier === tier);
     const costs = tierNodes.map(n => calculateCost(n.baseCost, n.costCurve, n.tier));
 
@@ -339,7 +382,7 @@ function analyzeProgression() {
     .flatMap(b => b.nodes)
     .filter(n => n.baseCost > 0)
     .map(n => {
-      const roi = calculateROI(n.id, baseStats, baseSystems);
+      const roi = calculateRealisticROI(n.id);
       return {
         id: n.id,
         name: n.name,
@@ -351,7 +394,7 @@ function analyzeProgression() {
         paybackTime: roi.paybackTime
       };
     })
-    .filter(n => n.revenueIncrease > 0)
+    .filter(n => n.revenueIncrease > 0 && n.paybackTime < Infinity)
     .sort((a, b) => b.efficiency - a.efficiency);
 
   console.log('| Rank | Node | Branch | Cost | Rev Increase | Efficiency | Payback |');
@@ -399,8 +442,41 @@ function analyzeProgression() {
   console.log('- Validate tier 4 pricing provides satisfying late-game progression');
 }
 
+// Add validation functions
+function validateData() {
+  const errors = [];
+
+  // Validate milestones are extracted correctly
+  if (!milestones || milestones.length === 0) {
+    errors.push('No milestones extracted from progression.ts');
+  }
+
+  // Validate tech tree structure
+  if (!techTree.branches || techTree.branches.length === 0) {
+    errors.push('No branches found in tech tree');
+  }
+
+  // Validate cost curves exist
+  for (const branch of techTree.branches) {
+    for (const node of branch.nodes) {
+      if (node.costCurve && !techTree.costCurves[node.costCurve]) {
+        errors.push(`Missing cost curve '${node.costCurve}' for node ${node.id}`);
+      }
+    }
+  }
+
+  return errors;
+}
+
 // Run the analysis
 try {
+  const validationErrors = validateData();
+  if (validationErrors.length > 0) {
+    console.error('Validation errors:');
+    validationErrors.forEach(error => console.error('- ' + error));
+    process.exit(1);
+  }
+
   analyzeProgression();
 } catch (error) {
   console.error('Error analyzing progression:', error);
