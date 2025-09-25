@@ -1,5 +1,5 @@
 # Programaxis Tech Tree Progression Analysis
-Generated on: 2025-09-25T04:45:20.068Z
+Generated on: 2025-09-25T14:58:09.386Z
 Tech Tree Version: 2
 
 ## Branch Overview
@@ -13,8 +13,8 @@ Tech Tree Version: 2
 | 2 | Code Review Bot (requires: A1) | $6,760 | bug_rate mul 0.9, agentConcurrencyCap add 1 |
 | 3 | Copilot Agents (requires: A2, C2) | $43,940 | agentConcurrencyCap add 3, agentProductivity mul 1.3 |
 | 4 | Pair Programming AI | $57,122 | loc_per_click mul 1.2, agentProductivity mul 1.2 |
-| 5 | Self-Improving Models (requires: B4) | $358,722 | code_quality mul 1.2, automationLevel add 1, agentProductivity mul 1.2 |
-| 6 | Superintelligence (requires: C5) | $3,026,722 | agentProductivity mul 1.3, global_multiplier mul 1.2, agentConcurrencyCap add 10 |
+| 5 | Self-Improving Models (requires: B4) | $1,898,437 | code_quality mul 1.2, automationLevel add 1, agentProductivity mul 1.2 |
+| 6 | Superintelligence (requires: C5) | $33,554,432 | agentProductivity mul 1.3, global_multiplier mul 1.2, agentConcurrencyCap add 10 |
 
 ### Editor & Software Tools (B)
 
@@ -25,8 +25,8 @@ Tech Tree Version: 2
 | 2 | Linter Suite (requires: B1) | $5,915 | bug_rate mul 0.95, compile_speed mul 1.3 |
 | 3 | AI-Native Editor (requires: B2) | $54,925 | idle_loc_per_sec mul 1.2, automationLevel add 1 |
 | 4 | Cloud IDE | $71,402 | idle_loc_per_sec mul 1.3, agentConcurrencyCap add 5 |
-| 5 | Immersive IDE (VR/AR) | $538,084 | refactor_bonus add 2, ship_fraction mul 1.2, loc_per_click mul 1.2 |
-| 6 | Autonomous IDE | $4,842,756 | automationLevel add 2, global_multiplier mul 1.2, agentProductivity mul 1.2 |
+| 5 | Immersive IDE (VR/AR) | $2,278,125 | refactor_bonus add 2, ship_fraction mul 1.2, loc_per_click mul 1.2 |
+| 6 | Autonomous IDE | $53,687,091 | automationLevel add 2, global_multiplier mul 1.2, agentProductivity mul 1.2 |
 
 ### Hardware / Compute (C)
 
@@ -37,8 +37,8 @@ Tech Tree Version: 2
 | 2 | SSD Array (requires: C1) | $5,070 | compile_speed mul 1.2, idle_loc_per_sec mul 1.3 |
 | 3 | Single GPU (requires: C2) | $39,546 | agentConcurrencyCap add 2, agentProductivity mul 1.25 |
 | 4 | Server Farm | $51,409 | agentConcurrencyCap add 4, idle_loc_per_sec mul 1.3 |
-| 5 | Multi-GPU Cloud | $448,403 | agentConcurrencyCap add 8, global_multiplier mul 1.2, agentProductivity mul 1.2 |
-| 6 | Quantum Computer | $3,632,067 | agentConcurrencyCap add 15, idle_loc_per_sec mul 1.3, compile_speed mul 1.5, global_multiplier mul 1.2 |
+| 5 | Multi-GPU Cloud | $2,126,250 | agentConcurrencyCap add 8, global_multiplier mul 1.2, agentProductivity mul 1.2 |
+| 6 | Quantum Computer | $41,943,040 | agentConcurrencyCap add 15, idle_loc_per_sec mul 1.3, compile_speed mul 1.5, global_multiplier mul 1.2 |
 
 ### Workflow & Process (D)
 
@@ -49,8 +49,8 @@ Tech Tree Version: 2
 | 2 | Agile Methodology (requires: D1) | $6,760 | ship_fraction mul 1.2, agentProductivity mul 1.1 |
 | 3 | Quality Assurance (requires: D2) | $48,334 | code_quality mul 1.25, tech_debt_growth mul 0.9 |
 | 4 | DevOps Culture | $62,834 | ship_fraction mul 1.2, automationLevel add 1 |
-| 5 | Auto-Refactoring | $493,243 | refactor_bonus add 0.5, tech_debt_growth mul 0.8, code_quality mul 1.2 |
-| 6 | Perfect Process | $4,237,411 | tech_debt_growth mul 0, ship_fraction mul 1.3, global_multiplier mul 1.2 |
+| 5 | Auto-Refactoring | $2,430,000 | refactor_bonus add 0.5, tech_debt_growth mul 0.8, code_quality mul 1.2 |
+| 6 | Perfect Process | $46,976,204 | tech_debt_growth mul 0, ship_fraction mul 1.3, global_multiplier mul 1.2 |
 
 ### Team Scaling (E)
 
@@ -61,8 +61,8 @@ Tech Tree Version: 2
 | 2 | Code Review Team (requires: E1) | $6,760 | agentConcurrencyCap add 3, agentProductivity mul 1.2, bug_rate mul 0.9 |
 | 3 | Scrum Team (requires: E2, C2) | $43,940 | agentConcurrencyCap add 5, agentProductivity mul 1.2, passive_rev_per_sec add 0.1 |
 | 4 | Cross-Functional Team | $57,122 | agentConcurrencyCap add 8, agentProductivity mul 1.2, idle_loc_per_sec mul 1.2 |
-| 5 | Engineering Department (requires: C4) | $538,084 | agentConcurrencyCap add 15, agentProductivity mul 1.3, global_multiplier mul 1.2 |
-| 6 | Multi-Team Organization (requires: C5) | $4,842,756 | agentConcurrencyCap add 25, agentProductivity mul 1.3, automationLevel add 1, global_multiplier mul 1.3 |
+| 5 | Engineering Department (requires: C4) | $2,657,812 | agentConcurrencyCap add 15, agentProductivity mul 1.3, global_multiplier mul 1.2 |
+| 6 | Multi-Team Organization (requires: C5) | $53,687,091 | agentConcurrencyCap add 25, agentProductivity mul 1.3, automationLevel add 1, global_multiplier mul 1.3 |
 
 ### Marketing & Revenue (F)
 
@@ -73,8 +73,8 @@ Tech Tree Version: 2
 | 2 | Social Media (requires: F1) | $7,605 | passive_rev_per_sec add 0.01, market_expansion mul 1.2 |
 | 3 | Growth Hacking | $54,925 | market_expansion mul 1.3, passive_rev_per_sec add 0.05 |
 | 4 | Influencer Network | $71,402 | revenue_multiplier mul 1.3, price_premium mul 1.2 |
-| 5 | Viral Marketing | $538,084 | price_premium mul 1.2, passive_rev_per_sec add 0.05 |
-| 6 | Market Domination | $4,842,756 | revenue_multiplier mul 1.3, passive_rev_per_sec add 0.1 |
+| 5 | Viral Marketing | $2,278,125 | price_premium mul 1.2, passive_rev_per_sec add 0.05 |
+| 6 | Market Domination | $53,687,091 | revenue_multiplier mul 1.3, passive_rev_per_sec add 0.1 |
 
 ### Product Features (G)
 
@@ -85,8 +85,8 @@ Tech Tree Version: 2
 | 2 | Season Pass (requires: G1) | $8,450 | passive_rev_per_sec add 0.03, features_multiplier mul 1.2 |
 | 3 | Multiplayer & IAP (requires: A2) | $65,910 | features_multiplier mul 1.2, revenue_multiplier mul 1.2 |
 | 4 | Mobile Port | $85,683 | market_expansion mul 1.3, passive_rev_per_sec add 0.1 |
-| 5 | Cross-Platform (requires: B3, E2) | $672,605 | market_expansion mul 1.2, features_multiplier mul 1.3 |
-| 6 | Premium Platform (requires: A5) | $5,448,100 | revenue_multiplier mul 1.3, global_multiplier mul 1.2, features_multiplier mul 1.3 |
+| 5 | Cross-Platform (requires: B3, E2) | $3,037,500 | market_expansion mul 1.2, features_multiplier mul 1.3 |
+| 6 | Premium Platform (requires: A5) | $60,397,977 | revenue_multiplier mul 1.3, global_multiplier mul 1.2, features_multiplier mul 1.3 |
 
 ### Quality & Polish (H)
 
@@ -97,8 +97,8 @@ Tech Tree Version: 2
 | 2 | Unit Tests (requires: H1) | $6,760 | test_coverage mul 1.2, bug_rate mul 0.95 |
 | 3 | AI-Generated Content (requires: C3) | $43,940 | code_quality mul 1.25, price_premium mul 1.1 |
 | 4 | QA Team | $57,122 | bug_rate mul 0.5, qa_agents add 5 |
-| 5 | Premium Quality (requires: D5) | $448,403 | price_premium mul 1.2, bug_rate mul 0.7 |
-| 6 | Perfect Code (requires: A6) | $4,540,083 | bug_rate mul 0.5, revenue_per_loc mul 1.3, global_multiplier mul 1.2 |
+| 5 | Premium Quality (requires: D5) | $2,126,250 | price_premium mul 1.2, bug_rate mul 0.7 |
+| 6 | Perfect Code (requires: A6) | $50,331,648 | bug_rate mul 0.5, revenue_per_loc mul 1.3, global_multiplier mul 1.2 |
 
 ### Shipping & CI/CD (I)
 
@@ -109,8 +109,8 @@ Tech Tree Version: 2
 | 2 | Git Hooks (requires: I1) | $7,605 | automationLevel add 0.5, bug_rate mul 0.95 |
 | 3 | Continuous Integration (requires: D1) | $61,516 | automationLevel add 1, ship_fraction add 0.1 |
 | 4 | Blue-Green Deploy | $71,402 | ship_fraction mul 1.3, devops_agents add 2 |
-| 5 | Continuous Deployment (requires: D5) | $582,924 | automationLevel add 2, revenue_multiplier mul 1.3 |
-| 6 | Zero-Downtime Deploy (requires: D5) | $5,448,100 | automationLevel add 4, ship_fraction mul 1.3, revenue_multiplier mul 1.2 |
+| 5 | Continuous Deployment (requires: D5) | $2,657,812 | automationLevel add 2, revenue_multiplier mul 1.3 |
+| 6 | Zero-Downtime Deploy (requires: D5) | $60,397,977 | automationLevel add 4, ship_fraction mul 1.3, revenue_multiplier mul 1.2 |
 
 ## Cost Progression by Tier
 
@@ -205,200 +205,200 @@ Newly affordable nodes:
 
 Newly affordable nodes:
 
+- **Pair Programming AI** (A4) - $57,122
+  - Effects: loc_per_click mul 1.2, agentProductivity mul 1.2
+- **Cross-Functional Team** (E4) - $57,122
+  - Effects: agentConcurrencyCap add 8, agentProductivity mul 1.2, idle_loc_per_sec mul 1.2
+- **QA Team** (H4) - $57,122
+  - Effects: bug_rate mul 0.5, qa_agents add 5
+- **Continuous Integration** (I3) - $61,516
+  - Effects: automationLevel add 1, ship_fraction add 0.1
+- **DevOps Culture** (D4) - $62,834
+  - Effects: ship_fraction mul 1.2, automationLevel add 1
+- **Multiplayer & IAP** (G3) - $65,910
+  - Effects: features_multiplier mul 1.2, revenue_multiplier mul 1.2
+- **Cloud IDE** (B4) - $71,402
+  - Effects: idle_loc_per_sec mul 1.3, agentConcurrencyCap add 5
+- **Influencer Network** (F4) - $71,402
+  - Effects: revenue_multiplier mul 1.3, price_premium mul 1.2
+- **Blue-Green Deploy** (I4) - $71,402
+  - Effects: ship_fraction mul 1.3, devops_agents add 2
 - **Mobile Port** (G4) - $85,683
   - Effects: market_expansion mul 1.3, passive_rev_per_sec add 0.1
-- **Self-Improving Models** (A5) - $358,722
-  - Effects: code_quality mul 1.2, automationLevel add 1, agentProductivity mul 1.2
-- **Multi-GPU Cloud** (C5) - $448,403
-  - Effects: agentConcurrencyCap add 8, global_multiplier mul 1.2, agentProductivity mul 1.2
-- **Premium Quality** (H5) - $448,403
-  - Effects: price_premium mul 1.2, bug_rate mul 0.7
-- **Auto-Refactoring** (D5) - $493,243
-  - Effects: refactor_bonus add 0.5, tech_debt_growth mul 0.8, code_quality mul 1.2
-- **Immersive IDE (VR/AR)** (B5) - $538,084
-  - Effects: refactor_bonus add 2, ship_fraction mul 1.2, loc_per_click mul 1.2
-- **Engineering Department** (E5) - $538,084
-  - Effects: agentConcurrencyCap add 15, agentProductivity mul 1.3, global_multiplier mul 1.2
-- **Viral Marketing** (F5) - $538,084
-  - Effects: price_premium mul 1.2, passive_rev_per_sec add 0.05
-- **Continuous Deployment** (I5) - $582,924
-  - Effects: automationLevel add 2, revenue_multiplier mul 1.3
-- **Cross-Platform** (G5) - $672,605
-  - Effects: market_expansion mul 1.2, features_multiplier mul 1.3
 
 ### Live-Ops On ($10,000,000)
 
 Newly affordable nodes:
 
-- **Cross-Platform** (G5) - $672,605
+- **Mobile Port** (G4) - $85,683
+  - Effects: market_expansion mul 1.3, passive_rev_per_sec add 0.1
+- **Self-Improving Models** (A5) - $1,898,437
+  - Effects: code_quality mul 1.2, automationLevel add 1, agentProductivity mul 1.2
+- **Multi-GPU Cloud** (C5) - $2,126,250
+  - Effects: agentConcurrencyCap add 8, global_multiplier mul 1.2, agentProductivity mul 1.2
+- **Premium Quality** (H5) - $2,126,250
+  - Effects: price_premium mul 1.2, bug_rate mul 0.7
+- **Immersive IDE (VR/AR)** (B5) - $2,278,125
+  - Effects: refactor_bonus add 2, ship_fraction mul 1.2, loc_per_click mul 1.2
+- **Viral Marketing** (F5) - $2,278,125
+  - Effects: price_premium mul 1.2, passive_rev_per_sec add 0.05
+- **Auto-Refactoring** (D5) - $2,430,000
+  - Effects: refactor_bonus add 0.5, tech_debt_growth mul 0.8, code_quality mul 1.2
+- **Engineering Department** (E5) - $2,657,812
+  - Effects: agentConcurrencyCap add 15, agentProductivity mul 1.3, global_multiplier mul 1.2
+- **Continuous Deployment** (I5) - $2,657,812
+  - Effects: automationLevel add 2, revenue_multiplier mul 1.3
+- **Cross-Platform** (G5) - $3,037,500
   - Effects: market_expansion mul 1.2, features_multiplier mul 1.3
-- **Superintelligence** (A6) - $3,026,722
-  - Effects: agentProductivity mul 1.3, global_multiplier mul 1.2, agentConcurrencyCap add 10
-- **Quantum Computer** (C6) - $3,632,067
-  - Effects: agentConcurrencyCap add 15, idle_loc_per_sec mul 1.3, compile_speed mul 1.5, global_multiplier mul 1.2
-- **Perfect Process** (D6) - $4,237,411
-  - Effects: tech_debt_growth mul 0, ship_fraction mul 1.3, global_multiplier mul 1.2
-- **Perfect Code** (H6) - $4,540,083
-  - Effects: bug_rate mul 0.5, revenue_per_loc mul 1.3, global_multiplier mul 1.2
-- **Autonomous IDE** (B6) - $4,842,756
-  - Effects: automationLevel add 2, global_multiplier mul 1.2, agentProductivity mul 1.2
-- **Multi-Team Organization** (E6) - $4,842,756
-  - Effects: agentConcurrencyCap add 25, agentProductivity mul 1.3, automationLevel add 1, global_multiplier mul 1.3
-- **Market Domination** (F6) - $4,842,756
-  - Effects: revenue_multiplier mul 1.3, passive_rev_per_sec add 0.1
-- **Premium Platform** (G6) - $5,448,100
-  - Effects: revenue_multiplier mul 1.3, global_multiplier mul 1.2, features_multiplier mul 1.3
-- **Zero-Downtime Deploy** (I6) - $5,448,100
-  - Effects: automationLevel add 4, ship_fraction mul 1.3, revenue_multiplier mul 1.2
 
 ### Brand Found ($100,000,000)
 
 Newly affordable nodes:
 
-- **Cross-Platform** (G5) - $672,605
+- **Cross-Platform** (G5) - $3,037,500
   - Effects: market_expansion mul 1.2, features_multiplier mul 1.3
-- **Superintelligence** (A6) - $3,026,722
+- **Superintelligence** (A6) - $33,554,432
   - Effects: agentProductivity mul 1.3, global_multiplier mul 1.2, agentConcurrencyCap add 10
-- **Quantum Computer** (C6) - $3,632,067
+- **Quantum Computer** (C6) - $41,943,040
   - Effects: agentConcurrencyCap add 15, idle_loc_per_sec mul 1.3, compile_speed mul 1.5, global_multiplier mul 1.2
-- **Perfect Process** (D6) - $4,237,411
+- **Perfect Process** (D6) - $46,976,204
   - Effects: tech_debt_growth mul 0, ship_fraction mul 1.3, global_multiplier mul 1.2
-- **Perfect Code** (H6) - $4,540,083
+- **Perfect Code** (H6) - $50,331,648
   - Effects: bug_rate mul 0.5, revenue_per_loc mul 1.3, global_multiplier mul 1.2
-- **Autonomous IDE** (B6) - $4,842,756
+- **Autonomous IDE** (B6) - $53,687,091
   - Effects: automationLevel add 2, global_multiplier mul 1.2, agentProductivity mul 1.2
-- **Multi-Team Organization** (E6) - $4,842,756
+- **Multi-Team Organization** (E6) - $53,687,091
   - Effects: agentConcurrencyCap add 25, agentProductivity mul 1.3, automationLevel add 1, global_multiplier mul 1.3
-- **Market Domination** (F6) - $4,842,756
+- **Market Domination** (F6) - $53,687,091
   - Effects: revenue_multiplier mul 1.3, passive_rev_per_sec add 0.1
-- **Premium Platform** (G6) - $5,448,100
+- **Premium Platform** (G6) - $60,397,977
   - Effects: revenue_multiplier mul 1.3, global_multiplier mul 1.2, features_multiplier mul 1.3
-- **Zero-Downtime Deploy** (I6) - $5,448,100
+- **Zero-Downtime Deploy** (I6) - $60,397,977
   - Effects: automationLevel add 4, ship_fraction mul 1.3, revenue_multiplier mul 1.2
 
 ### Global Hit ($1,000,000,000)
 
 Newly affordable nodes:
 
-- **Cross-Platform** (G5) - $672,605
+- **Cross-Platform** (G5) - $3,037,500
   - Effects: market_expansion mul 1.2, features_multiplier mul 1.3
-- **Superintelligence** (A6) - $3,026,722
+- **Superintelligence** (A6) - $33,554,432
   - Effects: agentProductivity mul 1.3, global_multiplier mul 1.2, agentConcurrencyCap add 10
-- **Quantum Computer** (C6) - $3,632,067
+- **Quantum Computer** (C6) - $41,943,040
   - Effects: agentConcurrencyCap add 15, idle_loc_per_sec mul 1.3, compile_speed mul 1.5, global_multiplier mul 1.2
-- **Perfect Process** (D6) - $4,237,411
+- **Perfect Process** (D6) - $46,976,204
   - Effects: tech_debt_growth mul 0, ship_fraction mul 1.3, global_multiplier mul 1.2
-- **Perfect Code** (H6) - $4,540,083
+- **Perfect Code** (H6) - $50,331,648
   - Effects: bug_rate mul 0.5, revenue_per_loc mul 1.3, global_multiplier mul 1.2
-- **Autonomous IDE** (B6) - $4,842,756
+- **Autonomous IDE** (B6) - $53,687,091
   - Effects: automationLevel add 2, global_multiplier mul 1.2, agentProductivity mul 1.2
-- **Multi-Team Organization** (E6) - $4,842,756
+- **Multi-Team Organization** (E6) - $53,687,091
   - Effects: agentConcurrencyCap add 25, agentProductivity mul 1.3, automationLevel add 1, global_multiplier mul 1.3
-- **Market Domination** (F6) - $4,842,756
+- **Market Domination** (F6) - $53,687,091
   - Effects: revenue_multiplier mul 1.3, passive_rev_per_sec add 0.1
-- **Premium Platform** (G6) - $5,448,100
+- **Premium Platform** (G6) - $60,397,977
   - Effects: revenue_multiplier mul 1.3, global_multiplier mul 1.2, features_multiplier mul 1.3
-- **Zero-Downtime Deploy** (I6) - $5,448,100
+- **Zero-Downtime Deploy** (I6) - $60,397,977
   - Effects: automationLevel add 4, ship_fraction mul 1.3, revenue_multiplier mul 1.2
 
 ### Studio Group ($10,000,000,000)
 
 Newly affordable nodes:
 
-- **Cross-Platform** (G5) - $672,605
+- **Cross-Platform** (G5) - $3,037,500
   - Effects: market_expansion mul 1.2, features_multiplier mul 1.3
-- **Superintelligence** (A6) - $3,026,722
+- **Superintelligence** (A6) - $33,554,432
   - Effects: agentProductivity mul 1.3, global_multiplier mul 1.2, agentConcurrencyCap add 10
-- **Quantum Computer** (C6) - $3,632,067
+- **Quantum Computer** (C6) - $41,943,040
   - Effects: agentConcurrencyCap add 15, idle_loc_per_sec mul 1.3, compile_speed mul 1.5, global_multiplier mul 1.2
-- **Perfect Process** (D6) - $4,237,411
+- **Perfect Process** (D6) - $46,976,204
   - Effects: tech_debt_growth mul 0, ship_fraction mul 1.3, global_multiplier mul 1.2
-- **Perfect Code** (H6) - $4,540,083
+- **Perfect Code** (H6) - $50,331,648
   - Effects: bug_rate mul 0.5, revenue_per_loc mul 1.3, global_multiplier mul 1.2
-- **Autonomous IDE** (B6) - $4,842,756
+- **Autonomous IDE** (B6) - $53,687,091
   - Effects: automationLevel add 2, global_multiplier mul 1.2, agentProductivity mul 1.2
-- **Multi-Team Organization** (E6) - $4,842,756
+- **Multi-Team Organization** (E6) - $53,687,091
   - Effects: agentConcurrencyCap add 25, agentProductivity mul 1.3, automationLevel add 1, global_multiplier mul 1.3
-- **Market Domination** (F6) - $4,842,756
+- **Market Domination** (F6) - $53,687,091
   - Effects: revenue_multiplier mul 1.3, passive_rev_per_sec add 0.1
-- **Premium Platform** (G6) - $5,448,100
+- **Premium Platform** (G6) - $60,397,977
   - Effects: revenue_multiplier mul 1.3, global_multiplier mul 1.2, features_multiplier mul 1.3
-- **Zero-Downtime Deploy** (I6) - $5,448,100
+- **Zero-Downtime Deploy** (I6) - $60,397,977
   - Effects: automationLevel add 4, ship_fraction mul 1.3, revenue_multiplier mul 1.2
 
 ### Platform Owner ($100,000,000,000)
 
 Newly affordable nodes:
 
-- **Cross-Platform** (G5) - $672,605
+- **Cross-Platform** (G5) - $3,037,500
   - Effects: market_expansion mul 1.2, features_multiplier mul 1.3
-- **Superintelligence** (A6) - $3,026,722
+- **Superintelligence** (A6) - $33,554,432
   - Effects: agentProductivity mul 1.3, global_multiplier mul 1.2, agentConcurrencyCap add 10
-- **Quantum Computer** (C6) - $3,632,067
+- **Quantum Computer** (C6) - $41,943,040
   - Effects: agentConcurrencyCap add 15, idle_loc_per_sec mul 1.3, compile_speed mul 1.5, global_multiplier mul 1.2
-- **Perfect Process** (D6) - $4,237,411
+- **Perfect Process** (D6) - $46,976,204
   - Effects: tech_debt_growth mul 0, ship_fraction mul 1.3, global_multiplier mul 1.2
-- **Perfect Code** (H6) - $4,540,083
+- **Perfect Code** (H6) - $50,331,648
   - Effects: bug_rate mul 0.5, revenue_per_loc mul 1.3, global_multiplier mul 1.2
-- **Autonomous IDE** (B6) - $4,842,756
+- **Autonomous IDE** (B6) - $53,687,091
   - Effects: automationLevel add 2, global_multiplier mul 1.2, agentProductivity mul 1.2
-- **Multi-Team Organization** (E6) - $4,842,756
+- **Multi-Team Organization** (E6) - $53,687,091
   - Effects: agentConcurrencyCap add 25, agentProductivity mul 1.3, automationLevel add 1, global_multiplier mul 1.3
-- **Market Domination** (F6) - $4,842,756
+- **Market Domination** (F6) - $53,687,091
   - Effects: revenue_multiplier mul 1.3, passive_rev_per_sec add 0.1
-- **Premium Platform** (G6) - $5,448,100
+- **Premium Platform** (G6) - $60,397,977
   - Effects: revenue_multiplier mul 1.3, global_multiplier mul 1.2, features_multiplier mul 1.3
-- **Zero-Downtime Deploy** (I6) - $5,448,100
+- **Zero-Downtime Deploy** (I6) - $60,397,977
   - Effects: automationLevel add 4, ship_fraction mul 1.3, revenue_multiplier mul 1.2
 
 ### Cultural Monopoly ($1,000,000,000,000)
 
 Newly affordable nodes:
 
-- **Cross-Platform** (G5) - $672,605
+- **Cross-Platform** (G5) - $3,037,500
   - Effects: market_expansion mul 1.2, features_multiplier mul 1.3
-- **Superintelligence** (A6) - $3,026,722
+- **Superintelligence** (A6) - $33,554,432
   - Effects: agentProductivity mul 1.3, global_multiplier mul 1.2, agentConcurrencyCap add 10
-- **Quantum Computer** (C6) - $3,632,067
+- **Quantum Computer** (C6) - $41,943,040
   - Effects: agentConcurrencyCap add 15, idle_loc_per_sec mul 1.3, compile_speed mul 1.5, global_multiplier mul 1.2
-- **Perfect Process** (D6) - $4,237,411
+- **Perfect Process** (D6) - $46,976,204
   - Effects: tech_debt_growth mul 0, ship_fraction mul 1.3, global_multiplier mul 1.2
-- **Perfect Code** (H6) - $4,540,083
+- **Perfect Code** (H6) - $50,331,648
   - Effects: bug_rate mul 0.5, revenue_per_loc mul 1.3, global_multiplier mul 1.2
-- **Autonomous IDE** (B6) - $4,842,756
+- **Autonomous IDE** (B6) - $53,687,091
   - Effects: automationLevel add 2, global_multiplier mul 1.2, agentProductivity mul 1.2
-- **Multi-Team Organization** (E6) - $4,842,756
+- **Multi-Team Organization** (E6) - $53,687,091
   - Effects: agentConcurrencyCap add 25, agentProductivity mul 1.3, automationLevel add 1, global_multiplier mul 1.3
-- **Market Domination** (F6) - $4,842,756
+- **Market Domination** (F6) - $53,687,091
   - Effects: revenue_multiplier mul 1.3, passive_rev_per_sec add 0.1
-- **Premium Platform** (G6) - $5,448,100
+- **Premium Platform** (G6) - $60,397,977
   - Effects: revenue_multiplier mul 1.3, global_multiplier mul 1.2, features_multiplier mul 1.3
-- **Zero-Downtime Deploy** (I6) - $5,448,100
+- **Zero-Downtime Deploy** (I6) - $60,397,977
   - Effects: automationLevel add 4, ship_fraction mul 1.3, revenue_multiplier mul 1.2
 
 ### Reality Architect ($10,000,000,000,000)
 
 Newly affordable nodes:
 
-- **Cross-Platform** (G5) - $672,605
+- **Cross-Platform** (G5) - $3,037,500
   - Effects: market_expansion mul 1.2, features_multiplier mul 1.3
-- **Superintelligence** (A6) - $3,026,722
+- **Superintelligence** (A6) - $33,554,432
   - Effects: agentProductivity mul 1.3, global_multiplier mul 1.2, agentConcurrencyCap add 10
-- **Quantum Computer** (C6) - $3,632,067
+- **Quantum Computer** (C6) - $41,943,040
   - Effects: agentConcurrencyCap add 15, idle_loc_per_sec mul 1.3, compile_speed mul 1.5, global_multiplier mul 1.2
-- **Perfect Process** (D6) - $4,237,411
+- **Perfect Process** (D6) - $46,976,204
   - Effects: tech_debt_growth mul 0, ship_fraction mul 1.3, global_multiplier mul 1.2
-- **Perfect Code** (H6) - $4,540,083
+- **Perfect Code** (H6) - $50,331,648
   - Effects: bug_rate mul 0.5, revenue_per_loc mul 1.3, global_multiplier mul 1.2
-- **Autonomous IDE** (B6) - $4,842,756
+- **Autonomous IDE** (B6) - $53,687,091
   - Effects: automationLevel add 2, global_multiplier mul 1.2, agentProductivity mul 1.2
-- **Multi-Team Organization** (E6) - $4,842,756
+- **Multi-Team Organization** (E6) - $53,687,091
   - Effects: agentConcurrencyCap add 25, agentProductivity mul 1.3, automationLevel add 1, global_multiplier mul 1.3
-- **Market Domination** (F6) - $4,842,756
+- **Market Domination** (F6) - $53,687,091
   - Effects: revenue_multiplier mul 1.3, passive_rev_per_sec add 0.1
-- **Premium Platform** (G6) - $5,448,100
+- **Premium Platform** (G6) - $60,397,977
   - Effects: revenue_multiplier mul 1.3, global_multiplier mul 1.2, features_multiplier mul 1.3
-- **Zero-Downtime Deploy** (I6) - $5,448,100
+- **Zero-Downtime Deploy** (I6) - $60,397,977
   - Effects: automationLevel add 4, ship_fraction mul 1.3, revenue_multiplier mul 1.2
 
 ## Recommended Progression Paths
@@ -485,7 +485,7 @@ Based on revenue increase per dollar spent:
 | 17 | Targeted Marketing | F1 | $281 | $0.000/s | 0.00‰/s | 1405000s |
 | 18 | Full IDE + Debugger | B1 | $300 | $0.000/s | 0.00‰/s | 1500000s |
 | 19 | Professional Assets | H1 | $937 | $0.000/s | 0.00‰/s | 4461905s |
-| 20 | Viral Marketing | F5 | $538,084 | $0.050/s | 0.00‰/s | 10718805s |
+| 20 | SSD Array | C2 | $5,070 | $0.000/s | 0.00‰/s | 16900000s |
 
 *Efficiency = Revenue increase per second per dollar spent (‰ = per mille)*
 
