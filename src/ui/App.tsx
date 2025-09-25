@@ -109,8 +109,8 @@ export const App: React.FC = () => {
         <div className="brand">
           <img className="logo" src="/logo.png" alt="Programaxis logo" />
           <h1 className="sr-only">Programaxis</h1>
+          <span className="tagline">Build features, ship, grow revenue.</span>
         </div>
-        <span style={{ color: '#9bb1c9' }}>Build features, ship, grow revenue.</span>
       </header>
       <MusicPlayer />
       <main className="main">
