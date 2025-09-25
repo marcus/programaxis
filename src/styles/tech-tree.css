@@ -26,7 +26,7 @@
   border: 1px solid #1e2a3d;
   border-radius: 10px;
   padding: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 .node .title { 
@@ -535,7 +535,7 @@
   .branch {
     width: 100%;
     min-width: unset;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
   }
 
   .branch h3 {
@@ -551,7 +551,7 @@
 
   /* Larger touch targets for mobile */
   .branch .node {
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     padding: 16px;
     min-height: 120px;
   }
