@@ -8,6 +8,7 @@ import { AnimationTestPanel } from './AnimationTestPanel'
 import { IntroModal } from './IntroModal'
 import { MobileNav } from './MobileNav'
 import { NewsTicker } from './NewsTicker'
+import { MusicPlayer } from './MusicPlayer'
 import { useStore } from '../state/store'
 import { clear, del, get } from 'idb-keyval'
 
@@ -111,6 +112,7 @@ export const App: React.FC = () => {
         </div>
         <span style={{ color: '#9bb1c9' }}>Build features, ship, grow revenue.</span>
       </header>
+      <MusicPlayer />
       <main className="main">
         {isMobile ? (
           <>

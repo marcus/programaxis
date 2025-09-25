@@ -101,9 +101,91 @@
   margin-bottom: 72px; /* Space for news ticker (32px) + footer (40px) */
 }
 
-.footer { 
-  padding: 8px 12px; 
-  font-size: 12px; 
-  color: var(--muted); 
-  border-top: 1px solid #213148; 
+/* Music Player Styles */
+.music-player {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  z-index: 1000;
+}
+
+.music-button {
+  background: linear-gradient(135deg, #121821 0%, #1a2332 100%);
+  border: 1px solid #304761;
+  border-radius: 8px;
+  color: var(--accent);
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  width: 36px;
+  height: 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.music-button:hover {
+  background: linear-gradient(135deg, #1a2332 0%, #243242 100%);
+  border-color: var(--accent);
+  box-shadow:
+    0 0 16px rgba(90, 214, 160, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.music-button:active {
+  transform: translateY(0);
+  box-shadow:
+    0 0 12px rgba(90, 214, 160, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.music-button svg {
+  transition: all 0.3s ease;
+}
+
+.music-button:hover svg {
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+/* 10-second pulse animation for initial hint */
+.music-player.pulse-hint .music-button {
+  animation: musicPulse 2s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 16px rgba(90, 214, 160, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 24px rgba(90, 214, 160, 0.6),
+      0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .music-player {
+    top: 8px;
+    right: 8px;
+  }
+
+  .music-button {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+  }
+}
+
+.footer {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 1px solid #213148;
 }
