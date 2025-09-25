@@ -4,7 +4,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(180px, 1fr);
-  gap: 12px;
+  gap: 20px;
   overflow: auto;
 }
 
@@ -25,8 +25,8 @@
   background: #0e1520;
   border: 1px solid #1e2a3d;
   border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 16px;
+  padding: 12px;
+  margin-bottom: 20px;
 }
 
 .node .title { 
@@ -535,7 +535,7 @@
   .branch {
     width: 100%;
     min-width: unset;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
 
   .branch h3 {
@@ -551,7 +551,7 @@
 
   /* Larger touch targets for mobile */
   .branch .node {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     padding: 16px;
     min-height: 120px;
   }
