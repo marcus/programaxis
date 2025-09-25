@@ -59,7 +59,30 @@
 
 @media (min-width: 768px) {
   .main {
-    grid-template-columns: 320px 1fr;
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 104px; /* Header height + padding */
+    left: 12px;
+    width: 320px;
+    max-height: calc(100vh - 180px); /* Account for header + footer + news ticker */
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      0 0 24px rgba(255, 111, 243, 0.15),
+      0 0 48px rgba(255, 111, 243, 0.08);
+  }
+
+  .content {
+    flex: 1;
+    margin-left: 332px; /* Sidebar width + gap */
+    min-width: 0; /* Allow content to shrink */
   }
 }
 
